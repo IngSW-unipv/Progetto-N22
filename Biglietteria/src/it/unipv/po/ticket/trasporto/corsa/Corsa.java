@@ -43,9 +43,33 @@ public class Corsa implements Percorso{
 		return msg;
 	}
 
-	public void setCorsa(Linea linea) {
-		this.corsa.add(linea);
-		this.corseAttive += 1;
+	public void setCorsa() throws Exception {
+		//this.corsa.add(linea);
+		
+		
+		for(int i = 0; i < 6; i++) {
+			this.corsa.add(DBconnection.getLinee(i+1));
+			this.corseAttive += 1;
+		}
+	}
+	
+	public String getLinea(int n) {
+		
+		return this.corsa.get(n-1).getLinea();
+	}
+	
+	//Per inizializzare la comboBox
+	public String[] getLinee(){
+		
+		String[] str = new String[this.corseAttive];
+		int i = 0;
+		
+		for(Linea n : corsa) {
+			str[i] = n.getIDlinea();
+			i++;
+		}
+		
+		return str;
 	}
 	
 }

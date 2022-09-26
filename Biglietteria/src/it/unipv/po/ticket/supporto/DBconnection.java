@@ -140,4 +140,40 @@ public class DBconnection {
 		return result.getString("IDfermata");
 		
 	}
+	
+	public static String[] elencoFermate() throws Exception {
+		String sql = "SELECT COUNT(IDfermata) FROM Fermata";
+		Connection connection = null;
+		Statement statement = null;
+		
+		connection = getDBConnection();
+		statement = connection.createStatement();
+        ResultSet result = statement.executeQuery(sql);
+        
+        result.next();
+        
+        int i = 1;
+        String[] str = new String[result.getInt(1)+1];
+        str[0] = "";
+        sql = "SELECT IDfermata FROM Fermata";
+        result = statement.executeQuery(sql);
+        
+        while (result.next()) {
+			
+			str[i] = result.getString("IDfermata");
+			i++;
+            
+	    }
+        
+        // Chiudo la connessione
+     	if(statement != null) {
+     		statement.close();
+     	}
+     	if(connection != null) {
+     		connection.close();
+     	}
+		
+		return str;
+		
+	}
 }
