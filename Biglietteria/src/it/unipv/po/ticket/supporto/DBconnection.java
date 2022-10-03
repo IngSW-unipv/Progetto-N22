@@ -3,7 +3,7 @@ package it.unipv.po.ticket.supporto;
 import java.sql.*;
 import java.util.ArrayList;
 
-import it.unipv.po.ticket.titolo;
+import it.unipv.po.ticket.titolo.Titolo;
 import it.unipv.po.ticket.trasporto.fermata.Fermata;
 import it.unipv.po.ticket.trasporto.linea.Linea;
 import it.unipv.po.ticket.trasporto.vehicleModel.Vehicle;
