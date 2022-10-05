@@ -1,25 +1,29 @@
 package it.unipv.po.ticket.titolo;
 
+import it.unipv.po.ticket.trasporto.vehicleModel.Vehicle;
+import java.time.*;
 
-
-public class Titolo {
+public abstract class Titolo {
 	
 	private String idTitolo;
 	private float prezzo;
-	boolean attivo;
+	private Vehicle mezzo;
+	private boolean attivo = true;
+	private LocalDateTime dataAcquisto;
 	
+	/*
 	public Titolo (String idTitolo, float prezzo, boolean attivo) {
 		
 		this.idTitolo = idTitolo;
 		this.prezzo = prezzo;
 		this.attivo = attivo;
-	}
-	
+	}*/
+	/*
 	public Titolo() {
 		
 		this.idTitolo="";
 		this.prezzo = 0;
-	}
+	}*/
 	
 	
 	// getter setter
@@ -44,18 +48,30 @@ public class Titolo {
 		prezzo=p;
 	}
 	
+	public void setVehicle(Vehicle v) {
+		mezzo=v;
+	}
+	public Vehicle getVehicle() {
+		return mezzo;
+	}
+	
 	public void setAttivo(boolean a) {
 		attivo=a;
 	}
 	
 	public boolean getAttivo() {
 		
-		if(attivo=true) {
-			
-			return true;
-		}
-		return false;
+		return attivo;
 	}
+
+	public String getDataAcquisto() {
+		return dataAcquisto.toString();
+	}
+
+	public void setDataAcquisto(LocalDateTime dataAcquisto) {
+		this.dataAcquisto = dataAcquisto;
+	}
+	
 	
 	
 	

@@ -178,6 +178,7 @@ public class DBconnection {
 		
 	}
 	
+	/*
 	public static Titolo getPrezzo(String id) throws Exception{
 		String sql = "SELECT Prezzo FROM Titolo WHERE ID = "+ id;
 		Connection connection = null;
@@ -210,5 +211,5 @@ public class DBconnection {
 		
 				
 		return titoloDB;
-	}
+	}*/
 }

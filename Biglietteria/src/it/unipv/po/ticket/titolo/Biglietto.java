@@ -1,41 +1,22 @@
 package it.unipv.po.ticket.titolo;
 
-public class Biglietto {
+import java.time.*;
+
+public class Biglietto extends Titolo{
 	
-	private String idBiglietto;
-	private String dataAcquisto;
-	
-	public Biglietto(String idBiglietto, String dataAcquisto){
+	public Biglietto(String idBiglietto, LocalDateTime dataAcquisto){
 		
-		this.idBiglietto = idBiglietto;
-		this.dataAcquisto = dataAcquisto;
+		this.setIDtitolo(idBiglietto);
+		this.setDataAcquisto(dataAcquisto);
 	}
 	
+	/*
 	public Biglietto() {
 		
-		this.idBiglietto = "";
-		this.dataAcquisto = "";
-	}
+		this.setIDtitolo("");
+		this.setDataAcquisto("");
+	}*/
 	
-	public String getIdBiglietto() {
-		
-		return idBiglietto;
-	}
-	
-	public void setIdBiglietto(String id) {
-		
-		this.idBiglietto=id;
-		
-	}
-	
-	public String getDataAcquito() {
-		
-		return dataAcquisto;
-	}
-	
-	public void setDataAcquisto(String data) {
-		
-		this.dataAcquisto = data;
-	}
+
 	
 }
