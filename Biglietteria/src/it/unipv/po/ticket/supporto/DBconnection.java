@@ -11,170 +11,44 @@ import it.unipv.po.ticket.trasporto.zonaModel.Zona;
 
 public class DBconnection {
 	//percorso della directory del database
-	private static final String databaseURL  = "jdbc:ucanaccess://DB//DatabaseBiglietteria.accdb";
+	//private static final String databaseURL  = "jdbc:ucanaccess://DB//DatabaseBiglietteria.accdb";
+	private static IDBconnectionStrategy strategiaDiConnessione;
 	
-	public static Connection getDBConnection() throws Exception {
-		// Funzione per creare la connessione
-		//System.out.println("------------- DB Connection -------------");
-		Connection dbConnection = null;
-				
-		dbConnection = DriverManager.getConnection(databaseURL);
-		
-		return dbConnection;
+	public DBconnection() {
+		strategiaDiConnessione= new AccessDBconnectionStrategy();
+	}
+	
+	public static Connection getDBConnection() {
+		try {
+			return strategiaDiConnessione.getDBConnection();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	public static Linea getLinee(int id) throws Exception{
-		String sql = "SELECT * FROM Linea WHERE ID = "+ id;
-		Connection connection = null;
-		Statement statement = null;
-		
-		Linea lineaDB = new Linea();
-		
-		connection = getDBConnection();
-		statement = connection.createStatement();
-        ResultSet result = statement.executeQuery(sql);
-        
-        result.next();
-			
-        //inserisco gli elementi della tabella
-	    lineaDB.setIDlinea(result.getString("IDlinea"));
-	    lineaDB.setMezzo(Vehicle.valueOf(result.getString("Mezzo")));
-	    lineaDB.setZona(Zona.valueOf(result.getString("Zona")));
-	    lineaDB.setKm(0);
-	    lineaDB.setLinieAttive(0);
-       
-        
-		// Chiudo la connessione
-		if(statement != null) {
-			statement.close();
-				}
-		if(connection != null) {
-			connection.close();
-		}		
-		
-		//rihciamo la funzione per inserire anche l'elenco delle fermate
-		lineaDB.setLinea(getFermate(lineaDB.getIDlinea()));
-				
-		return lineaDB;
+		return strategiaDiConnessione.getLinee(id);
 	}
 	
 	public static ArrayList<Fermata> getFermate(String IDlinea) throws Exception{
-		String sql = "SELECT * FROM Corsa WHERE IDlinea = '"+ IDlinea +"'";
-		Connection connection = null;
-		Statement statement = null;
-		
-		Fermata fermataDB;
-		ArrayList<Fermata> lineaDB = new ArrayList<Fermata>();
-		
-		connection = getDBConnection();
-		statement = connection.createStatement();
-        ResultSet result = statement.executeQuery(sql);
-		
-		while (result.next()) {
-			
-			fermataDB = new Fermata();
-
-        	//leggo la tabella
-        	fermataDB.setCodiceFermata(result.getString("IDfermata"));
-        	fermataDB.setOrario(result.getString("Orario"));
-       
-            //inserisco le fermate nell'array
-        	lineaDB.add(fermataDB);
-            
-	    }
-		
-		// Chiudo la connessione
-		if(statement != null) {
-			statement.close();
-		}
-		if(connection != null) {
-			connection.close();
-		}
-			
-		return lineaDB;
-		
+		return strategiaDiConnessione.getFermate(IDlinea);
 	}
 	
 	public static int searchLinea(String IDfermata) throws Exception {
-		String sql = "SELECT Linea.ID FROM Corsa inner join Linea on Linea.IDlinea = corsa.IDlinea WHERE IDfermata = '"+ IDfermata +"'";
-		Connection connection = null;
-		Statement statement = null;
-		
-		connection = getDBConnection();
-		statement = connection.createStatement();
-        ResultSet result = statement.executeQuery(sql);
-        
-        result.next();
-        
-    	// Chiudo la connessione
-     	if(statement != null) {
-     		statement.close();
-     	}
-     	if(connection != null) {
-     		connection.close();
-     	}
-     		
-		return result.getInt("Linea.ID");
+		return strategiaDiConnessione.searchLinea(IDfermata);
 		
 	}
 	
 	public static String getSnodi(int partenza, int destinazione) throws Exception {
-		String sql = "select distinct IDfermata from Corsa where IDlinea = (select distinct IDlinea from Linea Where ID = '"+ partenza +"') "
-					+ "and IDfermata IN (select distinct IDfermata from Corsa where IDlinea =(select distinct IDlinea from Linea Where ID = '"+ partenza +"'))";
-		Connection connection = null;
-		Statement statement = null;
-		
-		connection = getDBConnection();
-		statement = connection.createStatement();
-        ResultSet result = statement.executeQuery(sql);
-       
-        result.next();
-        
-        // Chiudo la connessione
-     	if(statement != null) {
-     		statement.close();
-     	}
-     	if(connection != null) {
-     		connection.close();
-     	}
-		
-		return result.getString("IDfermata");
+		return strategiaDiConnessione.getSnodi(partenza, destinazione);
 		
 	}
 	
 	public static String[] elencoFermate() throws Exception {
-		String sql = "SELECT COUNT(IDfermata) FROM Fermata";
-		Connection connection = null;
-		Statement statement = null;
 		
-		connection = getDBConnection();
-		statement = connection.createStatement();
-        ResultSet result = statement.executeQuery(sql);
-        
-        result.next();
-        
-        int i = 1;
-        String[] str = new String[result.getInt(1)+1];
-        str[0] = "";
-        sql = "SELECT IDfermata FROM Fermata";
-        result = statement.executeQuery(sql);
-        
-        while (result.next()) {
-			
-			str[i] = result.getString("IDfermata");
-			i++;
-            
-	    }
-        
-        // Chiudo la connessione
-     	if(statement != null) {
-     		statement.close();
-     	}
-     	if(connection != null) {
-     		connection.close();
-     	}
-		
-		return str;
+		return strategiaDiConnessione.elencoFermate();
 		
 	}
 	
