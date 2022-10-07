@@ -2,6 +2,7 @@ package it.unipv.po.ticket.supporto;
 
 import org.apache.commons.lang3.math.NumberUtils;
 
+
 import it.unipv.po.ticket.trasporto.corsa.Corsa;
 import it.unipv.po.ticket.trasporto.linea.Linea;
 
@@ -19,6 +20,7 @@ public class Main {
 		Linea prova6 = DBconnection.getLinee(6);*/
         
         Corsa corsa = new Corsa();
+        DBread connessioneLettura = new DBread();
         
         corsa.setCorsa();
         
@@ -43,7 +45,8 @@ public class Main {
         }
         
         System.out.println(conta);
-
+        
+        
         //----------------------------------------------------------------------------------------------------
              
 	}

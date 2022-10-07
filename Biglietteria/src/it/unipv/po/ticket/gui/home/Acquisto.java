@@ -1,6 +1,6 @@
 package it.unipv.po.ticket.gui.home;
 
-import java.awt.EventQueue;
+import java.awt.EventQueue; 
 import java.awt.Image;
 
 import javax.swing.ImageIcon;
@@ -22,7 +22,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 import javax.swing.JSeparator;
 import javax.swing.JButton;
-import it.unipv.po.ticket.supporto.DBconnection;
+import it.unipv.po.ticket.supporto.DBread;
 import it.unipv.po.ticket.trasporto.corsa.Corsa;
 import javax.swing.JTextArea;
 import javax.swing.JRadioButton;
@@ -94,7 +94,7 @@ public class Acquisto {
 		panel.add(tglAbbonamento);
 		
 		@SuppressWarnings("rawtypes")
-		JComboBox comboBoxPartenza = new JComboBox(DBconnection.elencoFermate());
+		JComboBox comboBoxPartenza = new JComboBox(DBread.elencoFermate());
 		comboBoxPartenza.setBackground(Color.WHITE);
 		comboBoxPartenza.setBounds(147, 90, 103, 30);
 		panel.add(comboBoxPartenza);
@@ -102,7 +102,7 @@ public class Acquisto {
 		
 		
 		@SuppressWarnings("rawtypes")
-		JComboBox comboBoxArrivo = new JComboBox(DBconnection.elencoFermate());
+		JComboBox comboBoxArrivo = new JComboBox(DBread.elencoFermate());
 		comboBoxArrivo.setBackground(Color.WHITE);
 		comboBoxArrivo.setMaximumRowCount(10);
 		comboBoxArrivo.setBounds(147, 157, 103, 30);

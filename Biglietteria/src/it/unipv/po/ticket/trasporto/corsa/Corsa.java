@@ -1,8 +1,9 @@
 package it.unipv.po.ticket.trasporto.corsa;
 
-import java.util.ArrayList;
+import java.util.ArrayList; 
 
-import it.unipv.po.ticket.supporto.DBconnection;
+
+import it.unipv.po.ticket.supporto.DBread;
 import it.unipv.po.ticket.trasporto.dataModel.Percorso;
 import it.unipv.po.ticket.trasporto.linea.Linea;
 
@@ -20,15 +21,15 @@ public class Corsa implements Percorso{
 		String  snodo = "";
 		
 		//controllo se le due fermate appartengono alla stessa linea
-		if(DBconnection.searchLinea(a) == DBconnection.searchLinea(b)) return corsa.get(DBconnection.searchLinea(a)-1).ricercaFermate(a, b) + "Fermata: "+ b;
+		if(DBread.searchLinea(a) == DBread.searchLinea(b)) return corsa.get(DBread.searchLinea(a)-1).ricercaFermate(a, b) + "Fermata: "+ b;
 		else {
 			//nel caso non appartengano alla medesima linea cerco la fermata di snodo comune
-			snodo = DBconnection.getSnodi(DBconnection.searchLinea(a), DBconnection.searchLinea(b));
+			snodo = DBread.getSnodi(DBread.searchLinea(a), DBread.searchLinea(b));
 			
 			//calcolo le fermate dalla fermata di partenza fino allo snodo e dallo snodo alla destinazione
-			msg += corsa.get(DBconnection.searchLinea(a)-1).ricercaFermate(a, snodo);
+			msg += corsa.get(DBread.searchLinea(a)-1).ricercaFermate(a, snodo);
 			msg += "Snodo con ";
-			msg += corsa.get(DBconnection.searchLinea(b)-1).ricercaFermate(snodo, b) + "Fermata: "+ b;
+			msg += corsa.get(DBread.searchLinea(b)-1).ricercaFermate(snodo, b) + "Fermata: "+ b;
 		}
 		
 		return msg;	
@@ -48,7 +49,7 @@ public class Corsa implements Percorso{
 		
 		
 		for(int i = 0; i < 6; i++) {
-			this.corsa.add(DBconnection.getLinee(i+1));
+			this.corsa.add(DBread.getLinee(i+1));
 			this.corseAttive += 1;
 		}
 	}

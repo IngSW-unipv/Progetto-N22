@@ -1,28 +1,28 @@
 package it.unipv.po.cccp;
-import java.util.List;
-import it.unipv.po.ticket.titolo.*;
 
+import java.util.LinkedList;
+
+import it.unipv.po.ticket.cus.Sessione;
 import it.unipv.po.ticket.cus.Utente;
+import it.unipv.po.ticket.titolo.Titolo;
 
+//pure fabrication, sarà la classe che si occupa della comunicazione
+//col Data Base per evitare che se ne occupi Carrello, diminuendone la coesione
 public class Cronologia implements ICronologia{
+	Sessione s;
 	Utente u;
-	List<Titolo> cronoList;
+	LinkedList<Titolo> lista;
+	
+	public Cronologia(Sessione s, Utente u, LinkedList<Titolo> lista) {
+		this.s=s;
+		this.u=u;
+		this.lista=new LinkedList<Titolo>();
+		this.lista=lista;
+	}
 	
 	@Override
-	public void cancella() {
-		cronoList.clear();
-	}
-
-	@Override
-	public void aggiungiCarrello(List<Titolo> l) {
-		for(int i=0;i<l.size();i++)
-		cronoList.add(l.get(i));
+	public void aggiornaDB() {
 		
-	}
-
-	@Override
-	public void rimuoviCarrello(Titolo t) {
-		cronoList.remove(t);
 		
 	}
 	
