@@ -1,5 +1,9 @@
 package it.unipv.po.ticket.trasporto.dataModel;
 
+import java.util.ArrayList;
+
+import it.unipv.po.ticket.trasporto.fermata.Fermata;
+
 public interface Tappe {
-	public String ricercaFermate(String partenza, String destinazione);
+	public ArrayList<Fermata> ricercaFermate(String partenza, String destinazione);
 }

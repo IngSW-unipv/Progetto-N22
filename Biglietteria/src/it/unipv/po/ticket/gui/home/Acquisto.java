@@ -23,7 +23,8 @@ import javax.swing.JComboBox;
 import javax.swing.JSeparator;
 import javax.swing.JButton;
 import it.unipv.po.ticket.supporto.DBread;
-import it.unipv.po.ticket.trasporto.corsa.Corsa;
+import it.unipv.po.ticket.trasporto.ricerca.Ricerca;
+
 import javax.swing.JTextArea;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
@@ -37,7 +38,7 @@ public class Acquisto {
 	private JFrame frame;
 	private Image img;
 	private Image newImage;
-	private static Corsa corsa;
+	private static Ricerca corsa;
 
 	/**
 	 * Launch the application.
@@ -46,8 +47,8 @@ public class Acquisto {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					corsa = new Corsa();
-			        corsa.setCorsa();
+					corsa = new Ricerca();
+			        corsa.setPercorsi();
 					Acquisto window = new Acquisto();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
@@ -211,7 +212,7 @@ public class Acquisto {
 				if(comboBoxPartenza.getSelectedItem() != "" && comboBoxArrivo.getSelectedItem() != "") {
 				
 					try {
-						str = corsa.cerca(comboBoxPartenza.getSelectedItem().toString(), comboBoxArrivo.getSelectedItem().toString());
+						//str = corsa.cerca(comboBoxPartenza.getSelectedItem().toString(), comboBoxArrivo.getSelectedItem().toString());
 					} catch (Exception e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();

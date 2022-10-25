@@ -33,20 +33,17 @@ public class Linea implements Tappe{
 	
 	//metodi
 	
-	public String ricercaFermate(String partenza, String destinazione) {
-		String msg = "";
+	public ArrayList<Fermata> ricercaFermate(String partenza, String destinazione) {
+		ArrayList<Fermata> ricerca = new ArrayList<Fermata>();
 		int trovato = 0;
-		
-		//salvo la stringa che indicca il tipo di mezzo e il suo codice
-		msg += this.mezzo + " numero: "+ this.IDlinea +"\n";
 		
 		//ciclo per ricercare le fermate da elencare 
 		for(Fermata n : linea) {
 			
 			//quando trovo la fermata di partenza incomincio a salvare le fermate e 
 			//metto la variabile trovato a 1 per continuare a scrivere quelle dopo
-			if((n.getCodiceFermata().compareTo(partenza) == 0 || trovato == 1) && n.getCodiceFermata().compareTo(destinazione)!=0 ) {
-				msg += "Fermata: "+ n.getCodiceFermata() + "\n";
+			if((n.getCodiceFermata().compareTo(partenza) == 0 || trovato == 1)) {
+				ricerca.add(n);
 				trovato = 1;
 			}
 			
@@ -54,7 +51,7 @@ public class Linea implements Tappe{
 			if(n.getCodiceFermata().compareTo(destinazione) == 0 && trovato == 1) break;
 		}
 		
-		return msg;
+		return ricerca;
 	}
 	
 	//getter and setter

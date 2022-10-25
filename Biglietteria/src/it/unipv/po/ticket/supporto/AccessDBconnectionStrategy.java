@@ -3,10 +3,8 @@ package it.unipv.po.ticket.supporto;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-
 import it.unipv.po.ticket.trasporto.fermata.Fermata;
 import it.unipv.po.ticket.trasporto.linea.Linea;
 import it.unipv.po.ticket.trasporto.vehicleModel.Vehicle;
@@ -30,7 +28,7 @@ public class AccessDBconnectionStrategy implements IDBconnectionStrategy{
 		String sql = "SELECT * FROM Linea WHERE ID = "+ id;
 		Connection connection = null;
 		Statement statement = null;
-		
+		System.out.println("ciao");
 		Linea lineaDB = new Linea();
 		
 		connection = getDBConnection();

@@ -11,7 +11,7 @@ public class DBread {
 	private static IDBreadStrategy strategiaDiLettura;
 	
 	public DBread() {
-		strategiaDiLettura= new AccessDBreadStrategy();
+		strategiaDiLettura = new AccessDBreadStrategy();
 	}
 	
 	public static Linea getLinee(int id) throws Exception{

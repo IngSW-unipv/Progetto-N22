@@ -7,10 +7,12 @@ import javax.swing.JFrame;
 import javax.swing.JComboBox;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import it.unipv.po.ticket.trasporto.corsa.Corsa;
 import javax.swing.JSeparator;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+
+import it.unipv.po.ticket.trasporto.ricerca.Ricerca;
+
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 import javax.swing.JMenuBar;
@@ -22,7 +24,7 @@ import javax.swing.JMenuItem;
 
 public class Orari {
 	
-	private static Corsa corsa;
+	private static Ricerca corsa;
 	private JFrame frame;
 
 	/**
@@ -32,8 +34,8 @@ public class Orari {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					corsa = new Corsa();
-			        corsa.setCorsa();
+					corsa = new Ricerca();
+			        corsa.setPercorsi();
 					Orari window = new Orari();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
@@ -75,7 +77,7 @@ public class Orari {
 		textArea.setEditable(false);
 		scrollPane.setViewportView(textArea);
 		
-		textArea.setText(corsa.getLinea(1));
+		textArea.setText(corsa.getPercorso(1));
 		
 		JSeparator separator = new JSeparator();
 		separator.setBounds(0, 78, 351, 2);
@@ -120,7 +122,7 @@ public class Orari {
 			public void itemStateChanged(ItemEvent e) {
 				
 				int str = Integer.parseInt(((String) comboBox.getSelectedItem()).substring(3));
-				textArea.setText(corsa.getLinea(str));
+				textArea.setText(corsa.getPercorso(str));
 			}
 		});
 	}
