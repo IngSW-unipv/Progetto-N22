@@ -2,6 +2,9 @@ package it.unipv.po.ticket.gui.utente;
 
 import java.awt.EventQueue;
 
+import it.unipv.po.ticket.cus.Sessione;
+import it.unipv.po.ticket.cus.Utente;
+import it.unipv.po.ticket.supporto.strategie.*;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
@@ -10,13 +13,23 @@ import javax.swing.JButton;
 import javax.swing.ImageIcon;
 import java.awt.Image;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.time.LocalDateTime;
 import java.awt.event.ActionEvent;
+import javax.swing.JTextField;
+import java.awt.Font;
 
 public class Registrazione {
 
 	private JFrame frame;
 	private Image img;
 	private Image newImage;
+	private JTextField textField;
+	private JTextField textField_1;
+	private JTextField textField_2;
+	private JTextField textField_3;
+	private JTextField textField_4;
 	
 	/**
 	 * Launch the application.
@@ -51,6 +64,7 @@ public class Registrazione {
 		frame.getContentPane().setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Register system");
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setBounds(163, 27, 137, 13);
 		frame.getContentPane().add(lblNewLabel);
@@ -84,6 +98,57 @@ public class Registrazione {
 		btnNewButton_3.setBounds(10, 10, 20, 20);
 		frame.getContentPane().add(btnNewButton_3);
 		
+		textField = new JTextField();
+		textField.setBounds(43, 306, 191, 20);
+		frame.getContentPane().add(textField);
+		textField.setColumns(10);
+		
+		JLabel lblNewLabel_1 = new JLabel("Nuovo indirizzo Email");
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblNewLabel_1.setToolTipText("");
+		lblNewLabel_1.setBounds(43, 281, 124, 14);
+		frame.getContentPane().add(lblNewLabel_1);
+		
+		textField_1 = new JTextField();
+		textField_1.setBounds(43, 373, 191, 20);
+		frame.getContentPane().add(textField_1);
+		textField_1.setColumns(10);
+		
+		JLabel lblNewLabel_2 = new JLabel("Nuova password");
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblNewLabel_2.setBounds(43, 345, 124, 17);
+		frame.getContentPane().add(lblNewLabel_2);
+		
+		JLabel lblNewLabel_3 = new JLabel("Nome");
+		lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblNewLabel_3.setBounds(43, 73, 46, 14);
+		frame.getContentPane().add(lblNewLabel_3);
+		
+		textField_2 = new JTextField();
+		textField_2.setBounds(43, 98, 86, 20);
+		frame.getContentPane().add(textField_2);
+		textField_2.setColumns(10);
+		
+		JLabel lblNewLabel_4 = new JLabel("Cognome");
+		lblNewLabel_4.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblNewLabel_4.setBounds(43, 140, 86, 14);
+		frame.getContentPane().add(lblNewLabel_4);
+		
+		textField_3 = new JTextField();
+		textField_3.setBounds(43, 165, 86, 20);
+		frame.getContentPane().add(textField_3);
+		textField_3.setColumns(10);
+		
+		JLabel lblNewLabel_5 = new JLabel("Username");
+		lblNewLabel_5.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblNewLabel_5.setBounds(43, 211, 86, 14);
+		frame.getContentPane().add(lblNewLabel_5);
+		
+		textField_4 = new JTextField();
+		textField_4.setBounds(43, 236, 86, 20);
+		frame.getContentPane().add(textField_4);
+		textField_4.setColumns(10);
+		
 		//Azioni
 		
 		btnNewButton_3.addActionListener(new ActionListener() {
@@ -91,6 +156,7 @@ public class Registrazione {
 				Login.main(null);
 				frame.setVisible(false);
 			}
+			
 		});
 		
 	}

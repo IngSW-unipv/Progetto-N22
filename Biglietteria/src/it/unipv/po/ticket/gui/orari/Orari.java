@@ -21,6 +21,7 @@ import java.awt.Component;
 import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JMenuItem;
+import java.awt.Font;
 
 public class Orari {
 	
@@ -66,11 +67,11 @@ public class Orari {
         
 		@SuppressWarnings("rawtypes")
 		JComboBox comboBox = new JComboBox(corsa.getLinee());
-		comboBox.setBounds(114, 112, 123, 21);
+		comboBox.setBounds(10, 107, 123, 21);
 		frame.getContentPane().add(comboBox);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(86, 143, 178, 329);
+		scrollPane.setBounds(163, 87, 178, 329);
 		frame.getContentPane().add(scrollPane);
 		
 		JTextArea textArea = new JTextArea();
@@ -84,6 +85,7 @@ public class Orari {
 		frame.getContentPane().add(separator);
 		
 		JLabel lblNewLabel = new JLabel("Tabella orari fermate");
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setBounds(105, 55, 141, 13);
 		frame.getContentPane().add(lblNewLabel);
@@ -117,6 +119,13 @@ public class Orari {
 		
 		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Conologia Acquisti");
 		mnNewMenu_4.add(mntmNewMenuItem_1);
+		
+		JTextArea textArea = new JTextArea();
+		textArea.setBounds(163, 89, 176, 327);
+		frame.getContentPane().add(textArea);
+		textArea.setEditable(false);
+		
+		textArea.setText(corsa.getLinea(1));
 		
 		comboBox.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {

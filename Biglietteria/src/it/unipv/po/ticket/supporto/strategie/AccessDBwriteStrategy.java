@@ -34,6 +34,21 @@ public class AccessDBwriteStrategy implements IDBwriteStrategy{
 		
 		statement.executeUpdate();
 	}
+	//metodo per la registrazione degli utenti
+	public void aggiungiUtente(Utente username) throws Exception {
+		String sql="INSERT into Utente(Utente,Nome,Cognome,Email,Username,Password) VALUES(?,?,?,?);";
+		Connection connessione= getDBConnection();
+		PreparedStatement statement= connessione.prepareStatement(sql);
+		statement.setString(1, username.getUsername());
+		statement.setString(2, username.getNome());
+		statement.setString(3,username.getCognome());
+		statement.setString(4,username.geteMail());	
+		statement.setString(5,username.getPassword());
+		
+		statement.executeUpdate();
+	}
+
+	
 
 
 
