@@ -2,6 +2,9 @@ package it.unipv.po.ticket.gui.utente;
 
 import java.awt.EventQueue;
 
+import it.unipv.po.ticket.cus.Sessione;
+import it.unipv.po.ticket.cus.Utente;
+import it.unipv.po.ticket.supporto.strategie.*;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
@@ -10,6 +13,9 @@ import javax.swing.JButton;
 import javax.swing.ImageIcon;
 import java.awt.Image;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.time.LocalDateTime;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import java.awt.Font;
@@ -150,6 +156,7 @@ public class Registrazione {
 				Login.main(null);
 				frame.setVisible(false);
 			}
+			
 		});
 		
 	}
