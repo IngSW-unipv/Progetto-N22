@@ -12,11 +12,13 @@ import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 
 import it.unipv.po.ticket.gui.home.Acquisto;
+import it.unipv.po.ticket.supporto.DBconnection;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Toolkit;
 import java.awt.Font;
+import java.awt.HeadlessException;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -62,18 +64,15 @@ public class Login{
 		frame.getContentPane().setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Login system");
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setBounds(175, 22, 136, 13);
 		frame.getContentPane().add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Username");
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblNewLabel_1.setBounds(124, 80, 96, 13);
 		frame.getContentPane().add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_2 = new JLabel("Password");
-		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblNewLabel_2.setBounds(124, 134, 96, 13);
 		frame.getContentPane().add(lblNewLabel_2);
 		
@@ -141,21 +140,27 @@ public class Login{
 			public void actionPerformed(ActionEvent e) {
 				String user = txtUsername.getText();
 				@SuppressWarnings("deprecation")
-				String password = txtpassword.getText();			
+				String password = txtpassword.getText();		
 				
-				if(user.compareTo("king") == 0 && password.compareTo("12345") == 0) {
+					try {
+						if(Sessione.CheckLogin(DBconnection.searchPassword(user),txtpassword.getText())) {
+							
+							txtUsername.setText(null);
+							txtpassword.setText(null);
+							
+							Acquisto.main(null);
+							frame.setVisible(false);
+							
+						}else {
+							JOptionPane.showMessageDialog(null, "Invalid login details","Login error",JOptionPane.ERROR_MESSAGE);
+						}
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+			
+				} 
 					
-					txtUsername.setText(null);
-					txtpassword.setText(null);
-					
-					Acquisto.main(null);
-					frame.setVisible(false);
-					
-				}else {
-					JOptionPane.showMessageDialog(null, "Invalid login details","Login error",JOptionPane.ERROR_MESSAGE);
-				}
-				
-			}
 		});
 		
 		btnExit.addActionListener(new ActionListener() {
