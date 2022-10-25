@@ -77,9 +77,7 @@ public class Orari {
 		JTextArea textArea = new JTextArea();
 		textArea.setEditable(false);
 		scrollPane.setViewportView(textArea);
-		
-		textArea.setText(corsa.getPercorso(1));
-		
+
 		JSeparator separator = new JSeparator();
 		separator.setBounds(0, 78, 351, 2);
 		frame.getContentPane().add(separator);
@@ -119,13 +117,6 @@ public class Orari {
 		
 		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Conologia Acquisti");
 		mnNewMenu_4.add(mntmNewMenuItem_1);
-		
-		JTextArea textArea = new JTextArea();
-		textArea.setBounds(163, 89, 176, 327);
-		frame.getContentPane().add(textArea);
-		textArea.setEditable(false);
-		
-		textArea.setText(corsa.getLinea(1));
 		
 		comboBox.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
