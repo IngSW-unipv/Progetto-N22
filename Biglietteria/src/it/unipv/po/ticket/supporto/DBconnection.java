@@ -86,4 +86,73 @@ public class DBconnection {
 				
 		return titoloDB;
 	}*/
+	
+	
+	public static String searchPassword(String user) throws Exception {
+		String sql = "SELECT Password FROM Utente WHERE Username = '"+ user +"'";
+		Connection connection = null;
+		Statement statement = null;
+		
+		connection = getDBConnection();
+		statement = connection.createStatement();
+        ResultSet result = statement.executeQuery(sql);
+        
+        result.next();
+        
+    	// Chiudo la connessione
+     	if(statement != null) {
+     		statement.close();
+     	}
+     	if(connection != null) {
+     		connection.close();
+     	}
+     		
+		return result.getString("Password");
+		
+	}
+	
+	public static int searchUsername(String user) throws Exception {
+		String sql = "SELECT count(*) FROM Utente WHERE Username = '"+ user +"'";
+		Connection connection = null;
+		Statement statement = null;
+		
+		connection = getDBConnection();
+		statement = connection.createStatement();
+        ResultSet result = statement.executeQuery(sql);
+        
+        result.next();
+        
+    	// Chiudo la connessione
+     	if(statement != null) {
+     		statement.close();
+     	}
+     	if(connection != null) {
+     		connection.close();
+     	}
+     		
+		return ((Number) result.getObject(1)).intValue();
+		
+	}
+	
+	public static void UserRegistration(String user,String password) throws Exception {
+		String sql = "INSERT INTO Utente(Username,Password) VALUES (?, ?);";
+		Connection connection = null;
+		
+		connection = getDBConnection();
+		PreparedStatement st = connection.prepareStatement (sql);
+		st.setString(1, user);
+		st.setString(2, password);
+		st.executeUpdate();
+ 
+        
+    	// Chiudo la connessione
+     	if(st != null) {
+     		st.close();
+     	}
+     	if(connection != null) {
+     		connection.close();
+     	}
+     		
+		
+	}
 }
