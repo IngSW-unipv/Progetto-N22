@@ -16,6 +16,10 @@ import java.awt.Component;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JTextField;
+import java.awt.Font;
+import javax.swing.JPanel;
+import javax.swing.JLabel;
 
 public class Home {
 
@@ -68,13 +72,26 @@ public class Home {
 			
 		frame.getContentPane().setLayout(null);
 		
-		JButton btnNewButton = new JButton("Acquisti");
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton btnAcquisti = new JButton("Acquista");
+		btnAcquisti.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnNewButton.setBounds(43, 218, 104, 30);
-		frame.getContentPane().add(btnNewButton);
+		btnAcquisti.setBounds(10, 121, 104, 30);
+		frame.getContentPane().add(btnAcquisti);
+		
+		JButton btnNewButton_1 = new JButton("Cronologia");
+		btnNewButton_1.setBounds(196, 121, 104, 30);
+		frame.getContentPane().add(btnNewButton_1);
+		
+		JButton btnNewButton_2 = new JButton("Profilo");
+		btnNewButton_2.setBounds(387, 121, 95, 30);
+		frame.getContentPane().add(btnNewButton_2);
+		
+		JLabel lblNewLabel = new JLabel("Menu");
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 30));
+		lblNewLabel.setBounds(211, 11, 89, 60);
+		frame.getContentPane().add(lblNewLabel);
 		
 		Component horizontalGlue = Box.createHorizontalGlue();
 		menuBar.add(horizontalGlue);
@@ -99,6 +116,14 @@ public class Home {
 			public void mouseClicked(MouseEvent e) {
 				Home.main(null);
 				frame.setVisible(false);
+			}
+			
+			
+	});
+
+		btnAcquisti.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Acquisto.main(null);
 			}
 		});
 	}

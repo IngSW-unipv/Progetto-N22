@@ -24,5 +24,9 @@ private static IDBwriteStrategy strategiaDiScrittura;
 	
 	}
 	
+	public void aggiungiUtente(Utente username) throws Exception {
+		 strategiaDiScrittura.aggiungiUtente(username);
+	}
+	
 }
 
