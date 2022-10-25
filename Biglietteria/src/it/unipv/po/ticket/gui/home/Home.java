@@ -13,6 +13,9 @@ import javax.swing.JMenuItem;
 import javax.swing.SwingConstants;
 import javax.swing.Box;
 import java.awt.Component;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Home {
 
@@ -64,6 +67,14 @@ public class Home {
 		menuBar.add(mnNewMenu_3);
 			
 		frame.getContentPane().setLayout(null);
+		
+		JButton btnNewButton = new JButton("Acquisti");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnNewButton.setBounds(43, 218, 104, 30);
+		frame.getContentPane().add(btnNewButton);
 		
 		Component horizontalGlue = Box.createHorizontalGlue();
 		menuBar.add(horizontalGlue);

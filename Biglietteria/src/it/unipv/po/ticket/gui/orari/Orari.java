@@ -65,7 +65,7 @@ public class Orari {
         
 		@SuppressWarnings("rawtypes")
 		JComboBox comboBox = new JComboBox(corsa.getLinee());
-		comboBox.setBounds(10, 91, 123, 21);
+		comboBox.setBounds(10, 107, 123, 21);
 		frame.getContentPane().add(comboBox);
 		
 		JScrollPane scrollPane = new JScrollPane();
