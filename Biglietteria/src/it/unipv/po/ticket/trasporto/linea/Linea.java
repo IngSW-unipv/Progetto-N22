@@ -59,8 +59,6 @@ public class Linea implements Tappe{
 	//stampa dell'intera linea di fermate raccolte nel vettore
 	public String getLinea() {
 		String msg = "";
-
-		//msg += "Codice Linea: " + getIDlinea() + " Zona: " + getZona() + " Veicolo: " + getMezzo() + "\nElenco fermate:\n";
 		
 		for(Fermata n : linea) msg += " Fermata: " + n.getCodiceFermata() + "               " + n.getOrario() + "\n";
 		

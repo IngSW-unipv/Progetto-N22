@@ -9,24 +9,16 @@ public class Main {
 	public static void main(String[] args) throws Exception {
 		
 		//------------------------------- parte di Alessandro -------------------------------------------
-		
-        Ricerca corsa = new Ricerca();
+	
+		Ricerca corsa = new Ricerca();
         
-        corsa.setPercorsi();
-        
-        String partenza = "F004";
-        String  destinazione = "F067";
-     
-        //System.out.println(corsa.cerca(partenza, destinazione));
+        String partenza = "F001";
+        String  destinazione = "F022";
         
         ArrayList<Fermata> elenco = corsa.cerca(partenza, destinazione);
         
         for(Fermata n : elenco) System.out.println(n.CodiceFermata);
-		
-        
-  
-        
-        
+ 
         //----------------------------------------------------------------------------------------------------
              
 	}

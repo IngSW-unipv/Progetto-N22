@@ -15,19 +15,7 @@ public class Ricerca{
 		return ricerca.cerca(a, b);
 	}
 	
-	public String getPercorsi() {
-		return ricerca.getPercorsi();
-	}
-
-	public void setPercorsi() throws Exception {
-		ricerca.setPercorsi();
-	}
-	
-	public String getPercorso(int n) {
-		return ricerca.getPercorso(n);
-	}
-	
-	public String[] getLinee(){
+	/*public String[] getLinee(){
 		return ricerca.getLinee();
-	}
+	}*/
 }

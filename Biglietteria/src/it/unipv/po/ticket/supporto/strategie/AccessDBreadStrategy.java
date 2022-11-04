@@ -3,14 +3,11 @@ package it.unipv.po.ticket.supporto.strategie;
 import java.sql.Connection; 
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-
 import it.unipv.po.ticket.trasporto.fermata.Fermata;
 import it.unipv.po.ticket.trasporto.linea.Linea;
 import it.unipv.po.ticket.trasporto.vehicleModel.Vehicle;
-import it.unipv.po.ticket.trasporto.zonaModel.Zona;
 
 public class AccessDBreadStrategy implements IDBreadStrategy{
 	
@@ -29,8 +26,8 @@ public class AccessDBreadStrategy implements IDBreadStrategy{
 	}
 
 	@Override
-	public Linea getLinee(int id) throws Exception{
-		String sql = "SELECT * FROM Linea WHERE ID = "+ id;
+	public Linea getLinea(int id) throws Exception{
+		String sql = "SELECT * FROM Linea where Linea.ID = "+ id;
 		Connection connection = null;
 		Statement statement = null;
 		
@@ -45,9 +42,6 @@ public class AccessDBreadStrategy implements IDBreadStrategy{
         //inserisco gli elementi della tabella
 	    lineaDB.setIDlinea(result.getString("IDlinea"));
 	    lineaDB.setMezzo(Vehicle.valueOf(result.getString("Mezzo")));
-	    lineaDB.setZona(Zona.valueOf(result.getString("Zona")));
-	    lineaDB.setKm(0);
-	    lineaDB.setLinieAttive(0);
        
         
 		// Chiudo la connessione
@@ -65,27 +59,27 @@ public class AccessDBreadStrategy implements IDBreadStrategy{
 	}
 
 	@Override
-	public String getSnodi(int partenza, int destinazione) throws Exception {
-		String sql = "select distinct IDfermata from Corsa where IDlinea = (select distinct IDlinea from Linea Where ID = '"+ partenza +"') "
-				+ "and IDfermata IN (select distinct IDfermata from Corsa where IDlinea =(select distinct IDlinea from Linea Where ID = '"+ partenza +"'))";
-	Connection connection = null;
-	Statement statement = null;
-	
-	connection = getDBConnection();
-	statement = connection.createStatement();
-    ResultSet result = statement.executeQuery(sql);
-   
-    result.next();
-    
-    // Chiudo la connessione
- 	if(statement != null) {
- 		statement.close();
- 	}
- 	if(connection != null) {
- 		connection.close();
- 	}
-	
-	return result.getString("IDfermata");
+	public String getSnodi(String partenza, String destinazione) throws Exception {
+		
+		String sql = "select distinct IDfermata from Orario where IDlinea = (select distinct IDlinea from Linea Where IDlinea = '"+ partenza +"') and IDfermata IN (select distinct IDfermata from Orario where IDlinea = (select distinct IDlinea from Linea Where IDlinea = '"+ destinazione+"'))";
+		Connection connection = null;
+		Statement statement = null;
+		
+		connection = getDBConnection();
+		statement = connection.createStatement();
+	    ResultSet result = statement.executeQuery(sql);
+	   
+	    result.next();
+	    
+	    // Chiudo la connessione
+	 	if(statement != null) {
+	 		statement.close();
+	 	}
+	 	if(connection != null) {
+	 		connection.close();
+	 	}
+		
+		return result.getString("IDfermata");
 	}
 
 	@Override
@@ -127,7 +121,7 @@ public class AccessDBreadStrategy implements IDBreadStrategy{
 
 	@Override
 	public ArrayList<Fermata> getFermate(String IDlinea) throws Exception {
-		String sql = "SELECT * FROM Corsa WHERE IDlinea = '"+ IDlinea +"'";
+		String sql = "SELECT * FROM Orario WHERE IDlinea = '"+ IDlinea +"'";
 		Connection connection = null;
 		Statement statement = null;
 		
@@ -164,16 +158,23 @@ public class AccessDBreadStrategy implements IDBreadStrategy{
 	}
 
 	@Override
-	public int searchLinea(String IDfermata) throws Exception {
-		String sql = "SELECT Linea.ID FROM Corsa inner join Linea on Linea.IDlinea = corsa.IDlinea WHERE IDfermata = '"+ IDfermata +"'";
+	public ArrayList<Linea> searchLinea(String IDfermata) throws Exception {
+		String sql = "SELECT distinct Linea.ID FROM Orario inner join Linea on Linea.IDlinea = Orario.IDlinea WHERE IDfermata = '"+ IDfermata +"'";
 		Connection connection = null;
 		Statement statement = null;
 		
 		connection = getDBConnection();
 		statement = connection.createStatement();
         ResultSet result = statement.executeQuery(sql);
+
+        ArrayList<Linea> corsa = new ArrayList<Linea>();
         
-        result.next();
+        while (result.next()) {
+        
+        	corsa.add(getLinea(result.getInt("Linea.ID")));
+        			
+        }
+      
         
     	// Chiudo la connessione
      	if(statement != null) {
@@ -183,7 +184,7 @@ public class AccessDBreadStrategy implements IDBreadStrategy{
      		connection.close();
      	}
      		
-		return result.getInt("Linea.ID");
+		return corsa;
 	}
 		
 }
