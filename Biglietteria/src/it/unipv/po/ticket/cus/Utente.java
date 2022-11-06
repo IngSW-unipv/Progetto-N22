@@ -39,6 +39,10 @@ public class Utente implements IUtente {
 	public void seteMail(String eMail) {
 		this.eMail = eMail;
 	}
+	public int getPunti() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 	
 	
 	

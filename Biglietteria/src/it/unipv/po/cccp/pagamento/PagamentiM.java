@@ -2,8 +2,8 @@ package it.unipv.po.cccp.pagamento;
 
 public enum PagamentiM {
 	paypal, 
-	banca,
+	visa,
 	postepay,
-	punti}
+	creditcard}
 	
 

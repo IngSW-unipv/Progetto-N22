@@ -1,43 +1,41 @@
 package it.unipv.po.cccp;
-import java.util.*;
+import java.time.LocalDateTime;
+import java.util.*; 
 import it.unipv.po.ticket.titolo.*;
-import it.unipv.po.cccp.pagamento.CalcolatoreScontoETasse;
+import it.unipv.po.cccp.pagamento.Pagamento;
 import it.unipv.po.ticket.cus.Sessione;
 import it.unipv.po.ticket.cus.Utente;
+import it.unipv.po.ticket.supporto.DBwrite;
 import it.unipv.po.ticket.titolo.Titolo;
 
 public class Carrello implements ICarrello {
-	Sessione s;
-	Utente u;
-	LinkedList<Titolo> lista; //scegliamo la linkedlist rispetto all arraylist
+	private Sessione sessione;
+	private Utente user;
+	private LinkedList<Titolo> lista; //scegliamo la linkedlist rispetto all arraylist
 	//perchè non sarà di dimensioni elevate e leggerla tutta non impatterà sulle
 	//prestazioni
-	CalcolatoreScontoETasse calcolatore;
+	private DBwrite writer;
+	private double totale;
 	
-	public Carrello(Sessione s, Utente u) {
-		this.u=u;
-		this.s=s;
-		lista= new LinkedList<Titolo>();
-		calcolatore = new CalcolatoreScontoETasse();
-		
+	
+	public Carrello(Sessione s) {
+		totale=0;
+		this.sessione=s;
+		lista= new LinkedList<Titolo>();	
 	}
 	
-	@Override
-	public void inizializza(Sessione s) {
-		this.s=s;
-		
-	}
 
 	@Override
 	public void aggiungiTitolo(Titolo t) {
 		lista.add(t);
+		incrementaTotale(t);
 		
 	}
 
 	@Override
 	public void rimuoviTitolo(Titolo t) {
 		lista.remove(t);
-		
+		decrementaTotale(t);
 	}
 
 	@Override
@@ -52,28 +50,49 @@ public class Carrello implements ICarrello {
 	}
 
 	@Override
-	public double getTotale(int punti) {
-		double tot=0;
-		for(int i=0; i<lista.size();i++)
-			tot += lista.get(i).getPrezzo();
-		double sconto=calcolatore.calcolaSconto(tot,punti);
-		tot=tot-sconto;
-		
-		return tot;
+	public void incrementaTotale(Titolo t) {
+		totale += t.getPrezzo();
 	}
 	
+	@Override
+	public void decrementaTotale(Titolo t) {
+		totale -= t.getPrezzo();
+	}
+	@Override
+	public double getTotale() {
+		return totale;
+	}
 	
-
-	
+	@Override
+	public void chiudeEpaga() throws Exception {
+		Pagamento payment = new Pagamento(totale, user.getPunti());
+		aggiornaCronologia(payment.getDataEora(), payment.getImporto());
+	}
+	  
 	//in input vuole il boolean che deriva dal check del pagamento 
 	//se è true contabilizza se no non salva niente su DB
 	@Override
-	public void aggiornaCronologia(boolean check) {
-		if (check)
-		/*connessione e scrittura su DB*/;
+	public void aggiornaCronologia(LocalDateTime date, double importo) throws Exception {
+		writer.aggiungiACronologia(user, sessione, date, importo);
 		
 	}
 
+	public Sessione getSessione() {
+		return sessione;
+	}
+
+	public void setSessione(Sessione sessione) {
+		this.sessione = sessione;
+	}
+
+	public Utente getUser() {
+		return user;
+	}
+
+	public void setUser(Utente user) {
+		this.user = user;
+	}
+	
 	
 	
 	
