@@ -9,7 +9,6 @@ import it.unipv.po.ticket.supporto.DBwrite;
 import it.unipv.po.ticket.titolo.Titolo;
 
 public class Carrello implements ICarrello {
-	private Sessione sessione;
 	private Utente user;
 	private LinkedList<Titolo> lista; //scegliamo la linkedlist rispetto all arraylist
 	//perchè non sarà di dimensioni elevate e leggerla tutta non impatterà sulle
@@ -17,16 +16,22 @@ public class Carrello implements ICarrello {
 	private DBwrite writer;
 	private double totale;
 	
-	public Carrello(Sessione s) {
+	
+	public Carrello() {
 		totale=0;
-		this.sessione=s;
 		lista= new LinkedList<Titolo>();	
 	}
-	
+	public Carrello(Utente user) {
+		totale=0;
+		lista= new LinkedList<Titolo>();
+		this.user=user;
+	}
+
 	@Override
 	public void aggiungiTitolo(Titolo t) {
 		lista.add(t);
 		incrementaTotale(t);
+		
 	}
 
 	@Override
@@ -70,17 +75,13 @@ public class Carrello implements ICarrello {
 	//se è true contabilizza se no non salva niente su DB
 	@Override
 	public void aggiornaCronologia(LocalDateTime date, double importo) throws Exception {
-		writer.aggiungiACronologia(user, sessione, date, importo);
+		writer.aggiungiACronologia(user, date, importo);
 		
 	}
 
-	public Sessione getSessione() {
-		return sessione;
-	}
+	
 
-	public void setSessione(Sessione sessione) {
-		this.sessione = sessione;
-	}
+
 
 	public Utente getUser() {
 		return user;
