@@ -19,8 +19,8 @@ private static IDBwriteStrategy strategiaDiScrittura;
 		return strategiaDiScrittura.getDBConnection();
 	}
 	
-	public void aggiungiACronologia(Utente username, Sessione sessione, LocalDateTime data, double prezzo) throws Exception {
-		 strategiaDiScrittura.aggiungiACronologia(username, sessione, data, prezzo);
+	public void aggiungiACronologia(Utente username, LocalDateTime data, double prezzo) throws Exception {
+		 strategiaDiScrittura.aggiungiACronologia(username, data, prezzo);
 	
 	}
 	

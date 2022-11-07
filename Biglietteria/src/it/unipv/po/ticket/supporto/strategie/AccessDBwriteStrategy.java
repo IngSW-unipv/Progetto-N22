@@ -23,14 +23,13 @@ public class AccessDBwriteStrategy implements IDBwriteStrategy{
 	}
 
 	@Override
-	public void aggiungiACronologia(Utente username, Sessione sessione, LocalDateTime data, double prezzo) throws Exception {
-		String sql="INSERT into Cronologia(Utente,Sessione,DataPagamento,Prezzo) VALUES(?,?,?,?);";
+	public void aggiungiACronologia(Utente username, LocalDateTime data, double prezzo) throws Exception {
+		String sql="INSERT into Cronologia(Utente,DataPagamento,Prezzo) VALUES(?,?,?);";
 		Connection connessione= getDBConnection();
 		PreparedStatement statement= connessione.prepareStatement(sql);
 		statement.setString(1, username.getUsername());
-		statement.setString(2, sessione.getIDsessione());
-		statement.setString(3, data.toString());
-		statement.setDouble(4, prezzo);	
+		statement.setString(2, data.toString());
+		statement.setDouble(3, prezzo);	
 		
 		statement.executeUpdate();
 	}
