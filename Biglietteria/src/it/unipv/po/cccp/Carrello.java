@@ -17,19 +17,16 @@ public class Carrello implements ICarrello {
 	private DBwrite writer;
 	private double totale;
 	
-	
 	public Carrello(Sessione s) {
 		totale=0;
 		this.sessione=s;
 		lista= new LinkedList<Titolo>();	
 	}
 	
-
 	@Override
 	public void aggiungiTitolo(Titolo t) {
 		lista.add(t);
 		incrementaTotale(t);
-		
 	}
 
 	@Override

@@ -15,7 +15,4 @@ public class Ricerca{
 		return ricerca.cerca(a, b);
 	}
 	
-	/*public String[] getLinee(){
-		return ricerca.getLinee();
-	}*/
 }

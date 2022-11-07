@@ -32,14 +32,13 @@ public class RicercaStrategy implements InterfaceRicercaStrategy{
 				
 				if(snodo != "") {
 					//calcolo le fermate dalla fermata di partenza fino allo snodo e dallo snodo alla destinazione
-					ricerca = LineeA.get(i).ricercaFermate(a, snodo);
+					ricerca.addAll(LineeA.get(i).ricercaFermate(a, snodo));
 					ricerca.remove(ricerca.size()-1);
 					ricerca.addAll(LineeB.get(j).ricercaFermate(snodo, b));
-					return ricerca;	
 				}
 			}
 		
-		return null;
+		return ricerca;
 		
 	}
 	
