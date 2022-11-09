@@ -29,7 +29,7 @@ public class Main {
         
         // ---------------------------------------- rose Prove Ronce ----------
         Utente u = new Utente();
-        u.setUsername("Utente");
+        u.setUsername("Alessandro");
         DBwrite scrittore = new DBwrite();
         //scrittore.aggiungiACronologia(u, LocalDateTime.now(), 200);
         LinkedList<Titolo> lista = new LinkedList<Titolo>();
@@ -37,11 +37,12 @@ public class Main {
         t1.setIDtitolo("T-linea-1");
         t1.setPrezzo(2.80);
         Titolo t2 = new Biglietto();
-        t1.setIDtitolo("T-linea-2");
-        t1.setPrezzo(1.80);
+        t2.setIDtitolo("T-linea-2");
+        t2.setPrezzo(1.80);
         Titolo t3 = new Biglietto();
-        t1.setIDtitolo("T-linea-3");
-        t1.setPrezzo(0.80);
+        t3.setIDtitolo("T-linea-3");
+        t3.setPrezzo(0.80);
+        
         lista.add(t1);
         lista.add(t2);
         lista.add(t3);

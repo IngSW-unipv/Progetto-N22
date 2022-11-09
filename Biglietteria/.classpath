@@ -12,7 +12,5 @@
 	<classpathentry kind="lib" path="Libs/jackcess-3.0.1.jar"/>
 	<classpathentry kind="lib" path="Libs/ucanaccess-5.0.1.jar"/>
 	<classpathentry kind="lib" path="Libs/miglayout15-swing.jar"/>
-	<classpathentry kind="lib" path="C:/Users/loren/Downloads/swing-time-picker.jar"/>
-	<classpathentry kind="lib" path="C:/Users/loren/Downloads/TimingFramework-0.55.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
