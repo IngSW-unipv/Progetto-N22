@@ -1,7 +1,12 @@
 package it.unipv.po.ticket.cus;
 
+import java.util.LinkedList;
+
 public interface IUtente {
-	//public void registrazione(String nome, String cognome, String eMail, String userName, String password);
-	//public void login(String us_em, String password);
+	public void creaCarrello();
+	public void cronologiaAcquisti();
+	void aggiungiPunti(double puntiAdd);
+	void sottraiPunti(double puntiSub);
 	
+
 }

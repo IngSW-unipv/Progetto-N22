@@ -12,19 +12,22 @@ import it.unipv.po.ticket.cus.Utente;
 public class Pagamento implements IPagamento{
 	private LocalDateTime dataEora;
 	private double importo;
-	private int puntiMax;
-	private CalcolatoreSconto calcolatore;
+	private double puntiMax;
+	private CalcolatoreSconto calcolatoreSconto;
 	private IPaymentStrategy paymentMethod;
+	private CalcolatorePunti calcolatorePunti;
+	
 	
 	
 
 	
 
-	public Pagamento(double costo, int puntiMax) {
+	public Pagamento(double costo, double puntiMax) {
 		dataEora= LocalDateTime.now();
 		importo=costo;
 		payStrategySetter(PagamentiM.creditcard); //settiamo di default questo
-		calcolatore = new CalcolatoreSconto();
+		calcolatoreSconto = new CalcolatoreSconto();
+		calcolatorePunti = new CalcolatorePunti();
 		this.puntiMax=puntiMax;
 		//qua ci va un pure fabrication che mi crea una classe 
 		//che rappresenti il contesto di pagamento
@@ -32,10 +35,10 @@ public class Pagamento implements IPagamento{
 	}
 	
 	@Override
-	public void calcolaPrezzoFinale(int punti) {
+	public void calcolaPrezzoFinale(double punti) {
 		if(punti >= puntiMax)
 			punti = puntiMax;
-		importo -= calcolatore.calcolaSconto(importo, punti);
+		importo -= calcolatoreSconto.calcolaSconto(importo, punti);
 		
 	}
 	
@@ -61,6 +64,9 @@ public class Pagamento implements IPagamento{
 		}
 	}
 	
+	public double getPuntiOttenuti() {
+		return calcolatorePunti.calcolaPunti(importo);
+	}
 
 	public LocalDateTime getDataEora() {
 		return dataEora;

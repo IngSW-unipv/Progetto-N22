@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+
+import it.unipv.po.ticket.cus.Utente;
 import it.unipv.po.ticket.trasporto.fermata.Fermata;
 import it.unipv.po.ticket.trasporto.linea.Linea;
 import it.unipv.po.ticket.trasporto.vehicleModel.Vehicle;
@@ -185,6 +187,25 @@ public class AccessDBreadStrategy implements IDBreadStrategy{
      	}
      		
 		return corsa;
+	}
+
+	@Override
+	public Utente login(String username,String password) throws Exception {
+		String sql = "SELECT * FROM Utente WHERE Username = '"+ username +"' and Password = '"+ password +"'" ;
+		Connection connection = null;
+		Statement statement = null;
+		
+		connection = getDBConnection();
+		statement = connection.createStatement();
+        ResultSet result = statement.executeQuery(sql);
+        Utente user = new Utente();
+        user.setUsername(result.getString(1));
+        user.setPassword(result.getString(2));
+        user.setName(result.getString(3));
+        user.setSurname(result.getString(4));
+        user.setEmail(result.getString(5));
+        
+		return user;
 	}
 		
 }

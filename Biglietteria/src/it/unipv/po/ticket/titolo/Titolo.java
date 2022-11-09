@@ -9,7 +9,7 @@ import java.time.*;
 public abstract class Titolo {
 	
 	private String idTitolo;
-	private float prezzo;
+	private double prezzo;
 	private Vehicle mezzo;
 	private boolean attivo = true;
 	private LocalDateTime dataAcquisto;
@@ -41,14 +41,14 @@ public abstract class Titolo {
 		idTitolo = id;
 		
 	}
-	public float getPrezzo() {
+	public double getPrezzo() {
 	
 		return prezzo;
 	}
 	
-	public void setPrezzo(float p) {
+	public void setPrezzo(double d) {
 		
-		prezzo=p;
+		prezzo=d;
 	}
 	
 	public void setVehicle(Vehicle v) {
@@ -79,9 +79,10 @@ public abstract class Titolo {
 		
 	}
 	
-	
-	public float getPrezzoTitolo(String idTitolo, String partenza, String destinazione ) {
-        
-        return prezzo;	
+
+
+	public String getID() {
+		// TODO Auto-generated method stub
+		return idTitolo;
 	}
 }

@@ -2,6 +2,7 @@ package it.unipv.po.ticket.supporto;
 
 import java.util.ArrayList;
 
+import it.unipv.po.ticket.cus.Utente;
 import it.unipv.po.ticket.supporto.strategie.AccessDBreadStrategy;
 import it.unipv.po.ticket.supporto.strategie.IDBreadStrategy;
 import it.unipv.po.ticket.trasporto.fermata.Fermata;
@@ -35,6 +36,12 @@ public class DBread {
 	public static String[] elencoFermate() throws Exception {
 		
 		return strategiaDiLettura.elencoFermate();
+		
+	}
+
+	public Utente login(String username, String password) throws Exception {
+		
+		return strategiaDiLettura.login(username, password);
 		
 	}
 }

@@ -1,87 +1,89 @@
 package it.unipv.po.ticket.cus;
 
+import it.unipv.po.cccp.Carrello;
+
 public class Utente implements IUtente {
+	private String name;
+	private String surname;
+	private String username;
+	private String password;
+	private String email;
+	private Carrello cart;
+	private double punti;
 	
-	String username;
-	String password;
-	String nome;
-	String cognome;
-	String eMail;
+	public Utente() {
+		creaCarrello();
+	}
 	
+	@Override
+	public void creaCarrello() {
+		cart = new Carrello(this);
+	}
 	
+	@Override
+	public void cronologiaAcquisti() {
+		
+		
+	}
+	@Override
+	public void aggiungiPunti(double puntiAdd) {
+		punti+=puntiAdd;
+	}
+	@Override
+	public void sottraiPunti(double puntiSub) {
+		punti-=puntiSub;
+	}
+	
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getSurname() {
+		return surname;
+	}
+
+	public void setSurname(String surname) {
+		this.surname = surname;
+	}
+
 	public String getUsername() {
 		return username;
 	}
+
 	public void setUsername(String username) {
 		this.username = username;
 	}
+
 	public String getPassword() {
 		return password;
 	}
+
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public String getNome() {
-		return nome;
-	}
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-	public String getCognome() {
-		return cognome;
-	}
-	public void setCognome(String cognome) {
-		this.cognome = cognome;
-	}
-	public String geteMail() {
-		return eMail;
-	}
-	public void seteMail(String eMail) {
-		this.eMail = eMail;
-	}
-	public int getPunti() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	
-	
-	
-	
-	
-	//questi metodi (registrazione e login ) penso stiano meglio in sessione,
-	//quando approfondiremo la classe sessione dovremo
-	//occuparci della gestione dei metodi qui commentati !!!
-	/*
-	@Override
-	public void registrazione(String nome, String cognome, String eMail, String userName, String password) {
-		this.nome=nome;
-		this.cognome=cognome;
-		eMailCheck(eMail);
-		this.eMail=eMail;
-		idUtenteCheck(userName);
-		idUtente=userName;
-		this.password=password;
-		
-		
+
+	public String getEmail() {
+		return email;
 	}
 
-	@Override
-	public void login(String us_em, String password) {
-		
-		
+	public void setEmail(String email) {
+		this.email = email;
 	}
-	
-	private void eMailCheck (String em) {
-		
-	}
-	
-	private void idUtenteCheck (String un) {
-		
-	}
-	
-	private void us_emCheck (String ue) {
-		
-	}
-	*/
 
+	public double getPunti() {
+		return punti;
+	}
+	public void setPunti(double punti) {
+		this.punti = punti;
+	}
+
+
+
+	
+	
 }

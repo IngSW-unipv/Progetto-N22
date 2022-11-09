@@ -52,40 +52,6 @@ public class DBconnection {
 		
 	}
 	
-	/*
-	public static Titolo getPrezzo(String id) throws Exception{
-		String sql = "SELECT Prezzo FROM Titolo WHERE ID = "+ id;
-		Connection connection = null;
-		Statement statement = null;
-		
-		Titolo titoloDB = new Titolo();
-		
-		connection = getDBConnection();
-		statement = connection.createStatement();
-        ResultSet result = statement.executeQuery(sql);
-        
-        result.next();
-			
-        //inserisco gli elementi della tabella
-	    titoloDB.setIDtitolo(result.getString("IDtitolo"));
-	    titoloDB.setPrezzo(result.getFloat("Prezzo"));
-	    titoloDB.setAttivo(result.getBoolean("Attivo"));
-	    
-       
-        
-		// Chiudo la connessione
-		if(statement != null) {
-			statement.close();
-				}
-		if(connection != null) {
-			connection.close();
-		}		
-		
-		
-		
-				
-		return titoloDB;
-	}*/
 	
 	
 	public static String searchPassword(String user) throws Exception {

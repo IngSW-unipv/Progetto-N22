@@ -9,6 +9,10 @@ public class Biglietto extends Titolo{
 		this.setIDtitolo(idBiglietto);
 		this.setDataAcquisto(dataAcquisto);
 	}
+
+	public Biglietto() {
+		// TODO Auto-generated constructor stub
+	}
 	
 	/*
 	public Biglietto() {

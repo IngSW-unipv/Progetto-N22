@@ -1,9 +1,9 @@
 package it.unipv.po.cccp;
-import java.time.LocalDateTime;
+import java.time.LocalDateTime;  
 import java.util.*; 
 import it.unipv.po.ticket.titolo.*;
+import it.unipv.po.cccp.pagamento.PagamentiM;
 import it.unipv.po.cccp.pagamento.Pagamento;
-import it.unipv.po.ticket.cus.Sessione;
 import it.unipv.po.ticket.cus.Utente;
 import it.unipv.po.ticket.supporto.DBwrite;
 import it.unipv.po.ticket.titolo.Titolo;
@@ -66,17 +66,20 @@ public class Carrello implements ICarrello {
 	}
 	
 	@Override
-	public void chiudeEpaga() throws Exception {
+	public void chiudeEpaga(PagamentiM metodo, double punti) throws Exception {
 		Pagamento payment = new Pagamento(totale, user.getPunti());
+		payment.calcolaPrezzoFinale(punti);
+		payment.payStrategySetter(metodo);
+		payment.autorizza();
+		user.sottraiPunti(punti);
 		aggiornaCronologia(payment.getDataEora(), payment.getImporto());
+		user.aggiungiPunti(payment.getPuntiOttenuti());
 	}
 	  
-	//in input vuole il boolean che deriva dal check del pagamento 
-	//se è true contabilizza se no non salva niente su DB
 	@Override
 	public void aggiornaCronologia(LocalDateTime date, double importo) throws Exception {
-		writer.aggiungiACronologia(user, date, importo);
-		
+		writer.aggiungiTotaleACronologia(user, date, importo);
+		writer.aggiungiTitoliACronologia(user, date, lista);
 	}
 
 	

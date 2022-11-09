@@ -6,7 +6,7 @@ public interface IPagamento {
 
 	void payStrategySetter(PagamentiM metodo);
 
-	void calcolaPrezzoFinale(int punti);
+	void calcolaPrezzoFinale(double punti);
 	
 	
 	
