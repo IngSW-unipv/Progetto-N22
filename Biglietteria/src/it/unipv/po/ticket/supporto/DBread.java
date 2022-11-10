@@ -2,7 +2,7 @@ package it.unipv.po.ticket.supporto;
 
 import java.util.ArrayList;
 
-import it.unipv.po.ticket.cus.Utente;
+import it.unipv.po.ticket.gui.utente.Utente;
 import it.unipv.po.ticket.supporto.strategie.AccessDBreadStrategy;
 import it.unipv.po.ticket.supporto.strategie.IDBreadStrategy;
 import it.unipv.po.ticket.trasporto.fermata.Fermata;
@@ -38,10 +38,19 @@ public class DBread {
 		return strategiaDiLettura.elencoFermate();
 		
 	}
+	
+	public String searchPassword(String user) throws Exception{
+		return strategiaDiLettura.searchPassword(user);
+	}
+	
 
-	public Utente login(String username, String password) throws Exception {
+	public int searchUsername(String user) throws Exception {
+		return strategiaDiLettura.searchUsername(user);
+	}
+
+/*	public Utente login(String username, String password) throws Exception {
 		
 		return strategiaDiLettura.login(username, password);
 		
-	}
+	}*/
 }

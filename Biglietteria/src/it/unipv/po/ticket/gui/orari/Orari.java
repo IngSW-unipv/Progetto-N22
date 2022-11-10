@@ -36,7 +36,7 @@ public class Orari {
 			public void run() {
 				try {
 					corsa = new Ricerca();
-			        corsa.setPercorsi();
+			 //       corsa.setPercorsi();
 					Orari window = new Orari();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
@@ -66,9 +66,9 @@ public class Orari {
 		frame.getContentPane().setLayout(null);
         
 		@SuppressWarnings("rawtypes")
-		JComboBox comboBox = new JComboBox(corsa.getLinee());
-		comboBox.setBounds(10, 107, 123, 21);
-		frame.getContentPane().add(comboBox);
+		//JComboBox comboBox = new JComboBox(corsa.getLinee());
+	//	comboBox.setBounds(10, 107, 123, 21);
+		//frame.getContentPane().add(comboBox);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(163, 87, 178, 329);
@@ -118,12 +118,12 @@ public class Orari {
 		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Conologia Acquisti");
 		mnNewMenu_4.add(mntmNewMenuItem_1);
 		
-		comboBox.addItemListener(new ItemListener() {
-			public void itemStateChanged(ItemEvent e) {
+	//	comboBox.addItemListener(new ItemListener() {
+		//	public void itemStateChanged(ItemEvent e) {
 				
-				int str = Integer.parseInt(((String) comboBox.getSelectedItem()).substring(3));
-				textArea.setText(corsa.getPercorso(str));
-			}
-		});
+		//		int str = Integer.parseInt(((String) comboBox.getSelectedItem()).substring(3));
+			//	textArea.setText(corsa.getPercorso(str));
+	//		}
+		//});
 	}
 }

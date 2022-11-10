@@ -8,6 +8,8 @@ import javax.swing.JPasswordField;
 import javax.swing.SwingConstants;
 
 import it.unipv.po.ticket.supporto.DBconnection;
+import it.unipv.po.ticket.supporto.DBread;
+import it.unipv.po.ticket.supporto.DBwrite;
 
 import javax.swing.JSeparator;
 import javax.swing.JButton;
@@ -30,6 +32,8 @@ public class Registrazione {
 	private JTextField txtusername;
 	private JTextField txttelefono;
 	private JPasswordField txtconferma;
+	private Utente utente = new Utente();
+	DBwrite db = new DBwrite();
 	
 	String error;
 	
@@ -191,8 +195,15 @@ public class Registrazione {
 			
 			
 			if(error.isEmpty()) {
+				utente.setUsername(txtusername.getText());
+				utente.setName(txtnome.getText());
+				utente.setPassword(txtpassword.getText());
+				utente.setCognome(txtcognome.getText());
+				utente.setEmail(txtemail.getText());
+
+				
 				try {
-					DBconnection.UserRegistration(txtusername.getText(), txtpassword.getText());
+					db.aggiungiUtente(utente);
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

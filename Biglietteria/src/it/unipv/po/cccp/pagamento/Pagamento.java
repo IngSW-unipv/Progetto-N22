@@ -7,7 +7,7 @@ import it.unipv.po.cccp.esterno.IPaymentStrategy;
 import it.unipv.po.cccp.esterno.PayPalPaymentStrategy;
 import it.unipv.po.cccp.esterno.PostePayPaymentStrategy;
 import it.unipv.po.cccp.esterno.VisaPaymentStrategy;
-import it.unipv.po.ticket.cus.Utente;
+import it.unipv.po.ticket.gui.utente.Utente;
 
 public class Pagamento implements IPagamento{
 	private LocalDateTime dataEora;

@@ -48,7 +48,7 @@ public class Acquisto {
 			public void run() {
 				try {
 					corsa = new Ricerca();
-			        corsa.setPercorsi();
+			   //     corsa.setPercorsi();
 					Acquisto window = new Acquisto();
 					window.frame.setVisible(true);
 				} catch (Exception e) {

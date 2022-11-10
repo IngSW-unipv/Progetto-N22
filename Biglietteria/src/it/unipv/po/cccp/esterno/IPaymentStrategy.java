@@ -1,6 +1,6 @@
 package it.unipv.po.cccp.esterno;
 
-import it.unipv.po.ticket.cus.Utente;
+import it.unipv.po.ticket.gui.utente.Utente;
 
 public interface IPaymentStrategy {
 

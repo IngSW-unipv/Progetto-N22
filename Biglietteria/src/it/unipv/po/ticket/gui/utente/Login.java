@@ -143,7 +143,7 @@ public class Login{
 				String password = txtpassword.getText();		
 				
 					try {
-						if(Sessione.CheckLogin(DBconnection.searchPassword(user),txtpassword.getText())) {
+						if(Sessione.UserLogin(user,txtpassword.getText())) {
 							
 							txtUsername.setText(null);
 							txtpassword.setText(null);

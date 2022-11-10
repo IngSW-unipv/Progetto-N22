@@ -3,7 +3,9 @@ package it.unipv.po.ticket.gui.utente;
 import it.unipv.po.ticket.supporto.DBconnection;
 
 public class Utente {
-    String username, name, cognome, email = "";
+    String username, name, cognome, email,password = "";
+	private double punti;
+   
 
 	public String getUsername() {
 		return username;
@@ -36,6 +38,31 @@ public class Utente {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	
+	public double getPunti() {
+		return punti;
+	}
+	public void setPunti(double punti) {
+		this.punti = punti;
+	}
+	
+
+	public void aggiungiPunti(double puntiAdd) {
+		punti+=puntiAdd;
+	}
+
+	public void sottraiPunti(double puntiSub) {
+		punti-=puntiSub;
+	}
+	
     
     
 }

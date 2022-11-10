@@ -6,8 +6,8 @@ import java.sql.PreparedStatement;
 import java.time.LocalDateTime;
 import java.util.LinkedList;
 
-import it.unipv.po.ticket.cus.SessioneService;
-import it.unipv.po.ticket.cus.Utente;
+
+import it.unipv.po.ticket.gui.utente.Utente;
 import it.unipv.po.ticket.titolo.Titolo;
 
 public class AccessDBwriteStrategy implements IDBwriteStrategy{
@@ -64,20 +64,26 @@ public class AccessDBwriteStrategy implements IDBwriteStrategy{
      		connessione.close();
      	}
 	}
+	
+	
 	//metodo per la registrazione degli utenti
-	public void aggiungiUtente(Utente username) throws Exception {
-		String sql="INSERT into Utente(Utente,Nome,Cognome,Email,Username,Password) VALUES(?,?,?,?);";
+	public void aggiungiUtente(Utente utente) throws Exception {
+		String sql="INSERT into Utente(Username,Password,Nome,Cognome,Email,Punti) VALUES(?,?,?,?,?,?);";
 		Connection connessione= getDBConnection();
 		PreparedStatement statement= connessione.prepareStatement(sql);
-		statement.setString(1, username.getUsername());
-		statement.setString(2, username.getName());
-		statement.setString(3,username.getSurname());
-		statement.setString(4,username.getEmail());	
-		statement.setString(5,username.getPassword());
+		statement.setString(1, utente.getUsername());
+		statement.setString(2, utente.getPassword());
+		statement.setString(3,utente.getName());
+		statement.setString(4,utente.getCognome());
+		statement.setString(5,utente.getEmail());	
+		statement.setString(6, "0");
 		
 		statement.executeUpdate();
 		
 	}
+
+
+	
 
 	
 

@@ -4,8 +4,7 @@ import java.sql.Connection;
 import java.time.LocalDateTime;
 import java.util.LinkedList;
 
-import it.unipv.po.ticket.cus.SessioneService;
-import it.unipv.po.ticket.cus.Utente;
+import it.unipv.po.ticket.gui.utente.Utente;
 import it.unipv.po.ticket.supporto.strategie.AccessDBwriteStrategy;
 import it.unipv.po.ticket.supporto.strategie.IDBwriteStrategy;
 import it.unipv.po.ticket.titolo.Titolo;
@@ -29,8 +28,8 @@ private static IDBwriteStrategy strategiaDiScrittura;
 		 strategiaDiScrittura.aggiungiTitoliACronologia(user, date, list);
 	}
 	
-	public void aggiungiUtente(Utente username) throws Exception {
-		 strategiaDiScrittura.aggiungiUtente(username);
+	public void aggiungiUtente(Utente utente) throws Exception {
+		 strategiaDiScrittura.aggiungiUtente(utente);
 	}
 	
 	

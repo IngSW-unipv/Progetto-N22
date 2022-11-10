@@ -4,8 +4,7 @@ import java.sql.Connection;
 import java.time.LocalDateTime;
 import java.util.LinkedList;
 
-import it.unipv.po.ticket.cus.SessioneService;
-import it.unipv.po.ticket.cus.Utente;
+import it.unipv.po.ticket.gui.utente.Utente;
 import it.unipv.po.ticket.titolo.Titolo;
 
 public interface IDBwriteStrategy {

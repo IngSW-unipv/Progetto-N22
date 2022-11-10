@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-import it.unipv.po.ticket.cus.Utente;
+import it.unipv.po.ticket.gui.utente.Utente;
 import it.unipv.po.ticket.titolo.Biglietto;
 import it.unipv.po.ticket.titolo.Titolo;
 import it.unipv.po.ticket.trasporto.fermata.Fermata;
@@ -46,7 +46,7 @@ public class Main {
         lista.add(t1);
         lista.add(t2);
         lista.add(t3);
-        scrittore.aggiungiTitoliACronologia(u, LocalDateTime.now(), lista);
+   //     scrittore.aggiungiTitoliACronologia(u, LocalDateTime.now(), lista);
         
 	}
 

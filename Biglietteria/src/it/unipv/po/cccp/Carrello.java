@@ -4,7 +4,7 @@ import java.util.*;
 import it.unipv.po.ticket.titolo.*;
 import it.unipv.po.cccp.pagamento.PagamentiM;
 import it.unipv.po.cccp.pagamento.Pagamento;
-import it.unipv.po.ticket.cus.Utente;
+import it.unipv.po.ticket.gui.utente.Utente;
 import it.unipv.po.ticket.supporto.DBwrite;
 import it.unipv.po.ticket.titolo.Titolo;
 

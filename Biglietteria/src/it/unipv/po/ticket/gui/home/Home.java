@@ -1,31 +1,24 @@
 package it.unipv.po.ticket.gui.home;
 
 import java.awt.EventQueue;
-import java.awt.Image;
 
 import javax.swing.JFrame;
-import javax.swing.JMenuBar;
-import javax.swing.JMenu;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import javax.swing.ImageIcon;
-import javax.swing.JMenuItem;
-import javax.swing.SwingConstants;
-import javax.swing.Box;
-import java.awt.Component;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.SwingConstants;
+import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.JTextField;
-import java.awt.Font;
-import javax.swing.JPanel;
-import javax.swing.JLabel;
 
-public class Home {
+public class Home extends JFrame {
 
-	private JFrame frame;
-	private Image img;
-	private Image newImage;
+	private JPanel contentPane;
+	private JPanel homePagePanel;
+	private JPanel searchPagePanel;
 
 	/**
 	 * Launch the application.
@@ -34,8 +27,8 @@ public class Home {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Home window = new Home();
-					window.frame.setVisible(true);
+					Home frame = new Home();
+					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -44,87 +37,75 @@ public class Home {
 	}
 
 	/**
-	 * Create the application.
+	 * Create the frame.
 	 */
 	public Home() {
-		initialize();
-	}
-
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 508, 480);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 873, 551);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
 		
-		JMenuBar menuBar = new JMenuBar();
-		frame.setJMenuBar(menuBar);
+		JPanel bar = new JPanel();
+		bar.setBounds(0, 0, 222, 524);
+		contentPane.add(bar);
+		bar.setLayout(null);
 		
-		JMenu mnNewMenu = new JMenu("Home");
-		menuBar.add(mnNewMenu);
+		JButton btnNewButton = new JButton("Home");
+		btnNewButton.setBounds(10, 71, 192, 63);
+		bar.add(btnNewButton);
 		
-		JMenu mnNewMenu_2 = new JMenu("Biglietto");
-		menuBar.add(mnNewMenu_2);
-		
-		JMenu mnNewMenu_3 = new JMenu("New menu");
-		menuBar.add(mnNewMenu_3);
-			
-		frame.getContentPane().setLayout(null);
-		
-		JButton btnAcquisti = new JButton("Acquista");
-		btnAcquisti.addActionListener(new ActionListener() {
+		JButton btnCerca = new JButton("Cerca");
+		btnCerca.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				homePagePanel.hide();
+				contentPane.remove(homePagePanel);
+				contentPane.add(searchPagePanel);
+				searchPagePanel.setLayout(null);
 			}
 		});
-		btnAcquisti.setBounds(10, 121, 104, 30);
-		frame.getContentPane().add(btnAcquisti);
+		btnCerca.setBounds(10, 167, 192, 63);
+		bar.add(btnCerca);
 		
-		JButton btnNewButton_1 = new JButton("Cronologia");
-		btnNewButton_1.setBounds(196, 121, 104, 30);
-		frame.getContentPane().add(btnNewButton_1);
+		JButton btnAreaPersonale = new JButton("Area personale");
+		btnAreaPersonale.setBounds(10, 258, 192, 63);
+		bar.add(btnAreaPersonale);
 		
-		JButton btnNewButton_2 = new JButton("Profilo");
-		btnNewButton_2.setBounds(387, 121, 95, 30);
-		frame.getContentPane().add(btnNewButton_2);
+		JButton btnContatti = new JButton("Contatti");
+		btnContatti.setBounds(10, 356, 192, 63);
+		bar.add(btnContatti);
 		
-		JLabel lblNewLabel = new JLabel("Menu");
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 30));
-		lblNewLabel.setBounds(211, 11, 89, 60);
-		frame.getContentPane().add(lblNewLabel);
+		JLabel lblNewLabel_2 = new JLabel("New label");
+		lblNewLabel_2.setIcon(new ImageIcon("Image/bar3.png"));
+		lblNewLabel_2.setBounds(0, 0, 222, 524);
+		bar.add(lblNewLabel_2);
 		
-		Component horizontalGlue = Box.createHorizontalGlue();
-		menuBar.add(horizontalGlue);
+		homePagePanel = new JPanel();
+		homePagePanel.setBounds(234, 0, 636, 524);
+		contentPane.add(homePagePanel);
+		homePagePanel.setLayout(null);
 		
-		JMenu mnNewMenu_4 = new JMenu("");
-		this.img = new ImageIcon("image\\Profilo.png").getImage();
-		this.newImage = img.getScaledInstance(25, 25, Image.SCALE_DEFAULT);
-		mnNewMenu_4.setIcon(new ImageIcon(this.newImage));
-		menuBar.add(mnNewMenu_4);
+		JLabel lblNewLabel_1 = new JLabel("Biglietteria");
+		lblNewLabel_1.setBounds(204, 22, 225, 46);
+		homePagePanel.add(lblNewLabel_1);
+		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_1.setFont(new Font("Calibri", Font.BOLD, 26));
 		
-		JMenuItem mntmNewMenuItem = new JMenuItem("Profilo");
-		mnNewMenu_4.add(mntmNewMenuItem);
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon("Image/mappaPiccola.png"));
+		lblNewLabel.setBounds(28, 80, 598, 356);
+		homePagePanel.add(lblNewLabel);
 		
-		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Conologia Acquisti");
-		mnNewMenu_4.add(mntmNewMenuItem_1);
+		searchPagePanel = new JPanel();
+		searchPagePanel.setBounds(234, 0, 636, 524);
 		
+		JLabel searchLabelTitle = new JLabel("Cerca");
+		searchLabelTitle.setBounds(240, 24, 155, 46);
+		searchPagePanel.add(searchLabelTitle);
+		searchLabelTitle.setHorizontalAlignment(SwingConstants.CENTER);
+		searchLabelTitle.setFont(new Font("Calibri", Font.BOLD, 26));
 		
-		//Azioni
-		
-		mnNewMenu.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				Home.main(null);
-				frame.setVisible(false);
-			}
-			
-			
-	});
-
-		btnAcquisti.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Acquisto.main(null);
-			}
-		});
+	
 	}
 }

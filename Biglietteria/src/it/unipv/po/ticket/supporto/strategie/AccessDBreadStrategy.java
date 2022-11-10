@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import it.unipv.po.ticket.cus.Utente;
+import it.unipv.po.ticket.gui.utente.Utente;
 import it.unipv.po.ticket.trasporto.fermata.Fermata;
 import it.unipv.po.ticket.trasporto.linea.Linea;
 import it.unipv.po.ticket.trasporto.vehicleModel.Vehicle;
@@ -188,8 +188,59 @@ public class AccessDBreadStrategy implements IDBreadStrategy{
      		
 		return corsa;
 	}
+	
+	
+	
+	
+	public String searchPassword(String user) throws Exception {
+		String sql = "SELECT Password FROM Utente WHERE Username = '"+ user +"'";
+		Connection connection = null;
+		Statement statement = null;
+		
+		connection = getDBConnection();
+		statement = connection.createStatement();
+        ResultSet result = statement.executeQuery(sql);
+        
+        result.next();
+        
+    	// Chiudo la connessione
+     	if(statement != null) {
+     		statement.close();
+     	}
+     	if(connection != null) {
+     		connection.close();
+     	}
+     		
+		return result.getString("Password");
+		
+	}
+	
+	
+	public int searchUsername(String user) throws Exception {
+		String sql = "SELECT count(*) FROM Utente WHERE Username = '"+ user +"'";
+		Connection connection = null;
+		Statement statement = null;
+		
+		connection = getDBConnection();
+		statement = connection.createStatement();
+        ResultSet result = statement.executeQuery(sql);
+        
+        result.next();
+        
+    	// Chiudo la connessione
+     	if(statement != null) {
+     		statement.close();
+     	}
+     	if(connection != null) {
+     		connection.close();
+     	}
+     		
+		return ((Number) result.getObject(1)).intValue();
+		
+	}
+	
 
-	@Override
+/*	@Override
 	public Utente login(String username,String password) throws Exception {
 		String sql = "SELECT * FROM Utente WHERE Username = '"+ username +"' and Password = '"+ password +"'" ;
 		Connection connection = null;
@@ -202,10 +253,10 @@ public class AccessDBreadStrategy implements IDBreadStrategy{
         user.setUsername(result.getString(1));
         user.setPassword(result.getString(2));
         user.setName(result.getString(3));
-        user.setSurname(result.getString(4));
+        user.setCognome(result.getString(4));
         user.setEmail(result.getString(5));
         
 		return user;
-	}
+	}*/
 		
 }
