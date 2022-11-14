@@ -25,13 +25,14 @@ public class AccessDBwriteStrategy implements IDBwriteStrategy{
 	}
 
 	@Override
-	public void aggiungiTotaleACronologia(Utente username, LocalDateTime data, double prezzo) throws Exception {
-		String sql="INSERT into CronologiaTotali(Utente,DataPagamento,Prezzo) VALUES(?,?,?);";
+	public void aggiungiTotaleACronologia(String username, LocalDateTime data, double prezzo, double puntiUtilizzati) throws Exception {
+		String sql="INSERT into CronologiaTotali(Utente,DataPagamento,Prezzo,PuntiUtilizzati) VALUES(?,?,?,?);";
 		Connection connessione= getDBConnection();
 		PreparedStatement statement= connessione.prepareStatement(sql);
-		statement.setString(1, username.getUsername());
+		statement.setString(1, username);
 		statement.setString(2, data.toString());
 		statement.setDouble(3, prezzo);	
+		statement.setDouble(4, puntiUtilizzati);
 		
 		statement.executeUpdate();
 	 	// Chiudo la connessione
@@ -44,12 +45,12 @@ public class AccessDBwriteStrategy implements IDBwriteStrategy{
 	}
 	
 	@Override
-	public void aggiungiTitoliACronologia(Utente username, LocalDateTime date, LinkedList<Titolo> lista) throws Exception {
+	public void aggiungiTitoliACronologia(String username, LocalDateTime date, LinkedList<Titolo> lista) throws Exception {
 		String sql="INSERT into CronologiaTitoli(Utente,DataPagamento,IDTitolo,PrezzoTitolo) VALUES(?,?,?,?);";
 		Connection connessione= getDBConnection();
 		PreparedStatement statement= connessione.prepareStatement(sql);
 		for(int i=0; i<lista.size(); i++) {
-			statement.setString(1, username.getUsername());
+			statement.setString(1, username);
 			statement.setString(2, date.toString());
 			statement.setString(3, lista.get(i).getID());
 			statement.setDouble(4, lista.get(i).getPrezzo());

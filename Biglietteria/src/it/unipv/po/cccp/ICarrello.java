@@ -3,6 +3,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import it.unipv.po.ticket.titolo.*;
 import it.unipv.po.cccp.pagamento.PagamentiM;
+import it.unipv.po.cccp.pagamento.Pagamento;
 import it.unipv.po.ticket.titolo.Titolo;
 
 public interface ICarrello {
@@ -11,9 +12,9 @@ public interface ICarrello {
 	public List<Titolo> getTitoli();
 	public void clearAll();
 	public double getTotale();
-	public void aggiornaCronologia(LocalDateTime d, double importo) throws Exception;
+	public void aggiornaCronologia(LocalDateTime d, double importo, double puntiUtilizzati) throws Exception;
 	void incrementaTotale(Titolo t);
 	void decrementaTotale(Titolo t);
-	void chiudeEpaga(PagamentiM m, double punti) throws Exception;
+	Pagamento chiudeEpaga(PagamentiM m, double punti) throws Exception;
 	
 }

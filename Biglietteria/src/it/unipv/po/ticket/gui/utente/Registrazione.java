@@ -32,7 +32,7 @@ public class Registrazione {
 	private JTextField txtusername;
 	private JTextField txttelefono;
 	private JPasswordField txtconferma;
-	private Utente utente = new Utente();
+	private static Utente utente;
 	DBwrite db = new DBwrite();
 	
 	String error;
@@ -41,6 +41,7 @@ public class Registrazione {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		utente = new Utente("user1");
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {

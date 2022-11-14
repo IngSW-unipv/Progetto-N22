@@ -1,11 +1,47 @@
 package it.unipv.po.ticket.gui.utente;
 
+import it.unipv.po.cccp.Carrello;
+import it.unipv.po.cccp.pagamento.PagamentiM;
+import it.unipv.po.cccp.pagamento.Pagamento;
 import it.unipv.po.ticket.supporto.DBconnection;
+import it.unipv.po.ticket.titolo.Titolo;
 
 public class Utente {
-    String username, name, cognome, email,password = "";
+    private String username, name, cognome, email,password;
 	private double punti;
-   
+	private Carrello carrello;
+	
+	public Utente(String username, String name, String cognome, String email, String password) {
+		this.username = username;
+		this.name = name;
+		this.cognome = cognome;
+		this.email = email;
+		this.password = password;
+		carrello = new Carrello(username);
+	}
+	public Utente(String username) {
+		this.username = username;
+		carrello = new Carrello(username);
+	}
+	
+	public void aggiungiTitolo(Titolo t) {
+		carrello.aggiungiTitolo(t);
+	}
+    
+	public void rimuoviTitolo(Titolo t) {
+		carrello.rimuoviTitolo(t);
+	}
+	
+	public void acquistaCarrello(PagamentiM metodo, double puntiUtilizzati) throws Exception {
+		if(puntiUtilizzati >= punti)
+			puntiUtilizzati = punti;
+		Pagamento payment = carrello.chiudeEpaga(metodo, puntiUtilizzati);
+		if(payment.isAutorizzato()) {
+			sottraiPunti(puntiUtilizzati);
+			aggiungiPunti(payment.getPuntiOttenuti());
+		}
+		
+	}
 
 	public String getUsername() {
 		return username;

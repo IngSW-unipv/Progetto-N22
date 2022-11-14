@@ -9,7 +9,7 @@ import it.unipv.po.ticket.supporto.DBwrite;
 import it.unipv.po.ticket.titolo.Titolo;
 
 public class Carrello implements ICarrello {
-	private Utente user;
+	private String user;
 	private LinkedList<Titolo> lista; //scegliamo la linkedlist rispetto all arraylist
 	//perchè non sarà di dimensioni elevate e leggerla tutta non impatterà sulle
 	//prestazioni
@@ -19,10 +19,12 @@ public class Carrello implements ICarrello {
 	
 	public Carrello() {
 		totale=0;
+		writer = new DBwrite();
 		lista= new LinkedList<Titolo>();	
 	}
-	public Carrello(Utente user) {
+	public Carrello(String user) {
 		totale=0;
+		writer = new DBwrite();
 		lista= new LinkedList<Titolo>();
 		this.user=user;
 	}
@@ -66,19 +68,21 @@ public class Carrello implements ICarrello {
 	}
 	
 	@Override
-	public void chiudeEpaga(PagamentiM metodo, double punti) throws Exception {
-		Pagamento payment = new Pagamento(totale, user.getPunti());
-		payment.calcolaPrezzoFinale(punti);
+	public Pagamento chiudeEpaga(PagamentiM metodo, double puntiUtilizzati) throws Exception {
+		Pagamento payment = new Pagamento(totale, puntiUtilizzati);
+		payment.calcolaPrezzoFinale(puntiUtilizzati);
 		payment.payStrategySetter(metodo);
-		payment.autorizza();
-		user.sottraiPunti(punti);
-		aggiornaCronologia(payment.getDataEora(), payment.getImporto());
-		user.aggiungiPunti(payment.getPuntiOttenuti());
+		boolean check = payment.autorizza();
+		if (check) 
+			aggiornaCronologia(payment.getDataEora(), payment.getImporto(), puntiUtilizzati);
+			
+		return payment;
+		
 	}
 	  
 	@Override
-	public void aggiornaCronologia(LocalDateTime date, double importo) throws Exception {
-		writer.aggiungiTotaleACronologia(user, date, importo);
+	public void aggiornaCronologia(LocalDateTime date, double importo, double puntiUtilizzati) throws Exception {
+		writer.aggiungiTotaleACronologia(user, date, importo, puntiUtilizzati);
 		writer.aggiungiTitoliACronologia(user, date, lista);
 	}
 
@@ -86,13 +90,6 @@ public class Carrello implements ICarrello {
 
 
 
-	public Utente getUser() {
-		return user;
-	}
-
-	public void setUser(Utente user) {
-		this.user = user;
-	}
 	
 	
 	

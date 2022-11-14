@@ -16,15 +16,13 @@ private static IDBwriteStrategy strategiaDiScrittura;
 		strategiaDiScrittura= new AccessDBwriteStrategy();
 	}
 	
-	public Connection getDBConnection() throws Exception{
-		return strategiaDiScrittura.getDBConnection();
-	}
+
 	
-	public void aggiungiTotaleACronologia(Utente username, LocalDateTime data, double prezzo) throws Exception {
-		 strategiaDiScrittura.aggiungiTotaleACronologia(username, data, prezzo);
+	public void aggiungiTotaleACronologia(String username, LocalDateTime data, double prezzo, double puntiUtilizzati) throws Exception {
+		 strategiaDiScrittura.aggiungiTotaleACronologia(username, data, prezzo, puntiUtilizzati);
 	
 	}
-	public void aggiungiTitoliACronologia(Utente user, LocalDateTime date, LinkedList<Titolo> list) throws Exception {
+	public void aggiungiTitoliACronologia(String user, LocalDateTime date, LinkedList<Titolo> list) throws Exception {
 		 strategiaDiScrittura.aggiungiTitoliACronologia(user, date, list);
 	}
 	

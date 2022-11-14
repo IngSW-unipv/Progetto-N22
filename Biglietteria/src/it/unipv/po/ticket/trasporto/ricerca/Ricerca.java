@@ -5,14 +5,14 @@ import java.util.ArrayList;
 import it.unipv.po.ticket.trasporto.fermata.Fermata;
 
 public class Ricerca{
-	InterfaceRicercaStrategy ricerca;
+	private InterfaceRicercaStrategy ricercaStrategy;
 	
 	public Ricerca() {
-		ricerca = new RicercaStrategy();
+		ricercaStrategy = new RicercaStrategy();
 	}
 	
 	public ArrayList<Fermata> cerca(String a, String b) throws Exception {
-		return ricerca.cerca(a, b);
+		return ricercaStrategy.cerca(a, b);
 	}
 	
 }

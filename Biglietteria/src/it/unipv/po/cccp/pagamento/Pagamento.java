@@ -16,6 +16,7 @@ public class Pagamento implements IPagamento{
 	private CalcolatoreSconto calcolatoreSconto;
 	private IPaymentStrategy paymentMethod;
 	private CalcolatorePunti calcolatorePunti;
+	private boolean autorizzato;
 	
 	
 	
@@ -23,6 +24,7 @@ public class Pagamento implements IPagamento{
 	
 
 	public Pagamento(double costo, double puntiMax) {
+		autorizzato = false;
 		dataEora= LocalDateTime.now();
 		importo=costo;
 		payStrategySetter(PagamentiM.creditcard); //settiamo di default questo
@@ -55,13 +57,16 @@ public class Pagamento implements IPagamento{
 	}
 	
 	@Override
-	public void autorizza() throws Exception {
+	public boolean autorizza() throws Exception {
 		try {
-			paymentMethod.autorizzaRichiesta(importo);
+			boolean check = paymentMethod.autorizzaRichiesta(importo);
+			this.autorizzato = check;
+			return check;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return false;
 	}
 	
 	public double getPuntiOttenuti() {
@@ -82,6 +87,14 @@ public class Pagamento implements IPagamento{
 
 	public void setImporto(double importo) {
 		this.importo = importo;
+	}
+
+	public boolean isAutorizzato() {
+		return autorizzato;
+	}
+
+	public void setAutorizzato(boolean autorizzato) {
+		this.autorizzato = autorizzato;
 	}
 	
 
