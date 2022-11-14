@@ -28,31 +28,4 @@ public class DBconnection {
 		return null;
 	}
 	
-	public static Linea getLinee(int id) throws Exception{
-		return strategiaDiConnessione.getLinee(id);
-	}
-	
-	public static ArrayList<Fermata> getFermate(String IDlinea) throws Exception{
-		return strategiaDiConnessione.getFermate(IDlinea);
-	}
-	
-	public static int searchLinea(String IDfermata) throws Exception {
-		return strategiaDiConnessione.searchLinea(IDfermata);
-		
-	}
-	
-	public static String getSnodi(int partenza, int destinazione) throws Exception {
-		return strategiaDiConnessione.getSnodi(partenza, destinazione);
-		
-	}
-	
-	public static String[] elencoFermate() throws Exception {
-		
-		return strategiaDiConnessione.elencoFermate();
-		
-	}
-	
-
-	
-	
 }

@@ -1,18 +1,32 @@
 package it.unipv.po.ticket.trasporto.fermata;
 
+import java.time.LocalTime;
+
+import it.unipv.po.ticket.trasporto.vehicleModel.Vehicle;
+
 public class Fermata {
 	
 	public String CodiceFermata;
-	public String orario;
+	public boolean snodo;
+	public LocalTime orario;
 	
-	public Fermata(String orario, String CodiceFermata) {
+	public String CodiceLinea;
+	public Vehicle mezzo;
+	
+	public Fermata(String codiceFermata, boolean snodo, LocalTime orario, String codiceLinea, Vehicle mezzo) {
+		CodiceFermata = codiceFermata;
+		this.snodo = snodo;
 		this.orario = orario;
-		this.CodiceFermata = CodiceFermata;
+		CodiceLinea = codiceLinea;
+		this.mezzo = mezzo;
 	}
 	
 	public Fermata() {
 		this.orario = null;
+		this.snodo = false;
 		this.CodiceFermata = "";
+		this.CodiceLinea = "";
+		this.mezzo = null;
 	}
 	
 	//getter e setter
@@ -24,11 +38,44 @@ public class Fermata {
 		CodiceFermata = codiceFermata;
 	}
 	
-	public String getOrario() {
+	public LocalTime getOrario() {
 		return orario;
 	}
 	
-	public void setOrario(String orario) {
+	public void setOrario(LocalTime orario) {
 		this.orario = orario;
 	}
+	
+	public void setSnodo(boolean snodo) {
+		this.snodo = snodo;
+	}
+
+	public String getCodiceLinea() {
+		return CodiceLinea;
+	}
+
+	public void setCodiceLinea(String codiceLinea) {
+		CodiceLinea = codiceLinea;
+	}
+
+	public Vehicle getMezzo() {
+		return mezzo;
+	}
+
+	public void setMezzo(Vehicle mezzo) {
+		this.mezzo = mezzo;
+	}
+
+	public boolean isSnodo() {
+		return snodo;
+	}
+
+	@Override
+	public String toString() {
+		return "Fermata [CodiceFermata=" + CodiceFermata + ", snodo=" + snodo + ", orario=" + orario + ", CodiceLinea="
+				+ CodiceLinea + ", mezzo=" + mezzo + "]";
+	}
+
+	
+	
 }

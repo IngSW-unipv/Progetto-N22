@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 import it.unipv.po.ticket.gui.utente.Utente;
@@ -123,7 +124,7 @@ public class AccessDBreadStrategy implements IDBreadStrategy{
 
 	@Override
 	public ArrayList<Fermata> getFermate(String IDlinea) throws Exception {
-		String sql = "SELECT * FROM Orario WHERE IDlinea = '"+ IDlinea +"'";
+		String sql = "SELECT * FROM Orario inner join Linea on Orario.IDlinea = Linea.IDlinea WHERE Orario.IDlinea = '"+ IDlinea +"'";
 		Connection connection = null;
 		Statement statement = null;
 		
@@ -140,8 +141,10 @@ public class AccessDBreadStrategy implements IDBreadStrategy{
 
         	//leggo la tabella
         	fermataDB.setCodiceFermata(result.getString("IDfermata"));
-        	fermataDB.setOrario(result.getString("Orario"));
-       
+        	fermataDB.setOrario(LocalTime.parse(result.getString("Orario")));
+        	
+        	fermataDB.setMezzo(Vehicle.valueOf(result.getString("Mezzo")));
+        	fermataDB.setCodiceLinea(result.getString("IDlinea"));
             //inserisco le fermate nell'array
         	lineaDB.add(fermataDB);
             

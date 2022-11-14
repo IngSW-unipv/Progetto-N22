@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
 import java.awt.Font;
@@ -14,13 +15,27 @@ import javax.swing.JTextField;
 import java.awt.Choice;
 import javax.swing.JFormattedTextField;
 import java.awt.TextField;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.Label;
+import java.awt.SystemColor;
+import javax.swing.border.TitledBorder;
+
+import it.unipv.po.ticket.supporto.DBread;
+
+import javax.swing.border.EtchedBorder;
+import java.awt.Color;
+import javax.swing.JToggleButton;
+import javax.swing.JComboBox;
+import javax.swing.JSeparator;
+import javax.swing.JTextArea;
+import javax.swing.JScrollPane;
 
 public class Cerca extends JFrame {
 
 
 	private JPanel contentPane;
-
+	DBread leggi = new DBread();
 	/**
 	 * Launch the application.
 	 */
@@ -39,10 +54,11 @@ public class Cerca extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * @throws Exception 
 	 */
-	public Cerca() {
+	public Cerca() throws Exception {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 873, 552);
+		setBounds(100, 100, 840, 533);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -70,48 +86,122 @@ public class Cerca extends JFrame {
 		btnContatti.setBounds(10, 356, 192, 63);
 		bar.add(btnContatti);
 		
-		JLabel lblNewLabel_2 = new JLabel("New label");
-		lblNewLabel_2.setIcon(new ImageIcon(Cerca.class.getResource("/it/unipv/po/ticket/gui/home/bar3.png")));
-		lblNewLabel_2.setBounds(0, 0, 222, 524);
-		bar.add(lblNewLabel_2);
-		
 		JPanel searchPagePanel = new JPanel();
-		searchPagePanel.setBounds(232, 0, 627, 524);
+		searchPagePanel.setBounds(232, -19, 627, 524);
 		contentPane.add(searchPagePanel);
 		searchPagePanel.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Ricerca Percorso");
-		lblNewLabel.setFont(new Font("Calibri", Font.BOLD, 26));
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(197, 10, 223, 47);
-		searchPagePanel.add(lblNewLabel);
+		JPanel panel = new JPanel();
+		panel.setLayout(null);
+		panel.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "", TitledBorder.LEFT, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panel.setBackground(SystemColor.menu);
+		panel.setBounds(10, 36, 284, 465);
+		searchPagePanel.add(panel);
 		
-		JLabel lblNewLabel_1 = new JLabel("Fermata di partenza");
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblNewLabel_1.setBounds(54, 97, 223, 25);
-		searchPagePanel.add(lblNewLabel_1);
+		JToggleButton tglBiglietto = new JToggleButton("Biglietto");
+		tglBiglietto.setSelected(true);
+		tglBiglietto.setBounds(10, 21, 127, 21);
+		panel.add(tglBiglietto);
 		
-		JLabel lblNewLabel_1_1 = new JLabel("Fermata di arrivo");
-		lblNewLabel_1_1.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblNewLabel_1_1.setBounds(54, 212, 223, 25);
-		searchPagePanel.add(lblNewLabel_1_1);
+		JToggleButton tglAbbonamento = new JToggleButton("Abbonamento");
+		tglAbbonamento.setBounds(147, 21, 127, 21);
+		panel.add(tglAbbonamento);
 		
-		JLabel lblNewLabel_1_1_1 = new JLabel("Orario di partenza");
-		lblNewLabel_1_1_1.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblNewLabel_1_1_1.setBounds(54, 351, 223, 25);
-		searchPagePanel.add(lblNewLabel_1_1_1);
+		JComboBox comboBoxPartenza = new JComboBox(leggi.elencoFermate());
+		comboBoxPartenza.setMaximumRowCount(10);
+		comboBoxPartenza.setBackground(Color.WHITE);
+		comboBoxPartenza.setBounds(147, 90, 103, 30);
+		panel.add(comboBoxPartenza);
 		
-		JFormattedTextField formattedTextField = new JFormattedTextField();
-		formattedTextField.setBounds(54, 152, 169, 19);
+		JComboBox comboBoxArrivo = new JComboBox(leggi.elencoFermate());
+		comboBoxArrivo.setMaximumRowCount(10);
+		comboBoxArrivo.setBackground(Color.WHITE);
+		comboBoxArrivo.setBounds(147, 157, 103, 30);
+		panel.add(comboBoxArrivo);
 		
-		searchPagePanel.add(formattedTextField);
+		JSeparator separator = new JSeparator();
+		separator.setBounds(10, 225, 264, 2);
+		panel.add(separator);
 		
-		JFormattedTextField formattedTextField_1 = new JFormattedTextField();
-		formattedTextField_1.setBounds(54, 268, 169, 19);
-		searchPagePanel.add(formattedTextField_1);
+		JButton btnNewButton_1 = new JButton("Cerca");
+		btnNewButton_1.setBounds(98, 412, 85, 21);
+		panel.add(btnNewButton_1);
+		
+		JSeparator separator_1 = new JSeparator();
+		separator_1.setBounds(10, 400, 264, 2);
+		panel.add(separator_1);
+		
+		JSeparator separator_2 = new JSeparator();
+		separator_2.setBounds(10, 52, 264, 3);
+		panel.add(separator_2);
+		
+		JLabel lblNewLabel = new JLabel("Fermata di partenza");
+		lblNewLabel.setBounds(10, 99, 148, 13);
+		panel.add(lblNewLabel);
+		
+		JLabel lblNewLabel_1 = new JLabel("Fermata di arrivo");
+		lblNewLabel_1.setBounds(10, 166, 148, 13);
+		panel.add(lblNewLabel_1);
+		
+		JTextArea txtCerca = new JTextArea();
+		txtCerca.setBackground(SystemColor.menu);
+		txtCerca.setBounds(10, 231, 264, 159);
+		panel.add(txtCerca);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(304, 36, 284, 465);
+		searchPagePanel.add(scrollPane);
 		
 
+		//Azioni
 		
+		tglBiglietto.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				if(tglBiglietto.isSelected() == true) {
+					tglAbbonamento.setSelected(false);
+					separator.setVisible(true);
+				}
+				else {
+					tglAbbonamento.setSelected(true);
+					separator.setVisible(false);
+				}
+				
+			}
+		});
+				
+		tglAbbonamento.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(tglAbbonamento.isSelected() == true) {
+					tglBiglietto.setSelected(false);
+					separator.setVisible(false);
+				}
+				else {
+					tglBiglietto.setSelected(true);
+					separator.setVisible(true);
+				}
+			}
+		});
+		
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String str = "";
+				
+				if(comboBoxPartenza.getSelectedItem() != "" && comboBoxArrivo.getSelectedItem() != "") {
+				
+					try {
+						//str = corsa.cerca(comboBoxPartenza.getSelectedItem().toString(), comboBoxArrivo.getSelectedItem().toString());
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					
+					//txtDettagli.setText(str);
+				}else {
+					JOptionPane.showMessageDialog(null, "Fermate non selezionate","Search error",JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
 		
 		
 		

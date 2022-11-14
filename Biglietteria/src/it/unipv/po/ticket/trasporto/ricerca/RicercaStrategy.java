@@ -1,5 +1,6 @@
 package it.unipv.po.ticket.trasporto.ricerca;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 import it.unipv.po.ticket.supporto.DBread;
@@ -12,7 +13,7 @@ public class RicercaStrategy implements InterfaceRicercaStrategy{
 
 	//metodi
 	@SuppressWarnings("static-access")
-	public ArrayList<Fermata> cerca(String a, String b) throws Exception {
+	public ArrayList<Fermata> cerca(String a, String b, LocalTime orario) throws Exception {
 		
 		ArrayList<Fermata> ricerca = new ArrayList<Fermata>();
 		ArrayList<Linea> LineeA = db.searchLinea(a);
@@ -23,7 +24,7 @@ public class RicercaStrategy implements InterfaceRicercaStrategy{
 		
 		for(int i = 0; i < LineeA.size(); i++) 
 			for(int j = 0; j < LineeB.size(); j++) 
-				if(LineeA.get(i).getIDlinea().compareTo(LineeB.get(j).getIDlinea()) == 0) return LineeA.get(i).ricercaFermate(a, b);
+				if(LineeA.get(i).getIDlinea().compareTo(LineeB.get(j).getIDlinea()) == 0) return LineeA.get(i).ricercaFermate(a, b, orario);
 		
 		//nel caso non appartengano alla medesima linea cerco la fermata di snodo comune
 		for(int i = 0; i < LineeA.size(); i++) 
@@ -32,9 +33,9 @@ public class RicercaStrategy implements InterfaceRicercaStrategy{
 				
 				if(snodo != "") {
 					//calcolo le fermate dalla fermata di partenza fino allo snodo e dallo snodo alla destinazione
-					ricerca.addAll(LineeA.get(i).ricercaFermate(a, snodo));
-					ricerca.remove(ricerca.size()-1);
-					ricerca.addAll(LineeB.get(j).ricercaFermate(snodo, b));
+					ricerca.addAll(LineeA.get(i).ricercaFermate(a, snodo, orario));
+					//ricerca.remove(ricerca.size()-1);
+					ricerca.addAll(LineeB.get(j).ricercaFermate(snodo, b, ricerca.get(ricerca.size()-1).getOrario()));
 				}
 			}
 		
@@ -42,7 +43,25 @@ public class RicercaStrategy implements InterfaceRicercaStrategy{
 		
 	}
 	
-	
+	public String stampaRicerca(ArrayList<Fermata> ricerca) {
+		Fermata inizio = ricerca.get(0);
+		Fermata snodo = new Fermata();
+		String str = "";
+		
+		for(Fermata n : ricerca) {
+			if(inizio.getCodiceFermata().compareTo(n.getCodiceFermata()) == 0) {
+				inizio = n;
+				str += "\n"+inizio.getMezzo() +" "+ inizio.getCodiceLinea() +"\n";
+			}
+			if(snodo.getCodiceFermata().compareTo(n.getCodiceFermata()) != 0) str += n.getCodiceFermata() +" "+ n.getOrario() +"\n";
+			else if(snodo.getCodiceFermata().compareTo(n.getCodiceFermata()) == 0) str += "Snodo con "+ n.getMezzo() +" "+ n.getCodiceLinea() +"\n";
+			
+			snodo = n;
+			
+		}
+		
+		return str;
+	}
 	//Per inizializzare la comboBox
 	/*public String[] getLinee(){
 		

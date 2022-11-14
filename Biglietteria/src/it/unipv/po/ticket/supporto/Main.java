@@ -1,6 +1,7 @@
 package it.unipv.po.ticket.supporto;
 
-import java.time.LocalDateTime; 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -22,9 +23,9 @@ public class Main {
         String partenza = "F004";
         String  destinazione = "F026";
         
-        ArrayList<Fermata> elenco = corsa.cerca(partenza, destinazione);
+        ArrayList<Fermata> elenco = corsa.cerca(partenza, destinazione, LocalTime.parse("12:00:00"));
         
-        for(Fermata n : elenco) System.out.println(n.CodiceFermata);
+        System.out.println(corsa.stampaRicerca(elenco));
         
         //----------------------------------------------------------------------------------------------------
         
