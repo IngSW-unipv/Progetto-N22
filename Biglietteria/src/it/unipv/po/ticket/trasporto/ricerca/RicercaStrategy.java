@@ -54,19 +54,19 @@ public class RicercaStrategy implements InterfaceRicercaStrategy{
 				str += "\n• "+inizio.getMezzo() +" "+ inizio.getCodiceLinea() +"\n";
 			}
 			if(snodo.getCodiceFermata().compareTo(n.getCodiceFermata()) != 0) {
-				str += ":\n";
+				str += "¦\n";
 				str += "• "+n.getCodiceFermata() +" "+ n.getOrario() +"\n";
 			}
 			else if(snodo.getCodiceFermata().compareTo(n.getCodiceFermata()) == 0) {
-				str += ":\n";
-				str += ": Snodo con "+ n.getMezzo() +" "+ n.getCodiceLinea() +"\n";
+				str += "¦\n";
+				str += "¦ Snodo con "+ n.getMezzo() +" "+ n.getCodiceLinea() +"\n";
 				
 				int minuti = n.getOrario().getMinute() - snodo.getOrario().getMinute();
 		        int ore = n.getOrario().getHour() - snodo.getOrario().getHour();
 		        int attesa = minuti + ore*60;
 
 				str += "o tempo di attesa coincidenza: " + attesa +" minuti\n";
-				str += ":\n";
+				str += "¦\n";
 			}
 			
 			snodo = n;

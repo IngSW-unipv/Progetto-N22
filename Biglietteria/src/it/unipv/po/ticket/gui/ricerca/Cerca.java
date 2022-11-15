@@ -62,6 +62,7 @@ public class Cerca extends JFrame {
 	 * @throws Exception 
 	 */
 	public Cerca() throws Exception {
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 550, 477);
 		contentPane = new JPanel();
@@ -92,7 +93,7 @@ public class Cerca extends JFrame {
 		bar.add(btnContatti);
 		
 		JPanel searchPagePanel = new JPanel();
-		searchPagePanel.setBounds(232, -19, 627, 524);
+		searchPagePanel.setBounds(232, 0, 316, 469);
 		contentPane.add(searchPagePanel);
 		searchPagePanel.setLayout(null);
 		
@@ -100,7 +101,7 @@ public class Cerca extends JFrame {
 		panel.setLayout(null);
 		panel.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "", TitledBorder.LEFT, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		panel.setBackground(SystemColor.menu);
-		panel.setBounds(10, 36, 284, 413);
+		panel.setBounds(10, 10, 284, 420);
 		searchPagePanel.add(panel);
 		
 		JToggleButton tglBiglietto = new JToggleButton("Biglietto");
@@ -168,9 +169,13 @@ public class Cerca extends JFrame {
 		orariotxt.setBounds(28, 250, 172, 13);
 		panel.add(orariotxt);
 		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(10, 10, 264, 393);
-		panel.add(panel_1);
+		JPanel panel2 = new JPanel();
+		panel2.setLayout(null);
+		panel2.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "", TitledBorder.LEFT, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panel2.setBackground(SystemColor.menu);
+		panel2.setBounds(10, 10, 284, 420);
+		searchPagePanel.add(panel2);
+		panel2.setVisible(false);
 		
 
 		//Azioni
@@ -228,6 +233,8 @@ public class Cerca extends JFrame {
 					try {
 						//str = corsa.cerca(comboBoxPartenza.getSelectedItem().toString(), comboBoxArrivo.getSelectedItem().toString());
 						panel.setVisible(false);
+						panel2.setVisible(true);
+						setBounds(100, 100, 750, 477);
 						System.out.println("ciao");
 					} catch (Exception e1) {
 						// TODO Auto-generated catch block
