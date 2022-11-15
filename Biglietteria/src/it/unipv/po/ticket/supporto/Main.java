@@ -36,6 +36,11 @@ public class Main {
         System.out.println(biglietto.getIdTitolo());
         System.out.println(biglietto.getPrezzo());
         
+        ArrayList<Biglietto> biglietti = corsa.cercaEGenera(partenza, destinazione, LocalTime.parse("12:00:00"));
+        for(int i=0; i<biglietti.size();i++) {
+        	System.out.println("id biglietto "+i+": "+biglietti.get(i).getIdTitolo());
+        }
+        
         
         //----------------------------------------------------------------------------------------------------
         

@@ -18,6 +18,10 @@ public abstract class Titolo {
 	protected CalcolatorePrezzo calcolatorePrezzo;
 	protected CalcolatoreID calcolatoreID;
 	
+	public Titolo(ArrayList<Fermata> percorso) {
+		this.percorso = percorso;
+	}
+	
 	public Titolo() {
 		this.idTitolo = "?????";
 		this.prezzo = 0;
