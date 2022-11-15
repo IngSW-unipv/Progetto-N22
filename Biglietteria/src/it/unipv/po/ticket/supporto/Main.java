@@ -27,6 +27,12 @@ public class Main {
         
         System.out.println(corsa.stampaRicerca(elenco));
         
+        
+        LocalTime a = LocalTime.parse("12:30:00");
+        LocalTime b = LocalTime.parse("14:00:00");
+        
+        
+        
         //----------------------------------------------------------------------------------------------------
         
         // ---------------------------------------- rose Prove Ronce ----------
@@ -52,7 +58,7 @@ public class Main {
         
         
         //Prove per la rimozione di utente da carrello
-        Utente u = new Utente("Alessandro");
+        /*Utente u = new Utente("Alessandro");
       
         u.setPunti(20);
         //DBwrite scrittore = new DBwrite();
@@ -72,7 +78,7 @@ public class Main {
         u.acquistaCarrello(PagamentiM.creditcard, 20);
         
         System.out.println("punti :" + u.getPunti());
-        System.out.println("username :" + u.getUsername());
+        System.out.println("username :" + u.getUsername());*/
         
         
 	}

@@ -1,4 +1,4 @@
-package it.unipv.po.ticket.gui.home;
+package it.unipv.po.ticket.gui.ricerca;
 
 import java.awt.EventQueue;
 
@@ -30,6 +30,11 @@ import javax.swing.JComboBox;
 import javax.swing.JSeparator;
 import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
+import javax.swing.JRadioButton;
+import javax.swing.JScrollBar;
+import javax.swing.JSlider;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.ChangeEvent;
 
 public class Cerca extends JFrame {
 
@@ -58,7 +63,7 @@ public class Cerca extends JFrame {
 	 */
 	public Cerca() throws Exception {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 840, 533);
+		setBounds(100, 100, 550, 477);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -66,7 +71,7 @@ public class Cerca extends JFrame {
 		contentPane.setLayout(null);
 		
 		JPanel bar = new JPanel();
-		bar.setBounds(0, 0, 222, 524);
+		bar.setBounds(0, 0, 222, 430);
 		bar.setLayout(null);
 		contentPane.add(bar);
 		
@@ -95,7 +100,7 @@ public class Cerca extends JFrame {
 		panel.setLayout(null);
 		panel.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "", TitledBorder.LEFT, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		panel.setBackground(SystemColor.menu);
-		panel.setBounds(10, 36, 284, 465);
+		panel.setBounds(10, 36, 284, 413);
 		searchPagePanel.add(panel);
 		
 		JToggleButton tglBiglietto = new JToggleButton("Biglietto");
@@ -123,12 +128,12 @@ public class Cerca extends JFrame {
 		separator.setBounds(10, 225, 264, 2);
 		panel.add(separator);
 		
-		JButton btnNewButton_1 = new JButton("Cerca");
-		btnNewButton_1.setBounds(98, 412, 85, 21);
-		panel.add(btnNewButton_1);
+		JButton cercaBtn = new JButton("Cerca");
+		cercaBtn.setBounds(98, 382, 85, 21);
+		panel.add(cercaBtn);
 		
 		JSeparator separator_1 = new JSeparator();
-		separator_1.setBounds(10, 400, 264, 2);
+		separator_1.setBounds(10, 370, 264, 2);
 		panel.add(separator_1);
 		
 		JSeparator separator_2 = new JSeparator();
@@ -143,14 +148,29 @@ public class Cerca extends JFrame {
 		lblNewLabel_1.setBounds(10, 166, 148, 13);
 		panel.add(lblNewLabel_1);
 		
-		JTextArea txtCerca = new JTextArea();
-		txtCerca.setBackground(SystemColor.menu);
-		txtCerca.setBounds(10, 231, 264, 159);
-		panel.add(txtCerca);
+		JSlider orarioSlider = new JSlider();
+		orarioSlider.setValue(24);
 		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(304, 36, 284, 465);
-		searchPagePanel.add(scrollPane);
+		orarioSlider.setMaximum(47);
+		orarioSlider.setBounds(40, 318, 200, 22);
+		panel.add(orarioSlider);
+		
+		JLabel orarioPartenzatxt = new JLabel("12:00");
+		orarioPartenzatxt.setBounds(28, 295, 45, 13);
+		panel.add(orarioPartenzatxt);
+		
+		JLabel orarioMaxtxt = new JLabel("23:59");
+		orarioMaxtxt.setHorizontalAlignment(SwingConstants.CENTER);
+		orarioMaxtxt.setBounds(205, 295, 45, 13);
+		panel.add(orarioMaxtxt);
+		
+		JLabel orariotxt = new JLabel("A che ora vuoi partire?");
+		orariotxt.setBounds(28, 250, 172, 13);
+		panel.add(orariotxt);
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBounds(10, 10, 264, 393);
+		panel.add(panel_1);
 		
 
 		//Azioni
@@ -161,10 +181,18 @@ public class Cerca extends JFrame {
 				if(tglBiglietto.isSelected() == true) {
 					tglAbbonamento.setSelected(false);
 					separator.setVisible(true);
+					orarioMaxtxt.setVisible(true);
+					orarioPartenzatxt.setVisible(true);
+					orarioSlider.setVisible(true);
+					orariotxt.setVisible(true);
 				}
 				else {
 					tglAbbonamento.setSelected(true);
 					separator.setVisible(false);
+					orarioMaxtxt.setVisible(false);
+					orarioPartenzatxt.setVisible(false);
+					orarioSlider.setVisible(false);
+					orariotxt.setVisible(false);
 				}
 				
 			}
@@ -175,15 +203,23 @@ public class Cerca extends JFrame {
 				if(tglAbbonamento.isSelected() == true) {
 					tglBiglietto.setSelected(false);
 					separator.setVisible(false);
+					orarioMaxtxt.setVisible(false);
+					orarioPartenzatxt.setVisible(false);
+					orarioSlider.setVisible(false);
+					orariotxt.setVisible(false);
 				}
 				else {
 					tglBiglietto.setSelected(true);
 					separator.setVisible(true);
+					orarioMaxtxt.setVisible(true);
+					orarioPartenzatxt.setVisible(true);
+					orarioSlider.setVisible(true);
+					orariotxt.setVisible(true);
 				}
 			}
 		});
 		
-		btnNewButton.addActionListener(new ActionListener() {
+		cercaBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String str = "";
 				
@@ -191,6 +227,8 @@ public class Cerca extends JFrame {
 				
 					try {
 						//str = corsa.cerca(comboBoxPartenza.getSelectedItem().toString(), comboBoxArrivo.getSelectedItem().toString());
+						panel.setVisible(false);
+						System.out.println("ciao");
 					} catch (Exception e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -200,6 +238,17 @@ public class Cerca extends JFrame {
 				}else {
 					JOptionPane.showMessageDialog(null, "Fermate non selezionate","Search error",JOptionPane.ERROR_MESSAGE);
 				}
+			}
+		});
+		
+		orarioSlider.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				
+				int a = orarioSlider.getValue()/2;
+				int b = (orarioSlider.getValue()%2)*30;	
+				String str = Integer.toString(a) + ":" + Integer.toString(b);
+				
+				orarioPartenzatxt.setText(str);
 			}
 		});
 		
