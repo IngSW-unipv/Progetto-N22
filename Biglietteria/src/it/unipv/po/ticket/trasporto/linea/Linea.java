@@ -11,12 +11,12 @@ import it.unipv.po.ticket.trasporto.zonaModel.Zona;
 
 public class Linea implements Tappe{
 	
-	public ArrayList<Fermata> linea = new ArrayList<>();
-	public int linieAttive = 0;
-	public String IDlinea;
-	public float km;
-	public Vehicle mezzo;
-	public Zona zona;
+	private ArrayList<Fermata> linea = new ArrayList<>();
+	private int linieAttive = 0;
+	private String IDlinea;
+	private float km;
+	private Vehicle mezzo;
+	private Zona zona;
 	
 	public Linea(String iDlinea, float km, Vehicle mezzo, Zona zona) {
 		this.IDlinea = iDlinea;
@@ -56,16 +56,6 @@ public class Linea implements Tappe{
 	}
 	
 	//getter and setter
-	
-	//stampa dell'intera linea di fermate raccolte nel vettore
-	public String getLinea() {
-		String msg = "";
-		
-		for(Fermata n : linea) msg += " Fermata: " + n.getCodiceFermata() + "               " + n.getOrario() + "\n";
-		
-		
-		return msg;
-	}
 
 	//crezione dell'elenco di fermate in base alla zona 
 	public void addLinea(Fermata fermata) {
@@ -75,6 +65,10 @@ public class Linea implements Tappe{
 	
 	public void setLinea(ArrayList<Fermata> linea) {
 		this.linea = linea;
+	}
+	
+	public ArrayList<Fermata> getLinea() {
+		return linea;
 	}
 	
 	public int getLinieAttive() {

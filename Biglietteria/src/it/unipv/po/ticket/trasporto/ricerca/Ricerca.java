@@ -16,20 +16,18 @@ public class Ricerca{
 		generatoreTitoli = new GeneratoreTitoli();
 	}
 	
-	public ArrayList<Fermata>  cerca(String a, String b, LocalTime orario) throws Exception {
+	public ArrayList<ArrayList<Fermata>>  cerca(String a, String b, LocalTime orario) throws Exception {
 		return ricercaStrategy.cerca(a, b, orario);
 	}
 	
-	public ArrayList<Biglietto> cercaEGenera(String a, String b, LocalTime orario) throws Exception {
+	/*public ArrayList<Biglietto> cercaEGenera(String a, String b, LocalTime orario) throws Exception {
 		ArrayList<Fermata> percorsi = ricercaStrategy.cerca(a, b, orario);
 		return generatoreTitoli.generaBiglietti(percorsi);
 	}
-	
-
 	
 	public String stampaRicerca(ArrayList<Fermata> cerca) {
 		return ricercaStrategy.stampaRicerca(cerca);
 		
 	}
-	
+	*/
 }

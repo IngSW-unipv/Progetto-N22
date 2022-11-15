@@ -9,22 +9,31 @@ import it.unipv.po.ticket.trasporto.linea.Linea;
 
 public class RicercaStrategy implements InterfaceRicercaStrategy{
 	
-	DBread db = new DBread();
-
+	private DBread db = new DBread();
+	
 	//metodi
 	@SuppressWarnings("static-access")
-	public ArrayList<Fermata> cerca(String a, String b, LocalTime orario) throws Exception {
+	public ArrayList<ArrayList<Fermata>> cerca(String a, String b, LocalTime orario) throws Exception {
 		
-		ArrayList<Fermata> ricerca = new ArrayList<Fermata>();
+		ArrayList<ArrayList<Fermata>> ricerca = new ArrayList<>();
 		ArrayList<Linea> LineeA = db.searchLinea(a);
 		ArrayList<Linea> LineeB = db.searchLinea(b);
-		String  snodo = "";
+		String  snodo;
+		int ricercheAttive = 0;
+		int dimtmp;
 		
 		//controllo se le due fermate appartengono alla stessa linea
 		
 		for(int i = 0; i < LineeA.size(); i++) 
 			for(int j = 0; j < LineeB.size(); j++) 
-				if(LineeA.get(i).getIDlinea().compareTo(LineeB.get(j).getIDlinea()) == 0) return LineeA.get(i).ricercaFermate(a, b, orario);
+				if(LineeA.get(i).getIDlinea().compareTo(LineeB.get(j).getIDlinea()) == 0) {
+					
+					ricerca.add(new ArrayList<Fermata>());
+					ricerca.get(ricercheAttive).addAll(LineeA.get(i).ricercaFermate(a, b, orario));
+					ricercheAttive++;
+					
+					return ricerca;
+				}
 		
 		//nel caso non appartengano alla medesima linea cerco la fermata di snodo comune
 		for(int i = 0; i < LineeA.size(); i++) 
@@ -32,10 +41,20 @@ public class RicercaStrategy implements InterfaceRicercaStrategy{
 				snodo = db.getSnodi(LineeA.get(i).getIDlinea(), LineeB.get(j).getIDlinea());
 				
 				if(snodo != "") {
+					ricerca.add(new ArrayList<Fermata>());
+					
 					//calcolo le fermate dalla fermata di partenza fino allo snodo e dallo snodo alla destinazione
-					ricerca.addAll(LineeA.get(i).ricercaFermate(a, snodo, orario));
-					//ricerca.remove(ricerca.size()-1);
-					ricerca.addAll(LineeB.get(j).ricercaFermate(snodo, b, ricerca.get(ricerca.size()-1).getOrario()));
+					ricerca.get(ricercheAttive).addAll(LineeA.get(i).ricercaFermate(a, snodo, orario));
+					
+					//salvo la posizione dello snodo da cancellare poi successivamente
+					dimtmp = ricerca.get(ricercheAttive).size();
+					
+					ricerca.get(ricercheAttive).addAll(LineeB.get(j).ricercaFermate(snodo, b, ricerca.get(ricercheAttive).get(ricerca.size()-1).getOrario()));
+					
+					//rimozione snodo doppio e set dello snodo a true per agevolare il riconoscimento in stampa
+					ricerca.get(ricercheAttive).remove(dimtmp-1);
+					ricerca.get(ricercheAttive).get(dimtmp-1).setSnodo(true);
+					ricercheAttive++;
 				}
 			}
 		
@@ -51,22 +70,22 @@ public class RicercaStrategy implements InterfaceRicercaStrategy{
 		for(Fermata n : ricerca) {
 			if(inizio.getCodiceFermata().compareTo(n.getCodiceFermata()) == 0) {
 				inizio = n;
-				str += "\n● "+inizio.getMezzo() +" "+ inizio.getCodiceLinea() +"\n";
+				str += "\n⦿ "+inizio.getMezzo() +" "+ inizio.getCodiceLinea() +"\n";
 			}
 			if(snodo.getCodiceFermata().compareTo(n.getCodiceFermata()) != 0) {
-				str += "¦\n";
-				str += "● "+n.getCodiceFermata() +" "+ n.getOrario() +"\n";
+				str += " ¦\n";
+				str += "⦿ "+n.getCodiceFermata() +" "+ n.getOrario() +"\n";
 			}
 			else if(snodo.getCodiceFermata().compareTo(n.getCodiceFermata()) == 0) {
-				str += "¦\n";
-				str += "¦ Snodo con "+ n.getMezzo() +" "+ n.getCodiceLinea() +"\n";
+				str += " ¦\n";
+				str += " ¦ Snodo con "+ n.getMezzo() +" "+ n.getCodiceLinea() +"\n";
 				
 				int minuti = n.getOrario().getMinute() - snodo.getOrario().getMinute();
 		        int ore = n.getOrario().getHour() - snodo.getOrario().getHour();
 		        int attesa = minuti + ore*60;
 
 				str += "⭕ tempo di attesa coincidenza: " + attesa +" minuti\n";
-				str += "¦\n";
+				str += " ¦\n";
 			}
 			
 			snodo = n;
