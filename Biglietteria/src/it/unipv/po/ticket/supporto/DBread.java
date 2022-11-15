@@ -7,6 +7,7 @@ import it.unipv.po.ticket.supporto.strategie.AccessDBreadStrategy;
 import it.unipv.po.ticket.supporto.strategie.IDBreadStrategy;
 import it.unipv.po.ticket.trasporto.fermata.Fermata;
 import it.unipv.po.ticket.trasporto.linea.Linea;
+import it.unipv.po.ticket.trasporto.vehicleModel.Vehicle;
 
 public class DBread {
 	private static IDBreadStrategy strategiaDiLettura;
@@ -46,6 +47,10 @@ public class DBread {
 
 	public int searchUsername(String user) throws Exception {
 		return strategiaDiLettura.searchUsername(user);
+	}
+	
+	public double searchTariffaMezzo(Vehicle mezzo) throws Exception{
+		return strategiaDiLettura.searchTariffaMezzo(mezzo);
 	}
 
 /*	public Utente login(String username, String password) throws Exception {

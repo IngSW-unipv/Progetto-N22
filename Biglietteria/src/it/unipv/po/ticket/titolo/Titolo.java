@@ -1,8 +1,10 @@
 package it.unipv.po.ticket.titolo;
 
+import it.unipv.po.ticket.trasporto.fermata.Fermata;
 import it.unipv.po.ticket.trasporto.ricerca.*;
 import it.unipv.po.ticket.trasporto.vehicleModel.Vehicle;
 import java.time.*;
+import java.util.ArrayList;
 
 
 
@@ -10,79 +12,62 @@ public abstract class Titolo {
 	
 	private String idTitolo;
 	private double prezzo;
-	private Vehicle mezzo;
-	private boolean attivo = true;
+	private ArrayList<Fermata> percorso;
+	private boolean attivo;
 	private LocalDateTime dataAcquisto;
+	protected CalcolatorePrezzo calcolatorePrezzo;
+	protected CalcolatoreID calcolatoreID;
 	
-	/*
-	public Titolo (String idTitolo, float prezzo, boolean attivo) {
-		
-		this.idTitolo = idTitolo;
-		this.prezzo = prezzo;
-		this.attivo = attivo;
-	}*/
-	/*
 	public Titolo() {
-		
-		this.idTitolo="";
+		this.idTitolo = "?????";
 		this.prezzo = 0;
-	}*/
-	
-	
-	// getter setter
-	
-	public String getId() {
-		
+		this.attivo = false;
+	}
+
+	public String getIdTitolo() {
 		return idTitolo;
 	}
-	
-	public void setIDtitolo(String id) {
-		
-		idTitolo = id;
-		
+
+	public void setIdTitolo(String idTitolo) {
+		this.idTitolo = idTitolo;
 	}
+
 	public double getPrezzo() {
-	
 		return prezzo;
 	}
-	
-	public void setPrezzo(double d) {
-		
-		prezzo=d;
+
+	public void setPrezzo(double prezzo) {
+		this.prezzo = prezzo;
 	}
-	
-	public void setVehicle(Vehicle v) {
-		mezzo=v;
+
+	public ArrayList<Fermata> getPercorso() {
+		return percorso;
 	}
-	public Vehicle getVehicle() {
-		return mezzo;
+
+	public void setPercorso(ArrayList<Fermata> percorso) {
+		this.percorso = percorso;
 	}
-	
-	public void setAttivo(boolean a) {
-		attivo=a;
-	}
-	
-	public boolean getAttivo() {
-		
+
+	public boolean isAttivo() {
 		return attivo;
 	}
 
-	public String getDataAcquisto() {
-		return dataAcquisto.toString();
+	public void setAttivo(boolean attivo) {
+		this.attivo = attivo;
+	}
+
+	public LocalDateTime getDataAcquisto() {
+		return dataAcquisto;
 	}
 
 	public void setDataAcquisto(LocalDateTime dataAcquisto) {
 		this.dataAcquisto = dataAcquisto;
 	}
 	
-	public void StampaTitolo(Titolo t) {
-		
-	}
+	
+	
+	
+	
 	
 
-
-	public String getID() {
-		// TODO Auto-generated method stub
-		return idTitolo;
-	}
 }

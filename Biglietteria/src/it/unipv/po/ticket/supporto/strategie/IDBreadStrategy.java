@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import it.unipv.po.ticket.gui.utente.Utente;
 import it.unipv.po.ticket.trasporto.fermata.Fermata;
 import it.unipv.po.ticket.trasporto.linea.Linea;
+import it.unipv.po.ticket.trasporto.vehicleModel.Vehicle;
 
 public interface IDBreadStrategy {
 	
@@ -19,6 +20,7 @@ public interface IDBreadStrategy {
 	public String searchPassword(String user) throws Exception;
 	public int searchUsername(String user) throws Exception;
 	//public Utente login(String username, String password) throws Exception;
+	double searchTariffaMezzo(Vehicle mezzo) throws Exception;
 
 	
 	

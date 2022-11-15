@@ -1,25 +1,22 @@
 package it.unipv.po.ticket.titolo;
 
 import java.time.*;
+import java.util.ArrayList;
+
+import it.unipv.po.ticket.trasporto.fermata.Fermata;
 
 public class Biglietto extends Titolo{
 	
-	public Biglietto(String idBiglietto, LocalDateTime dataAcquisto){
-		
-		this.setIDtitolo(idBiglietto);
-		this.setDataAcquisto(dataAcquisto);
-	}
-
-	public Biglietto() {
-		// TODO Auto-generated constructor stub
+	public Biglietto(ArrayList<Fermata> percorso) throws Exception {
+		setPercorso(percorso);
+		this.calcolatoreID = new CalcolatoreID();
+		this.calcolatorePrezzo = new CalcolatorePrezzo();
+		// per i biglietti avremo nell'id un prefisso 'b'
+		String tempID = "b--"+calcolatoreID.calcolaID(percorso);
+		setIdTitolo(tempID);
+		setPrezzo(calcolatorePrezzo.calcolaPrezzo(percorso));	
 	}
 	
-	/*
-	public Biglietto() {
-		
-		this.setIDtitolo("");
-		this.setDataAcquisto("");
-	}*/
 	
 
 	

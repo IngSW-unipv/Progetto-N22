@@ -242,6 +242,21 @@ public class AccessDBreadStrategy implements IDBreadStrategy{
 		
 	}
 	
+	@Override
+	public double searchTariffaMezzo(Vehicle mezzo) throws Exception {
+		String sql = "SELECT Tariffa FROM TariffaMezzo WHERE Mezzo = '"+ mezzo.toString() +"'";
+		Connection connection = null;
+		Statement statement = null;
+		
+		connection = getDBConnection();
+		statement = connection.createStatement();
+        ResultSet result = statement.executeQuery(sql);
+        
+        result.next();
+        return result.getDouble("Tariffa");
+		
+	}
+	
 
 /*	@Override
 	public Utente login(String username,String password) throws Exception {

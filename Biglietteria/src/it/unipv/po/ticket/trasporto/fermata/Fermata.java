@@ -2,6 +2,7 @@ package it.unipv.po.ticket.trasporto.fermata;
 
 import java.time.LocalTime;
 
+import it.unipv.po.ticket.supporto.DBread;
 import it.unipv.po.ticket.trasporto.vehicleModel.Vehicle;
 
 public class Fermata {
@@ -74,6 +75,11 @@ public class Fermata {
 	public String toString() {
 		return "Fermata [CodiceFermata=" + CodiceFermata + ", snodo=" + snodo + ", orario=" + orario + ", CodiceLinea="
 				+ CodiceLinea + ", mezzo=" + mezzo + "]";
+	}
+
+	public double getTariffaMezzo() throws Exception {
+		DBread reader = new DBread();
+		return reader.searchTariffaMezzo(mezzo);
 	}
 
 	

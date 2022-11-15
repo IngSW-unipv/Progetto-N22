@@ -8,6 +8,7 @@ import it.unipv.po.ticket.trasporto.fermata.Fermata;
 public class Ricerca{
 	private InterfaceRicercaStrategy ricercaStrategy;
 	
+	
 	public Ricerca() {
 		ricercaStrategy = new RicercaStrategy();
 	}

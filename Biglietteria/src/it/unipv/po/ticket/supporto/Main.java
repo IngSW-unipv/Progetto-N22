@@ -11,6 +11,7 @@ import it.unipv.po.ticket.titolo.Biglietto;
 import it.unipv.po.ticket.titolo.Titolo;
 import it.unipv.po.ticket.trasporto.fermata.Fermata;
 import it.unipv.po.ticket.trasporto.ricerca.Ricerca;
+import it.unipv.po.ticket.trasporto.vehicleModel.Vehicle;
 
 public class Main {
 	
@@ -31,6 +32,9 @@ public class Main {
         LocalTime a = LocalTime.parse("12:30:00");
         LocalTime b = LocalTime.parse("14:00:00");
         
+        Biglietto biglietto = new Biglietto(elenco);
+        System.out.println(biglietto.getIdTitolo());
+        System.out.println(biglietto.getPrezzo());
         
         
         //----------------------------------------------------------------------------------------------------
@@ -80,6 +84,7 @@ public class Main {
         System.out.println("punti :" + u.getPunti());
         System.out.println("username :" + u.getUsername());*/
         
+      
         
 	}
 

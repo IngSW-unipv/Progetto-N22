@@ -52,7 +52,7 @@ public class AccessDBwriteStrategy implements IDBwriteStrategy{
 		for(int i=0; i<lista.size(); i++) {
 			statement.setString(1, username);
 			statement.setString(2, date.toString());
-			statement.setString(3, lista.get(i).getID());
+			statement.setString(3, lista.get(i).getIdTitolo());
 			statement.setDouble(4, lista.get(i).getPrezzo());
 	
 			statement.executeUpdate();
