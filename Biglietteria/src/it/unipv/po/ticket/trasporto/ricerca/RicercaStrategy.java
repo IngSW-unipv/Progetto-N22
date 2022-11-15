@@ -51,11 +51,11 @@ public class RicercaStrategy implements InterfaceRicercaStrategy{
 		for(Fermata n : ricerca) {
 			if(inizio.getCodiceFermata().compareTo(n.getCodiceFermata()) == 0) {
 				inizio = n;
-				str += "\n• "+inizio.getMezzo() +" "+ inizio.getCodiceLinea() +"\n";
+				str += "\n● "+inizio.getMezzo() +" "+ inizio.getCodiceLinea() +"\n";
 			}
 			if(snodo.getCodiceFermata().compareTo(n.getCodiceFermata()) != 0) {
 				str += "¦\n";
-				str += "• "+n.getCodiceFermata() +" "+ n.getOrario() +"\n";
+				str += "● "+n.getCodiceFermata() +" "+ n.getOrario() +"\n";
 			}
 			else if(snodo.getCodiceFermata().compareTo(n.getCodiceFermata()) == 0) {
 				str += "¦\n";
@@ -65,7 +65,7 @@ public class RicercaStrategy implements InterfaceRicercaStrategy{
 		        int ore = n.getOrario().getHour() - snodo.getOrario().getHour();
 		        int attesa = minuti + ore*60;
 
-				str += "o tempo di attesa coincidenza: " + attesa +" minuti\n";
+				str += "⭕ tempo di attesa coincidenza: " + attesa +" minuti\n";
 				str += "¦\n";
 			}
 			
