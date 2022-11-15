@@ -1,5 +1,6 @@
 package it.unipv.po.ticket.supporto;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -7,6 +8,7 @@ import java.util.LinkedList;
 
 import it.unipv.po.cccp.pagamento.PagamentiM;
 import it.unipv.po.ticket.gui.utente.Utente;
+import it.unipv.po.ticket.titolo.Abbonamento;
 import it.unipv.po.ticket.titolo.Biglietto;
 import it.unipv.po.ticket.titolo.Titolo;
 import it.unipv.po.ticket.trasporto.fermata.Fermata;
@@ -26,6 +28,19 @@ public class Main {
         
         ArrayList<ArrayList<Fermata>> elenco = corsa.cerca(partenza, destinazione, LocalTime.parse("12:00:00"));
         
+        
+//        ArrayList<Biglietto> biglietti = corsa.cercaEGenera(partenza, destinazione, LocalTime.parse("12:00:00"));
+//        for(int i = 0; i<biglietti.size(); i++) {
+//        	
+//        	System.out.println(biglietti.get(i).getIdTitolo());
+//        	System.out.println(biglietti.get(i).getPrezzo());
+//        }
+//        
+//        ArrayList<Abbonamento> abbonamenti = corsa.cercaEGenera(partenza, destinazione, LocalDate.now(), 30);
+//        for(int i = 0; i<abbonamenti.size(); i++) {
+//        	
+//        	System.out.println(abbonamenti.get(i).getIdTitolo());
+//        }
         //System.out.println(corsa.stampaRicerca(elenco));
         
         /*Biglietto biglietto = new Biglietto(elenco);

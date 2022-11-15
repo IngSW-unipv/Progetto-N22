@@ -17,7 +17,8 @@ public class Abbonamento extends Titolo{
 		this.calcolatoreID = new CalcolatoreID();
 		this.calcolatorePrezzo = new CalcolatorePrezzo();
 		// per glii abbonamenti avremo nell'id un prefisso 'a'
-		String tempID = "a--"+calcolatoreID.calcolaID(percorso);
+		String tempID = "a--"+calcolatoreID.calcolaID(percorso)+"--"
+						+dataInizio.toString()+"--"+durata;
 		setIdTitolo(tempID);
 		//richiedendo l'accesso al DB va gestita l'eccezione
 		setPrezzo(calcolatorePrezzo.calcolaPrezzo(percorso));
