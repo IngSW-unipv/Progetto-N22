@@ -1,37 +1,24 @@
 package it.unipv.po.ticket.gui.ricerca;
 
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
-import java.awt.Font;
-import javax.swing.JTextField;
-import java.awt.Choice;
-import javax.swing.JFormattedTextField;
-import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.Label;
+import java.time.LocalTime;
 import java.awt.SystemColor;
 import javax.swing.border.TitledBorder;
-
 import it.unipv.po.ticket.supporto.DBread;
-
+import it.unipv.po.ticket.trasporto.ricerca.Ricerca;
 import javax.swing.border.EtchedBorder;
 import java.awt.Color;
 import javax.swing.JToggleButton;
 import javax.swing.JComboBox;
 import javax.swing.JSeparator;
-import javax.swing.JTextArea;
-import javax.swing.JScrollPane;
-import javax.swing.JRadioButton;
-import javax.swing.JScrollBar;
 import javax.swing.JSlider;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
@@ -39,8 +26,9 @@ import javax.swing.event.ChangeEvent;
 public class Cerca extends JFrame {
 
 
-	private JPanel contentPane;
-	DBread leggi = new DBread();
+	private JFrame frame;
+	private DBread leggi = new DBread();
+	private Ricerca ricerca = new Ricerca();
 	/**
 	 * Launch the application.
 	 */
@@ -48,8 +36,8 @@ public class Cerca extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Cerca frame = new Cerca();
-					frame.setVisible(true);
+					Cerca window = new Cerca();
+					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -62,19 +50,17 @@ public class Cerca extends JFrame {
 	 * @throws Exception 
 	 */
 	public Cerca() throws Exception {
-		setResizable(false);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 550, 477);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
+		frame = new JFrame();
+		
+		frame.setResizable(false);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setBounds(100, 100, 550, 477);
+		frame.getContentPane().setLayout(null);
 		
 		JPanel bar = new JPanel();
 		bar.setBounds(0, 0, 222, 430);
 		bar.setLayout(null);
-		contentPane.add(bar);
+		frame.getContentPane().add(bar);
 		
 		JButton btnNewButton = new JButton("Home");
 		btnNewButton.setBounds(10, 71, 192, 63);
@@ -94,7 +80,7 @@ public class Cerca extends JFrame {
 		
 		JPanel searchPagePanel = new JPanel();
 		searchPagePanel.setBounds(232, 0, 316, 469);
-		contentPane.add(searchPagePanel);
+		frame.getContentPane().add(searchPagePanel);
 		searchPagePanel.setLayout(null);
 		
 		JPanel panel = new JPanel();
@@ -226,25 +212,17 @@ public class Cerca extends JFrame {
 		
 		cercaBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String str = "";
-				
 				if(comboBoxPartenza.getSelectedItem() != "" && comboBoxArrivo.getSelectedItem() != "") {
-				
 					try {
-						//str = corsa.cerca(comboBoxPartenza.getSelectedItem().toString(), comboBoxArrivo.getSelectedItem().toString());
-						panel.setVisible(false);
-						panel2.setVisible(true);
-						setBounds(100, 100, 750, 477);
-						System.out.println("ciao");
+						Cerca2.main(ricerca.cerca(comboBoxPartenza.getSelectedItem().toString(), comboBoxArrivo.getSelectedItem().toString(), LocalTime.parse(orarioPartenzatxt.getText())));
+						frame.setVisible(false);
+						
 					} catch (Exception e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
-					
-					//txtDettagli.setText(str);
-				}else {
-					JOptionPane.showMessageDialog(null, "Fermate non selezionate","Search error",JOptionPane.ERROR_MESSAGE);
-				}
+				}else JOptionPane.showMessageDialog(null, "Fermate non selezionate","Search error",JOptionPane.ERROR_MESSAGE);
+				
 			}
 		});
 		
@@ -253,7 +231,8 @@ public class Cerca extends JFrame {
 				
 				int a = orarioSlider.getValue()/2;
 				int b = (orarioSlider.getValue()%2)*30;	
-				String str = Integer.toString(a) + ":" + Integer.toString(b);
+
+				String str = LocalTime.of(a,b).toString();
 				
 				orarioPartenzatxt.setText(str);
 			}

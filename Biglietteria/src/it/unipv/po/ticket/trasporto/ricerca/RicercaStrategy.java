@@ -63,20 +63,15 @@ public class RicercaStrategy implements InterfaceRicercaStrategy{
 	}
 	
 	public String stampaRicerca(ArrayList<Fermata> ricerca) {
-		Fermata inizio = ricerca.get(0);
-		Fermata snodo = new Fermata();
+		Fermata snodo = ricerca.get(0);
 		String str = "";
+		str += "⦿ "+ricerca.get(0).getMezzo() +" "+ ricerca.get(0).getCodiceLinea() +"\n";
 		
-		for(Fermata n : ricerca) {
-			if(inizio.getCodiceFermata().compareTo(n.getCodiceFermata()) == 0) {
-				inizio = n;
-				str += "\n⦿ "+inizio.getMezzo() +" "+ inizio.getCodiceLinea() +"\n";
-			}
-			if(snodo.getCodiceFermata().compareTo(n.getCodiceFermata()) != 0) {
-				str += " ¦\n";
-				str += "⦿ "+n.getCodiceFermata() +" "+ n.getOrario() +"\n";
-			}
-			else if(snodo.getCodiceFermata().compareTo(n.getCodiceFermata()) == 0) {
+		for(Fermata n : ricerca) {	
+			str += " ¦\n";
+			str += "⦿ "+n.getCodiceFermata() +" "+ n.getOrario() +"\n";
+			
+			if(n.isSnodo()) {
 				str += " ¦\n";
 				str += " ¦ Snodo con "+ n.getMezzo() +" "+ n.getCodiceLinea() +"\n";
 				
