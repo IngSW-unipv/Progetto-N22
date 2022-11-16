@@ -19,8 +19,8 @@ public interface IDBreadStrategy {
 	public String[] elencoFermate() throws Exception;	
 	public String searchPassword(String user) throws Exception;
 	public int searchUsername(String user) throws Exception;
-	//public Utente login(String username, String password) throws Exception;
 	double searchTariffaMezzo(Vehicle mezzo) throws Exception;
+	public Utente userDownload(String username) throws Exception;
 
 	
 	

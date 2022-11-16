@@ -258,23 +258,18 @@ public class AccessDBreadStrategy implements IDBreadStrategy{
 	}
 	
 
-/*	@Override
-	public Utente login(String username,String password) throws Exception {
-		String sql = "SELECT * FROM Utente WHERE Username = '"+ username +"' and Password = '"+ password +"'" ;
+@Override
+	public Utente userDownload(String username) throws Exception {
+		String sql = "SELECT * FROM Utente WHERE Username = '"+ username + "'" ;
 		Connection connection = null;
 		Statement statement = null;
 		
 		connection = getDBConnection();
 		statement = connection.createStatement();
         ResultSet result = statement.executeQuery(sql);
-        Utente user = new Utente();
-        user.setUsername(result.getString(1));
-        user.setPassword(result.getString(2));
-        user.setName(result.getString(3));
-        user.setCognome(result.getString(4));
-        user.setEmail(result.getString(5));
-        
+        Utente user = new Utente(result.getString(1),result.getString(2),result.getString(3),result.getString(4),result.getString(5));
+
 		return user;
-	}*/
+	}
 		
 }

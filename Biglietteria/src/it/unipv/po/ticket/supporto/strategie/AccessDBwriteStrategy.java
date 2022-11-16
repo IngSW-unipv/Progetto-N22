@@ -1,10 +1,12 @@
 package it.unipv.po.ticket.supporto.strategie;
+import it.unipv.po.ticket.gui.utente.Sessione;
 
 import java.sql.Connection; 
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.time.LocalDateTime;
 import java.util.LinkedList;
+
 
 
 import it.unipv.po.ticket.gui.utente.Utente;
@@ -70,10 +72,12 @@ public class AccessDBwriteStrategy implements IDBwriteStrategy{
 	//metodo per la registrazione degli utenti
 	public void aggiungiUtente(Utente utente) throws Exception {
 		String sql="INSERT into Utente(Username,Password,Nome,Cognome,Email,Punti) VALUES(?,?,?,?,?,?);";
+		String password="";
 		Connection connessione= getDBConnection();
 		PreparedStatement statement= connessione.prepareStatement(sql);
 		statement.setString(1, utente.getUsername());
-		statement.setString(2, utente.getPassword());
+		password = Sessione.sha1(utente.getPassword());
+		statement.setString(2, password);
 		statement.setString(3,utente.getName());
 		statement.setString(4,utente.getCognome());
 		statement.setString(5,utente.getEmail());	
@@ -83,7 +87,7 @@ public class AccessDBwriteStrategy implements IDBwriteStrategy{
 		
 	}
 
-
+    
 	
 
 	
