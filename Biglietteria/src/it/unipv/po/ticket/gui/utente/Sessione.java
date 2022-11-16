@@ -1,5 +1,7 @@
 package it.unipv.po.ticket.gui.utente;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.regex.Pattern;
 
 import it.unipv.po.ticket.supporto.DBconnection;
@@ -21,9 +23,31 @@ public class Sessione {
 			e.printStackTrace();
 		}
 		
-		if(passdb.compareTo(passtext) == 0 ) check = true;
+		try {
+			if(passdb.compareTo(sha1(passtext)) == 0 ) check = true;
+		
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		Utente utente = CreateUser(user);
 		
 		return check;
+	}
+
+	private static Utente CreateUser(String user) {
+		DBread db = new DBread();
+		
+      Utente utente = null;
+	try {
+		utente = db.userDownload(user);
+	} catch (Exception e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+		
+		return utente;
 	}
 
 	public static String CheckRegistration(String email, String username,String nome, String cognome, String telefono, String password, String conferma) {
@@ -50,5 +74,18 @@ public class Sessione {
 	        Pattern p = Pattern.compile(regex);
 	        return p.matcher(email).matches();
 	    }
+	 
+	 
+	   public static String sha1(String input) throws NoSuchAlgorithmException {
+	        MessageDigest mDigest = MessageDigest.getInstance("SHA1");
+	        byte[] result = mDigest.digest(input.getBytes());
+	        StringBuffer sb = new StringBuffer();
+	        for (int i = 0; i < result.length; i++) {
+	            sb.append(Integer.toString((result[i] & 0xff) + 0x100, 16).substring(1));
+	        }
+	         
+	        return sb.toString();
+	    }
+
 	
 }
