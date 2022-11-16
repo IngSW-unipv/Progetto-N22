@@ -53,9 +53,9 @@ public class DBread {
 		return strategiaDiLettura.searchTariffaMezzo(mezzo);
 	}
 
-/*	public Utente login(String username, String password) throws Exception {
+	public Utente userDownload(String username) throws Exception {
 		
-		return strategiaDiLettura.login(username, password);
+		return strategiaDiLettura.userDownload(username);
 		
-	}*/
+	}
 }
