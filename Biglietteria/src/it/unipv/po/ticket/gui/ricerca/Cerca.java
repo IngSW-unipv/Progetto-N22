@@ -62,9 +62,10 @@ public class Cerca extends JFrame {
 		frame.getContentPane().setLayout(null);
 		
 		JPanel bar = new JPanel();
+		bar.setBackground(SystemColor.activeCaptionBorder);
 		bar.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		bar.setLayout(null);
-		bar.setBounds(314, 10, 207, 473);
+		bar.setBounds(314, 0, 207, 493);
 		frame.getContentPane().add(bar);
 		
 		JButton btnNewButton = new JButton("Home");
@@ -173,14 +174,14 @@ public class Cerca extends JFrame {
 				Image img;
 				Image newImage;
 				
-				if(frame.getBounds().width != 545) {
+				if(frame.getBounds().width != 528) {
 				
-					frame.setBounds(100, 100, 545, 530);
+					frame.setBounds(frame.getBounds().x, frame.getBounds().y, 528, 530);
 					img = new ImageIcon("image\\close.png").getImage();
 					newImage = img.getScaledInstance(30, 30, Image.SCALE_DEFAULT);
 					btnNewButton_1.setIcon(new ImageIcon(newImage));
 				}else {
-					frame.setBounds(100, 100, 320, 530);
+					frame.setBounds(frame.getBounds().x, frame.getBounds().y, 320, 530);
 					img = new ImageIcon("image\\menu.png").getImage();
 					newImage = img.getScaledInstance(30, 30, Image.SCALE_DEFAULT);
 					btnNewButton_1.setIcon(new ImageIcon(newImage));
