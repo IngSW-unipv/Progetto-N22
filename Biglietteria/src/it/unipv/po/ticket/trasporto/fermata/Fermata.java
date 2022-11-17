@@ -7,12 +7,11 @@ import it.unipv.po.ticket.trasporto.vehicleModel.Vehicle;
 
 public class Fermata {
 	
-	public String CodiceFermata;
-	public boolean snodo;
-	public LocalTime orario;
-	
-	public String CodiceLinea;
-	public Vehicle mezzo;
+	private String CodiceFermata;
+	private boolean snodo;
+	private LocalTime orario;
+	private String CodiceLinea;
+	private Vehicle mezzo;
 	
 	public Fermata(String codiceFermata, boolean snodo, LocalTime orario, String codiceLinea, Vehicle mezzo) {
 		CodiceFermata = codiceFermata;
@@ -20,6 +19,16 @@ public class Fermata {
 		this.orario = orario;
 		CodiceLinea = codiceLinea;
 		this.mezzo = mezzo;
+	}
+	
+	//usiamo questo costruttore per il ricaricamento dell'array di fermate (in forma non verbosa)
+	//in Biglietto 
+	public Fermata(String codiceFermata, LocalTime orario) {
+		this.CodiceFermata = codiceFermata;
+		this.orario = orario;
+		this.snodo = false;
+		this.CodiceLinea = "";
+		this.mezzo = null;
 	}
 	
 	public Fermata() {

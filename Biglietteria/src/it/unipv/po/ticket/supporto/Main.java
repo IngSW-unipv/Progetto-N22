@@ -25,24 +25,22 @@ public class Main {
         
         String partenza = "F004";
         String  destinazione = "F026";
+        Utente u = new Utente("Rose");
+        
         
         ArrayList<ArrayList<Fermata>> elenco = corsa.cerca(partenza, destinazione, LocalTime.parse("12:00:00"));
         
         
-//        ArrayList<Biglietto> biglietti = corsa.cercaEGenera(partenza, destinazione, LocalTime.parse("12:00:00"));
+        ArrayList<Biglietto> biglietti = corsa.cercaEGenera(partenza, destinazione, LocalTime.parse("12:00:00"));
 //        for(int i = 0; i<biglietti.size(); i++) {
+//        	//u.aggiungiTitolo(biglietti.get(i));
 //        	
-//        	System.out.println(biglietti.get(i).getIdTitolo());
-//        	System.out.println(biglietti.get(i).getPrezzo());
-//        }
-//        
-//        ArrayList<Abbonamento> abbonamenti = corsa.cercaEGenera(partenza, destinazione, LocalDate.now(), 30);
-//        for(int i = 0; i<abbonamenti.size(); i++) {
+////        	System.out.println(biglietti.get(i).getIdTitolo());
+////        	System.out.println(biglietti.get(i).getPrezzo());
 //        	
-//        	System.out.println(abbonamenti.get(i).getIdTitolo());
-//        }
-        //System.out.println(corsa.stampaRicerca(elenco));
         
+//        }
+        //u.acquistaCarrello(PagamentiM.creditcard, 0);
         /*Biglietto biglietto = new Biglietto(elenco);
         System.out.println(biglietto.getIdTitolo());
         System.out.println(biglietto.getPrezzo());
@@ -52,7 +50,7 @@ public class Main {
         	System.out.println("id biglietto "+i+": "+biglietti.get(i).getIdTitolo());
         }*/
         
-        for(int i = 0; i < elenco.size(); i++) for(Fermata n : elenco.get(i)) System.out.println(n.CodiceFermata +" "+n.snodo);
+        for(int i = 0; i < elenco.size(); i++) for(Fermata n : elenco.get(i)) System.out.println(n.getCodiceFermata() +" "+n.isSnodo());
         
         /*ArrayList<ArrayList<Fermata>> p = new ArrayList<>();
         p.add(new ArrayList<Fermata>());

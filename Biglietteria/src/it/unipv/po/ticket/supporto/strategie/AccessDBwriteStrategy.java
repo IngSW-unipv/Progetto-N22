@@ -48,7 +48,7 @@ public class AccessDBwriteStrategy implements IDBwriteStrategy{
 	
 	@Override
 	public void aggiungiTitoliACronologia(String username, LocalDateTime date, LinkedList<Titolo> lista) throws Exception {
-		String sql="INSERT into CronologiaTitoli(Utente,DataPagamento,IDTitolo,PrezzoTitolo) VALUES(?,?,?,?);";
+		String sql="INSERT into CronologiaTitoli(Utente,DataPagamento,IDTitolo,PrezzoTitolo,Percorso,Attivo,Disponibile,DataInizio,Durata) VALUES(?,?,?,?,?,?,?,?,?);";
 		Connection connessione= getDBConnection();
 		PreparedStatement statement= connessione.prepareStatement(sql);
 		for(int i=0; i<lista.size(); i++) {
@@ -56,6 +56,12 @@ public class AccessDBwriteStrategy implements IDBwriteStrategy{
 			statement.setString(2, date.toString());
 			statement.setString(3, lista.get(i).getIdTitolo());
 			statement.setDouble(4, lista.get(i).getPrezzo());
+			statement.setString(5, lista.get(i).getStringPercorso());
+			//per la ricostruzione degli oggetti Titolo una volta riloggati
+			statement.setBoolean(6, lista.get(i).isAttivo());
+			statement.setBoolean(7, lista.get(i).isDisponibile());
+			statement.setString(8, lista.get(i).getDataInizio());
+			statement.setInt(9, lista.get(i).getDurata());
 	
 			statement.executeUpdate();
 		}

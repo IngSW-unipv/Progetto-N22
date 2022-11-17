@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import it.unipv.po.ticket.trasporto.fermata.Fermata;
 
 public class Abbonamento extends Titolo{
-	
 	private LocalDate dataInizio;
 	private int durata;
 	
@@ -26,27 +25,31 @@ public class Abbonamento extends Titolo{
 	
 
 	
-	// getter & setter
-	
 
-	
-	public String getDatainizio() {
-		
+	@Override
+	public boolean isAttivo() {
+		//essendo una caratteristica di biglietto returno false
+		return false;
+	}
+
+
+
+	@Override
+	public boolean isDisponibile() {
+		//essendo una caratteristica di biglietto returno false
+		return false;
+	}
+
+
+
+	@Override
+	public String getDataInizio() {
 		return dataInizio.toString();
 	}
-	
-	public void setDataInizio(LocalDate data) {
-		
-		this.dataInizio = data;
-	}
-	
+
+
+	@Override
 	public int getDurata() {
-		
 		return durata;
-	}
-	
-	public void setDurata(int d) {
-		
-		this.durata = d;
 	}
 }
