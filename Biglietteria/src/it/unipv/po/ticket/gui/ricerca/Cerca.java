@@ -1,8 +1,10 @@
 package it.unipv.po.ticket.gui.ricerca;
 
 import java.awt.EventQueue;
+import java.awt.Image;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -22,6 +24,8 @@ import javax.swing.JSeparator;
 import javax.swing.JSlider;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Cerca extends JFrame {
 
@@ -54,41 +58,42 @@ public class Cerca extends JFrame {
 		
 		frame.setResizable(false);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setBounds(100, 100, 550, 477);
+		frame.setBounds(100, 100, 320, 530);
 		frame.getContentPane().setLayout(null);
 		
 		JPanel bar = new JPanel();
-		bar.setBounds(0, 0, 222, 430);
+		bar.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		bar.setLayout(null);
+		bar.setBounds(314, 10, 207, 473);
 		frame.getContentPane().add(bar);
 		
 		JButton btnNewButton = new JButton("Home");
-		btnNewButton.setBounds(10, 71, 192, 63);
+		btnNewButton.setBounds(0, 56, 207, 63);
 		bar.add(btnNewButton);
 		
 		JButton btnCerca = new JButton("Cerca");
-		btnCerca.setBounds(10, 167, 192, 63);
+		btnCerca.setBounds(0, 117, 207, 63);
 		bar.add(btnCerca);
 		
 		JButton btnAreaPersonale = new JButton("Area personale");
-		btnAreaPersonale.setBounds(10, 258, 192, 63);
+		btnAreaPersonale.setBounds(0, 178, 207, 63);
 		bar.add(btnAreaPersonale);
 		
 		JButton btnContatti = new JButton("Contatti");
-		btnContatti.setBounds(10, 356, 192, 63);
+		btnContatti.setBounds(0, 240, 207, 63);
 		bar.add(btnContatti);
 		
-		JPanel searchPagePanel = new JPanel();
-		searchPagePanel.setBounds(232, 0, 316, 469);
-		frame.getContentPane().add(searchPagePanel);
-		searchPagePanel.setLayout(null);
+		JLabel lblNewLabel_2 = new JLabel("Menu");
+		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_2.setBounds(0, 22, 207, 13);
+		bar.add(lblNewLabel_2);
 		
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
 		panel.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "", TitledBorder.LEFT, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		panel.setBackground(SystemColor.menu);
-		panel.setBounds(10, 10, 284, 420);
-		searchPagePanel.add(panel);
+		panel.setBounds(10, 63, 284, 420);
+		frame.getContentPane().add(panel);
 		
 		JToggleButton tglBiglietto = new JToggleButton("Biglietto");
 		tglBiglietto.setSelected(true);
@@ -137,7 +142,6 @@ public class Cerca extends JFrame {
 		
 		JSlider orarioSlider = new JSlider();
 		orarioSlider.setValue(24);
-		
 		orarioSlider.setMaximum(47);
 		orarioSlider.setBounds(40, 318, 200, 22);
 		panel.add(orarioSlider);
@@ -155,15 +159,35 @@ public class Cerca extends JFrame {
 		orariotxt.setBounds(28, 250, 172, 13);
 		panel.add(orariotxt);
 		
-		JPanel panel2 = new JPanel();
-		panel2.setLayout(null);
-		panel2.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "", TitledBorder.LEFT, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		panel2.setBackground(SystemColor.menu);
-		panel2.setBounds(10, 10, 284, 420);
-		searchPagePanel.add(panel2);
-		panel2.setVisible(false);
+		Image img = new ImageIcon("image\\menu.png").getImage();
+		Image newImage = img.getScaledInstance(30, 30, Image.SCALE_DEFAULT);
 		
-
+		JButton btnNewButton_1 = new JButton("");
+		btnNewButton_1.setBounds(262, 23, 30, 30);
+		btnNewButton_1.setIcon(new ImageIcon(newImage));
+		frame.getContentPane().add(btnNewButton_1);
+		
+		btnNewButton_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Image img;
+				Image newImage;
+				
+				if(frame.getBounds().width != 545) {
+				
+					frame.setBounds(100, 100, 545, 530);
+					img = new ImageIcon("image\\close.png").getImage();
+					newImage = img.getScaledInstance(30, 30, Image.SCALE_DEFAULT);
+					btnNewButton_1.setIcon(new ImageIcon(newImage));
+				}else {
+					frame.setBounds(100, 100, 320, 530);
+					img = new ImageIcon("image\\menu.png").getImage();
+					newImage = img.getScaledInstance(30, 30, Image.SCALE_DEFAULT);
+					btnNewButton_1.setIcon(new ImageIcon(newImage));
+				}
+			}
+		});
+		
 		//Azioni
 		
 		tglBiglietto.addActionListener(new ActionListener() {
@@ -237,8 +261,6 @@ public class Cerca extends JFrame {
 				orarioPartenzatxt.setText(str);
 			}
 		});
-		
-		
 		
 	}
 }
