@@ -165,7 +165,7 @@ public class Registrazione {
 		txtconferma.setBounds(166, 306, 207, 19);
 		frame.getContentPane().add(txtconferma);
 		
-		JCheckBox agreement = new JCheckBox("Accetto termini e condizioni.");
+		JCheckBox agreement = new JCheckBox("Accetto termini e condizioni di utilizzo.");
 		agreement.setBounds(99, 374, 302, 23);
 		frame.getContentPane().add(agreement);
 		

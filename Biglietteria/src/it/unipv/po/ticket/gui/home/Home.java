@@ -53,10 +53,12 @@ public class Home extends JFrame {
 		bar.setLayout(null);
 		
 		JButton btnNewButton = new JButton("Home");
-		btnNewButton.setBounds(10, 71, 192, 63);
+		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnNewButton.setBounds(10, 30, 192, 63);
 		bar.add(btnNewButton);
 		
 		JButton btnCerca = new JButton("Cerca");
+		btnCerca.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnCerca.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				homePagePanel.hide();
@@ -65,21 +67,34 @@ public class Home extends JFrame {
 				searchPagePanel.setLayout(null);
 			}
 		});
-		btnCerca.setBounds(10, 167, 192, 63);
+		btnCerca.setBounds(10, 123, 192, 63);
 		bar.add(btnCerca);
 		
 		JButton btnAreaPersonale = new JButton("Area personale");
-		btnAreaPersonale.setBounds(10, 258, 192, 63);
+		btnAreaPersonale.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnAreaPersonale.setIcon(null);
+		btnAreaPersonale.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnAreaPersonale.setBounds(10, 226, 192, 63);
 		bar.add(btnAreaPersonale);
 		
 		JButton btnContatti = new JButton("Contatti");
-		btnContatti.setBounds(10, 356, 192, 63);
+		btnContatti.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnContatti.setBounds(10, 423, 192, 63);
 		bar.add(btnContatti);
 		
-		JLabel lblNewLabel_2 = new JLabel("New label");
+		JLabel lblNewLabel_2 = new JLabel("");
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblNewLabel_2.setIcon(new ImageIcon("Image/bar3.png"));
-		lblNewLabel_2.setBounds(0, 0, 222, 524);
+		lblNewLabel_2.setBounds(0, 11, 222, 524);
 		bar.add(lblNewLabel_2);
+		
+		JButton btnNewButton_1 = new JButton("Orari");
+		btnNewButton_1.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnNewButton_1.setBounds(10, 323, 192, 69);
+		bar.add(btnNewButton_1);
 		
 		homePagePanel = new JPanel();
 		homePagePanel.setBounds(234, 0, 636, 524);
@@ -94,7 +109,7 @@ public class Home extends JFrame {
 		
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon("Image/mappaPiccola.png"));
-		lblNewLabel.setBounds(28, 80, 598, 356);
+		lblNewLabel.setBounds(163, 91, 598, 356);
 		homePagePanel.add(lblNewLabel);
 		
 		searchPagePanel = new JPanel();
