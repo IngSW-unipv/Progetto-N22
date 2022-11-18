@@ -99,10 +99,12 @@ public class Cerca extends JFrame {
 		JToggleButton tglBiglietto = new JToggleButton("Biglietto");
 		tglBiglietto.setSelected(true);
 		tglBiglietto.setBounds(10, 21, 127, 21);
+		tglBiglietto.setBorder(new RoundedBorder(10)); //10 is the radius
 		panel.add(tglBiglietto);
 		
 		JToggleButton tglAbbonamento = new JToggleButton("Abbonamento");
 		tglAbbonamento.setBounds(147, 21, 127, 21);
+		tglAbbonamento.setBorder(new RoundedBorder(10)); //10 is the radius
 		panel.add(tglAbbonamento);
 		
 		JComboBox comboBoxPartenza = new JComboBox(leggi.elencoFermate());
@@ -123,6 +125,7 @@ public class Cerca extends JFrame {
 		
 		JButton cercaBtn = new JButton("Cerca");
 		cercaBtn.setBounds(98, 382, 85, 21);
+		cercaBtn.setBorder(new RoundedBorder(10)); //10 is the radius
 		panel.add(cercaBtn);
 		
 		JSeparator separator_1 = new JSeparator();
@@ -184,7 +187,7 @@ public class Cerca extends JFrame {
 					frame.setBounds(frame.getBounds().x, frame.getBounds().y, 320, 530);
 					img = new ImageIcon("image\\menu.png").getImage();
 					newImage = img.getScaledInstance(30, 30, Image.SCALE_DEFAULT);
-					btnNewButton_1.setIcon(new ImageIcon(newImage));
+				    btnNewButton_1.setIcon(new ImageIcon(newImage));
 				}
 			}
 		});
@@ -237,10 +240,15 @@ public class Cerca extends JFrame {
 		
 		cercaBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//Controllo che siano state selezionate le fermate
 				if(comboBoxPartenza.getSelectedItem() != "" && comboBoxArrivo.getSelectedItem() != "") {
 					try {
-						Cerca2.main(ricerca.cerca(comboBoxPartenza.getSelectedItem().toString(), comboBoxArrivo.getSelectedItem().toString(), LocalTime.parse(orarioPartenzatxt.getText())));
-						frame.setVisible(false);
+						//Controllo se la ricerca non da esito nullo e quindi non esista un percorso che rispetta le indicazioni inserite
+						if(ricerca.cercaEGenera(comboBoxPartenza.getSelectedItem().toString(), comboBoxArrivo.getSelectedItem().toString(), LocalTime.parse(orarioPartenzatxt.getText())).size() != 0) {
+							Cerca2.main(ricerca.cercaEGenera(comboBoxPartenza.getSelectedItem().toString(), comboBoxArrivo.getSelectedItem().toString(), LocalTime.parse(orarioPartenzatxt.getText())));
+							frame.setVisible(false);
+						}else JOptionPane.showMessageDialog(null, "Non è stato possibile trovare un percorso che rispettasse \nl'orario inseriro, si prega di cambiare orario e riprovare","Search error",JOptionPane.INFORMATION_MESSAGE);
+						
 						
 					} catch (Exception e1) {
 						// TODO Auto-generated catch block

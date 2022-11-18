@@ -30,8 +30,10 @@ public class RicercaStrategy implements InterfaceRicercaStrategy{
 					
 					ricerca.add(new ArrayList<Fermata>());
 					ricerca.get(ricercheAttive).addAll(LineeA.get(i).ricercaFermate(a, b, orario));
-					ricercheAttive++;
 					
+					if(ricerca.get(ricercheAttive).size() != 0) ricercheAttive++;
+					else ricerca.remove(ricercheAttive); 
+						
 					return ricerca;
 				}
 		
@@ -42,19 +44,22 @@ public class RicercaStrategy implements InterfaceRicercaStrategy{
 				
 				if(snodo != "") {
 					ricerca.add(new ArrayList<Fermata>());
-					
 					//calcolo le fermate dalla fermata di partenza fino allo snodo e dallo snodo alla destinazione
 					ricerca.get(ricercheAttive).addAll(LineeA.get(i).ricercaFermate(a, snodo, orario));
 					
 					//salvo la posizione dello snodo da cancellare poi successivamente
 					dimtmp = ricerca.get(ricercheAttive).size();
 					
-					ricerca.get(ricercheAttive).addAll(LineeB.get(j).ricercaFermate(snodo, b, ricerca.get(ricercheAttive).get(ricerca.size()-1).getOrario()));
+					if(dimtmp != 0) ricerca.get(ricercheAttive).addAll(LineeB.get(j).ricercaFermate(snodo, b, ricerca.get(ricercheAttive).get(ricerca.get(ricercheAttive).size()-1).getOrario()));
 					
-					//rimozione snodo doppio e set dello snodo a true per agevolare il riconoscimento in stampa
-					ricerca.get(ricercheAttive).remove(dimtmp-1);
-					ricerca.get(ricercheAttive).get(dimtmp-1).setSnodo(true);
-					ricercheAttive++;
+					//controllo se la ricercafermate mi ha restituito nels econdo tentativo di ricerca un vettore vuoto
+					//che significa che non ha trovato un percorso che rispettava l'orario imposto
+					if(dimtmp != ricerca.get(ricercheAttive).size()) {
+						//rimozione snodo doppio e set dello snodo a true per agevolare il riconoscimento in stampa
+						ricerca.get(ricercheAttive).remove(dimtmp-1);
+						ricerca.get(ricercheAttive).get(dimtmp-1).setSnodo(true);
+						ricercheAttive++;
+					}else ricerca.remove(ricercheAttive);
 				}
 			}
 		
@@ -65,12 +70,12 @@ public class RicercaStrategy implements InterfaceRicercaStrategy{
 	public String stampaRicerca(ArrayList<Fermata> ricerca) {
 		Fermata snodo = ricerca.get(0);
 		String str = "";
-		str += "⦿ "+ricerca.get(0).getMezzo() +" "+ ricerca.get(0).getCodiceLinea() +"\n";
+		str += "🚍 "+ricerca.get(0).getMezzo() +" "+ ricerca.get(0).getCodiceLinea() +"\n";
 		
 		for(Fermata n : ricerca) {	
 			str += " ¦\n";
-			str += "⦿ "+n.getCodiceFermata() +" "+ n.getOrario() +"\n";
-			
+			if(n.getCodiceFermata().compareTo(ricerca.get(ricerca.size()-1).getCodiceFermata()) == 0) str += "🚏 "+n.getCodiceFermata() +" "+ n.getOrario() +"\n";
+			else str += "⦿ "+n.getCodiceFermata() +" "+ n.getOrario() +"\n";
 			if(n.isSnodo()) {
 				str += " ¦\n";
 				str += " ¦ Snodo con "+ n.getMezzo() +" "+ n.getCodiceLinea() +"\n";
