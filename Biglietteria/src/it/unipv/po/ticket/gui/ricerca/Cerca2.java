@@ -61,17 +61,11 @@ public class Cerca2 extends JFrame {
 	private static JButton btnPrezzo3;
 	private static JButton btnPrezzo4;
 
-
-	/**
-	 * Launch the application.
-	 */
 	public static void main(ArrayList<Biglietto> bigliettiTrovati) {
-		biglietti = bigliettiTrovati;
-		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Cerca2 window = new Cerca2();
+					Cerca2 window = new Cerca2(bigliettiTrovati);
 					window.frame.setVisible(true);
 					
 					
@@ -82,11 +76,19 @@ public class Cerca2 extends JFrame {
 			}
 		});
 	}
-	/**
-	 * Create the frame.
-	 * @throws Exception 
-	 */
-	public Cerca2() throws Exception {
+
+	public Cerca2(ArrayList<Biglietto> bigliettiTrovati) throws Exception {
+		biglietti = bigliettiTrovati;
+		initialize();
+		
+		//Metodo per l'inizializzazione dell'interfaccia
+		//riempie le celle con le informazioni riguardanti le varie tratte trovate dalla ricerca
+		setGraficaRicerca();
+	}
+	
+	
+	
+	private void initialize() {
 		frame = new JFrame();
 		
 		frame.setResizable(false);
@@ -111,7 +113,7 @@ public class Cerca2 extends JFrame {
 		JLabel lblNewLabel_1_1 = new JLabel("Passeggeri e supplementi");
 		lblNewLabel_1_1.setForeground(SystemColor.controlShadow);
 		lblNewLabel_1_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1_1.setBounds(181, 45, 150, 31);
+		lblNewLabel_1_1.setBounds(180, 45, 150, 31);
 		frame.getContentPane().add(lblNewLabel_1_1);
 		
 		JLabel lblNewLabel_1_2 = new JLabel("Riepilogo e pagamento");
@@ -260,10 +262,6 @@ public class Cerca2 extends JFrame {
 		JTextArea dettaglitxt = new JTextArea();
 		scrollPane.setViewportView(dettaglitxt);
 		
-		//Metodo per l'inizializzazione dell'interfaccia
-		//riempie le celle con le informazioni riguardanti le varie tratte trovate dalla ricerca
-		setGraficaRicerca();
-		
 		//Azioni
 		btnIndietro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -366,6 +364,37 @@ public class Cerca2 extends JFrame {
 			}
 		});
 		
+		btnPrezzo1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Supplementi.main(biglietti.get(0));
+				frame.setVisible(false);
+			}
+		});
+		
+		btnPrezzo2.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Supplementi.main(biglietti.get(1));
+				frame.setVisible(false);
+			}
+		});
+		
+		btnPrezzo3.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Supplementi.main(biglietti.get(2));
+				frame.setVisible(false);
+			}
+		});
+		
+		btnPrezzo4.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Supplementi.main(biglietti.get(3));
+				frame.setVisible(false);
+			}
+		});
 	}
 	
 	public static void setGraficaRicerca() {
@@ -385,6 +414,7 @@ public class Cerca2 extends JFrame {
 			autobustxt = b.getPercorso().get(0).getMezzo() +" "+ b.getPercorso().get(0).getCodiceLinea() +"\n"+ b.getPercorso().get(b.getPercorso().size()-1).getMezzo() +" "+ b.getPercorso().get(b.getPercorso().size()-1).getCodiceLinea();
 			fermatatxt = "⦿ "+ b.getPercorso().get(0).getCodiceFermata() +" "+ b.getPercorso().get(0).getOrario() +"\r\n ¦\r\n⦿ "+ b.getPercorso().get(b.getPercorso().size()-1).getCodiceFermata() +" "+ b.getPercorso().get(b.getPercorso().size()-1).getOrario();
 			btnprezzo = String.valueOf(df.format(b.getPrezzo())) + " € | 🛒";
+			
 			time = b.getDurataViaggio(b.getPercorso());
 			if(time.getHour() != 0 && time.getMinute() != 0) orariotxt = time.getHour() +" ore, "+ time.getMinute() +" minuti\nCambi "+ getNumeroCambi(b.getPercorso());
 			else if(time.getHour() == 0)  orariotxt = time.getMinute() +" minuti\nCambi "+ getNumeroCambi(b.getPercorso());

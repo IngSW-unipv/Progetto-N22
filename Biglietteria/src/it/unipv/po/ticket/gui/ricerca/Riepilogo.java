@@ -3,12 +3,15 @@ package it.unipv.po.ticket.gui.ricerca;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.SystemColor;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
+
+import it.unipv.po.ticket.titolo.Biglietto;
 
 public class Riepilogo {
 
@@ -17,7 +20,7 @@ public class Riepilogo {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public static void main(ArrayList<Biglietto> b) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -75,6 +78,4 @@ public class Riepilogo {
 		btnIndietro.setBounds(12, 0, 20, 20);
 		frame.getContentPane().add(btnIndietro);
 	}
-	}
-
 }

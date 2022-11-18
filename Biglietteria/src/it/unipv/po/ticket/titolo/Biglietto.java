@@ -8,6 +8,7 @@ import it.unipv.po.ticket.trasporto.fermata.Fermata;
 public class Biglietto extends Titolo{
 	private boolean disponibile;
 	private boolean attivo;
+	private String passeggero;
 	
 	//metodi
 	
@@ -85,6 +86,14 @@ public class Biglietto extends Titolo{
 		ore = tempo/60;
 		minuti = tempo%60;
 		return LocalTime.of(ore, minuti);
+	}
+
+	public String getPasseggero() {
+		return passeggero;
+	}
+
+	public void setPasseggero(String passeggero) {
+		this.passeggero = passeggero;
 	}
 	
 }
