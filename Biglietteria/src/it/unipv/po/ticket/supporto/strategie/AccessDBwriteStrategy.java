@@ -61,7 +61,7 @@ public class AccessDBwriteStrategy implements IDBwriteStrategy{
 			statement.setBoolean(6, lista.get(i).isAttivo());
 			statement.setBoolean(7, lista.get(i).isDisponibile());
 			statement.setString(8, lista.get(i).getDataInizio());
-			statement.setInt(9, lista.get(i).getDurata());
+			statement.setInt(9, lista.get(i).getDurataAbbonamento());
 	
 			statement.executeUpdate();
 		}

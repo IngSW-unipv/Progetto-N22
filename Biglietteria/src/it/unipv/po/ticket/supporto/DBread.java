@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import it.unipv.po.ticket.gui.utente.Utente;
 import it.unipv.po.ticket.supporto.strategie.AccessDBreadStrategy;
 import it.unipv.po.ticket.supporto.strategie.IDBreadStrategy;
+import it.unipv.po.ticket.titolo.Titolo;
 import it.unipv.po.ticket.trasporto.fermata.Fermata;
 import it.unipv.po.ticket.trasporto.linea.Linea;
 import it.unipv.po.ticket.trasporto.vehicleModel.Vehicle;
@@ -56,6 +57,11 @@ public class DBread {
 	public Utente userDownload(String username) throws Exception {
 		
 		return strategiaDiLettura.userDownload(username);
+		
+	}
+
+	public ArrayList<Titolo> scaricaTitoliUtente(String user) throws Exception {
+		return strategiaDiLettura.scaricaTitoliUtente(user);
 		
 	}
 }

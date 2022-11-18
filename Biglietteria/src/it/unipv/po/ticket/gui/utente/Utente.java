@@ -1,5 +1,7 @@
 package it.unipv.po.ticket.gui.utente;
 
+import java.util.ArrayList;
+
 import it.unipv.po.cccp.Carrello;
 import it.unipv.po.cccp.pagamento.PagamentiM;
 import it.unipv.po.cccp.pagamento.Pagamento;
@@ -10,6 +12,7 @@ public class Utente {
     private String username, name, cognome, email,password;
 	private double punti;
 	private Carrello carrello;
+	private ArrayList<Titolo> titoliAcquistati;
 	
 	public Utente(String username, String name, String cognome, String email, String password) {
 		this.username = username;
@@ -18,6 +21,7 @@ public class Utente {
 		this.email = email;
 		this.password = password;
 		carrello = new Carrello(username);
+		titoliAcquistati = new ArrayList<Titolo>();
 	}
 	public Utente(String username) {
 		this.username = username;
@@ -41,6 +45,10 @@ public class Utente {
 			aggiungiPunti(payment.getPuntiOttenuti());
 		}
 		
+	}
+	
+	public void setTitoliAcquistati(ArrayList<Titolo> titoli) {
+		this.titoliAcquistati = titoli;
 	}
 
 	public String getUsername() {

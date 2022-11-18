@@ -2,16 +2,18 @@ package it.unipv.po.ticket.gui.utente;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 import it.unipv.po.ticket.supporto.DBconnection;
 import it.unipv.po.ticket.supporto.DBread;
+import it.unipv.po.ticket.titolo.Titolo;
 
 public class Sessione {
 
 	
 
-	public static boolean UserLogin(String user, String passtext) {
+	public static boolean UserLogin(String user, String passtext) throws Exception {
 		boolean check=false;
 		String passdb="";
 		DBread db = new DBread();
@@ -32,6 +34,8 @@ public class Sessione {
 		}
 		
 		Utente utente = CreateUser(user);
+		//genera Exception
+		utente.setTitoliAcquistati(scaricaTitoliUtente(user));
 		
 		return check;
 	}
@@ -48,6 +52,11 @@ public class Sessione {
 	}
 		
 		return utente;
+	}
+	
+	private static ArrayList<Titolo> scaricaTitoliUtente(String user) throws Exception {
+		DBread dbReader = new DBread();
+		return dbReader.scaricaTitoliUtente(user);
 	}
 
 	public static String CheckRegistration(String email, String username,String nome, String cognome, String telefono, String password, String conferma) {

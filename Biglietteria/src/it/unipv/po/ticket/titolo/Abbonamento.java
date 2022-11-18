@@ -6,11 +6,11 @@ import it.unipv.po.ticket.trasporto.fermata.Fermata;
 
 public class Abbonamento extends Titolo{
 	private LocalDate dataInizio;
-	private int durata;
+	private int durataAbbonamento;
 	
 	public Abbonamento(LocalDate dataInizio, int durata, ArrayList<Fermata> percorso) throws Exception {
 		this.dataInizio = dataInizio;
-		this.durata = durata;
+		this.durataAbbonamento = durata;
 		
 		setPercorso(percorso);
 		this.calcolatoreID = new CalcolatoreID();
@@ -23,8 +23,23 @@ public class Abbonamento extends Titolo{
 		setPrezzo(calcolatorePrezzo.calcolaPrezzo(percorso));
 	}
 	
+	//usato quando si riprendono le informazioni dal DB
+	public Abbonamento(String idTitolo,double prezzo, String percorso, String dataInizio, int durata, String dataAcquisto) throws Exception {
+		this.setIdTitolo(idTitolo);
+		this.setPrezzo(prezzo);
+		this.setPercorso(percorso);
+		this.setDataInizio(dataInizio);
+		this.durataAbbonamento = durata;
+		this.setDataAcquisto(dataAcquisto);
+	}
+	
 
 	
+
+	private void setDataInizio(String dataInizio) {
+		this.dataInizio = LocalDate.parse(dataInizio);
+		
+	}
 
 	@Override
 	public boolean isAttivo() {
@@ -49,7 +64,13 @@ public class Abbonamento extends Titolo{
 
 
 	@Override
-	public int getDurata() {
-		return durata;
+	public int getDurataAbbonamento() {
+		return durataAbbonamento;
+	}
+
+	@Override
+	public LocalTime getDurataViaggio(ArrayList<Fermata> percorso) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

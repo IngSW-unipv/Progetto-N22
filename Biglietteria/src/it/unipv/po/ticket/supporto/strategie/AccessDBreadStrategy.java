@@ -4,10 +4,14 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
 import it.unipv.po.ticket.gui.utente.Utente;
+import it.unipv.po.ticket.titolo.Abbonamento;
+import it.unipv.po.ticket.titolo.Biglietto;
+import it.unipv.po.ticket.titolo.Titolo;
 import it.unipv.po.ticket.trasporto.fermata.Fermata;
 import it.unipv.po.ticket.trasporto.linea.Linea;
 import it.unipv.po.ticket.trasporto.vehicleModel.Vehicle;
@@ -271,5 +275,42 @@ public class AccessDBreadStrategy implements IDBreadStrategy{
 
 		return user;
 	}
+
+@Override
+public ArrayList<Titolo> scaricaTitoliUtente(String user) throws Exception {
+	String sql = "SELECT * FROM CronologiaTitoli WHERE Username = '"+ user + "'" ;
+	Connection connection = null;
+	Statement statement = null;
+	
+	connection = getDBConnection();
+	statement = connection.createStatement();
+    ResultSet result = statement.executeQuery(sql);
+    
+    ArrayList<Titolo> titoliGenerati= new ArrayList<Titolo>();
+    while(result.next()) {
+	    String idTitolo = result.getString("IDtitolo");
+		String dataAcquisto = result.getString("DataAcquisto");
+		double prezzo = result.getDouble("PrezzoTitolo");
+		String percorso = result.getString("Percorso");
+	    if(result.getString("DataInizio").compareTo("") == 0) {
+	    	//è un biglietto
+	    	boolean attivo = result.getBoolean("Attivo");
+	    	boolean disponibile = result.getBoolean("Disponibile");
+	    	Biglietto titolo = new Biglietto(idTitolo, prezzo, percorso, disponibile, attivo, dataAcquisto);
+	    	titoliGenerati.add(titolo);
+	    }
+	    else {
+	    	//è un abbonamento
+	    	String dataInizio = result.getString("DataInizio");
+	    	int durataGiorni = result.getInt("Durata");
+	    	Abbonamento titolo = new Abbonamento(idTitolo, prezzo, percorso,dataInizio,durataGiorni,dataAcquisto);
+	    	titoliGenerati.add(titolo);
+	    }
+    }
+    return titoliGenerati;
+    
+    
+	
+}
 		
 }

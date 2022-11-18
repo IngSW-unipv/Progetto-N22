@@ -71,6 +71,11 @@ public class Biglietto extends Titolo{
 	}
 	
 	@Override
+	public int getDurataAbbonamento() {
+		return 0;
+	}
+	
+	@Override
 	public LocalTime getDurataViaggio(ArrayList<Fermata> percorso) {
 		//estraggo le ore e i minuti della prima fermata e dell'ultima e li sottraggo per trovare la differenza
 		int ore = percorso.get(percorso.size()-1).getOrario().getHour() - percorso.get(0).getOrario().getHour();

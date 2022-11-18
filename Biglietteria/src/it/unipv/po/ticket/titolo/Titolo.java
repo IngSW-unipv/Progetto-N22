@@ -96,6 +96,8 @@ public abstract class Titolo {
 	abstract public String getDataInizio();
 	abstract public LocalTime getDurataViaggio(ArrayList<Fermata> percorso);
 
+	abstract public int getDurataAbbonamento();
+
 	
 	
 	

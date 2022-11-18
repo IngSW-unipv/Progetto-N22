@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import it.unipv.po.ticket.gui.utente.Utente;
+import it.unipv.po.ticket.titolo.Titolo;
 import it.unipv.po.ticket.trasporto.fermata.Fermata;
 import it.unipv.po.ticket.trasporto.linea.Linea;
 import it.unipv.po.ticket.trasporto.vehicleModel.Vehicle;
@@ -21,6 +22,7 @@ public interface IDBreadStrategy {
 	public int searchUsername(String user) throws Exception;
 	double searchTariffaMezzo(Vehicle mezzo) throws Exception;
 	public Utente userDownload(String username) throws Exception;
+	public ArrayList<Titolo> scaricaTitoliUtente(String user) throws Exception;
 
 	
 	
