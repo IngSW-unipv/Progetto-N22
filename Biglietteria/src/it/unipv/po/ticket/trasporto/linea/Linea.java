@@ -40,7 +40,6 @@ public class Linea implements Tappe{
 		
 		//ciclo per ricercare le fermate da elencare 
 		for(Fermata n : linea) {
-			
 			//quando trovo la fermata di partenza incomincio a salvare le fermate e 
 			//metto la variabile trovato a 1 per continuare a scrivere quelle dopo
 			if((n.getCodiceFermata().compareTo(partenza) == 0 || trovato == 1) && n.getOrario().compareTo(orario) >= 0) {

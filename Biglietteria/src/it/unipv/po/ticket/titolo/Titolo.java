@@ -94,7 +94,8 @@ public abstract class Titolo {
 	abstract public boolean isAttivo();
 	abstract public boolean isDisponibile();
 	abstract public String getDataInizio();
-	abstract public int getDurata();
+	abstract public LocalTime getDurataViaggio(ArrayList<Fermata> percorso);
+
 	
 	
 	

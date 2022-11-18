@@ -24,24 +24,23 @@ public class Main {
 		Ricerca corsa = new Ricerca();
         
         String partenza = "F004";
-        String  destinazione = "F026";
+        String  destinazione = "F020";
         Utente u = new Utente("Rose");
         
         
         ArrayList<ArrayList<Fermata>> elenco = corsa.cerca(partenza, destinazione, LocalTime.parse("12:00:00"));
+        System.out.println(elenco.size());
         
+        /*ArrayList<Biglietto> biglietti = corsa.cercaEGenera(partenza, destinazione, LocalTime.parse("12:00:00"));
+        for(int i = 0; i<biglietti.size(); i++) {
+        	//u.aggiungiTitolo(biglietti.get(i));        	
+        	System.out.println(biglietti.get(i).getIdTitolo());
+        	System.out.println(biglietti.get(i).getPrezzo());
+       	
         
-        ArrayList<Biglietto> biglietti = corsa.cercaEGenera(partenza, destinazione, LocalTime.parse("12:00:00"));
-//        for(int i = 0; i<biglietti.size(); i++) {
-//        	//u.aggiungiTitolo(biglietti.get(i));
-//        	
-////        	System.out.println(biglietti.get(i).getIdTitolo());
-////        	System.out.println(biglietti.get(i).getPrezzo());
-//        	
-        
-//        }
-        //u.acquistaCarrello(PagamentiM.creditcard, 0);
-        /*Biglietto biglietto = new Biglietto(elenco);
+        }*/
+        /*u.acquistaCarrello(PagamentiM.creditcard, 0);
+        Biglietto biglietto = new Biglietto(elenco);
         System.out.println(biglietto.getIdTitolo());
         System.out.println(biglietto.getPrezzo());
         
@@ -50,7 +49,7 @@ public class Main {
         	System.out.println("id biglietto "+i+": "+biglietti.get(i).getIdTitolo());
         }*/
         
-        for(int i = 0; i < elenco.size(); i++) for(Fermata n : elenco.get(i)) System.out.println(n.getCodiceFermata() +" "+n.isSnodo());
+        for(int i = 0; i < elenco.size(); i++) for(Fermata n : elenco.get(i)) System.out.println(n.getCodiceFermata() +" "+n.getOrario());
         
         /*ArrayList<ArrayList<Fermata>> p = new ArrayList<>();
         p.add(new ArrayList<Fermata>());
