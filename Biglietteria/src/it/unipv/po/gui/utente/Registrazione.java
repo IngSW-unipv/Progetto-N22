@@ -19,27 +19,30 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import javax.swing.JCheckBox;
+import java.awt.Font;
+import java.awt.Color;
+import javax.swing.JTextArea;
+import java.awt.SystemColor;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 public class Registrazione {
-//facadecontroller
 	private JFrame frame;
 	private Image img;
 	private Image newImage;
-	private JTextField txtpassword;
-	private JTextField txtemail;
-	private JTextField txtnome;
-	private JTextField txtcognome;
-	private JTextField txtusername;
-	private JTextField txttelefono;
-	private JPasswordField txtconferma;
 	private static Utente utente;
 	DBwrite db = new DBwrite();
 	
 	String error;
+	private JTextField cognometxt;
+	private JTextField nometxt;
+	private JTextField emailtxt;
+	private JPasswordField passwordtxt;
 	
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		utente = new Utente("user1");
 		EventQueue.invokeLater(new Runnable() {
@@ -54,25 +57,21 @@ public class Registrazione {
 		});
 	}
 
-	/**
-	 * Create the application.
-	 */
 	public Registrazione() {
 		initialize();
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 478, 556);
+		frame.getContentPane().setFont(new Font("Tahoma", Font.PLAIN, 7));
+		frame.setBounds(100, 100, 478, 687);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Register system");
+		JLabel lblNewLabel = new JLabel("Registrati");
+		lblNewLabel.setFont(new Font("Arial Nova", Font.BOLD, 12));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(163, 27, 137, 13);
+		lblNewLabel.setBounds(163, 10, 137, 30);
 		frame.getContentPane().add(lblNewLabel);
 		
 		JSeparator separator = new JSeparator();
@@ -80,148 +79,196 @@ public class Registrazione {
 		frame.getContentPane().add(separator);
 		
 		JSeparator separator_1 = new JSeparator();
-		separator_1.setBounds(10, 454, 444, 2);
+		separator_1.setBounds(10, 597, 444, 2);
 		frame.getContentPane().add(separator_1);
 		
-		JButton btnNewButton = new JButton("->");
-		btnNewButton.setBounds(182, 476, 97, 21);
-		frame.getContentPane().add(btnNewButton);
-		
-		JButton btnNewButton_1 = new JButton("Reset");
-		btnNewButton_1.setBounds(38, 476, 97, 21);
-		frame.getContentPane().add(btnNewButton_1);
-		
-		JButton btnNewButton_2 = new JButton("Exit");
-		btnNewButton_2.setBounds(323, 476, 97, 21);
-		frame.getContentPane().add(btnNewButton_2);
-		
-		JButton btnNewButton_3 = new JButton("");
+		JButton btnCreaAccount = new JButton("Crea account");
+		btnCreaAccount.setFont(new Font("Arial Nova", Font.BOLD, 11));
+		btnCreaAccount.setBounds(320, 615, 114, 21);
+		frame.getContentPane().add(btnCreaAccount);
 		
 		this.img = new ImageIcon("image\\freccia.png").getImage();
 		this.newImage = img.getScaledInstance(20, 20, Image.SCALE_DEFAULT);
 		
-		btnNewButton_3.setIcon(new ImageIcon(this.newImage));
-		btnNewButton_3.setBounds(10, 10, 20, 20);
-		frame.getContentPane().add(btnNewButton_3);
+		JLabel lblNewLabel_1 = new JLabel("Crea un account Trenord e scopri un mondo di vantaggi");
+		lblNewLabel_1.setFont(new Font("Arial Nova", Font.BOLD, 11));
+		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_1.setBounds(20, 62, 434, 13);
+		frame.getContentPane().add(lblNewLabel_1);
 		
-		txtpassword = new JPasswordField();
-		txtpassword.setBounds(166, 266, 207, 19);
-		frame.getContentPane().add(txtpassword);
+		JLabel lblNewLabel_2 = new JLabel("Hai già un account?");
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		lblNewLabel_2.setBounds(163, 78, 121, 13);
+		frame.getContentPane().add(lblNewLabel_2);
 		
-		JLabel lblEmail = new JLabel("Email");
-		lblEmail.setBounds(57, 64, 70, 15);
-		frame.getContentPane().add(lblEmail);
+		JLabel lblNewLabel_3 = new JLabel("Accedi");
+		lblNewLabel_3.setForeground(Color.BLUE);
+		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		lblNewLabel_3.setBounds(255, 78, 45, 13);
+		frame.getContentPane().add(lblNewLabel_3);
 		
-		JLabel lblNome = new JLabel("Nome");
-		lblNome.setBounds(57, 145, 70, 15);
-		frame.getContentPane().add(lblNome);
+		JLabel lblNewLabel_4 = new JLabel("Attenzione: Per poter procedere alla registrazione occorre essere maggiorenni");
+		lblNewLabel_4.setForeground(SystemColor.textInactiveText);
+		lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 9));
+		lblNewLabel_4.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_4.setBounds(10, 93, 444, 13);
+		frame.getContentPane().add(lblNewLabel_4);
 		
-		JLabel lblCognome = new JLabel("Cognome");
-		lblCognome.setBounds(57, 189, 70, 15);
-		frame.getContentPane().add(lblCognome);
+		cognometxt = new JTextField();
+		cognometxt.setFont(new Font("Arial Nova", Font.PLAIN, 10));
+		cognometxt.setColumns(10);
+		cognometxt.setBounds(256, 152, 164, 19);
+		frame.getContentPane().add(cognometxt);
 		
-		JLabel lblTelefono = new JLabel("Telefono");
-		lblTelefono.setBounds(57, 230, 70, 15);
-		frame.getContentPane().add(lblTelefono);
+		JLabel lblNewLabel_5 = new JLabel("Cognome");
+		lblNewLabel_5.setFont(new Font("Arial Nova", Font.PLAIN, 10));
+		lblNewLabel_5.setBounds(255, 136, 97, 13);
+		frame.getContentPane().add(lblNewLabel_5);
 		
-		JLabel lblPassword = new JLabel("Password");
-		lblPassword.setBounds(57, 270, 70, 15);
-		frame.getContentPane().add(lblPassword);
+		JLabel lblNewLabel_5_1 = new JLabel("Nome");
+		lblNewLabel_5_1.setFont(new Font("Arial Nova", Font.PLAIN, 10));
+		lblNewLabel_5_1.setBounds(38, 136, 97, 13);
+		frame.getContentPane().add(lblNewLabel_5_1);
 		
-		JLabel lblConfermaPassword = new JLabel("Conferma ");
-		lblConfermaPassword.setBounds(57, 297, 91, 15);
-		frame.getContentPane().add(lblConfermaPassword);
+		nometxt = new JTextField();
+		nometxt.setFont(new Font("Arial Nova", Font.PLAIN, 10));
+		nometxt.setColumns(10);
+		nometxt.setBounds(39, 152, 164, 19);
+		frame.getContentPane().add(nometxt);
 		
-		JLabel lblUsername = new JLabel("Username");
-		lblUsername.setBounds(57, 107, 91, 15);
-		frame.getContentPane().add(lblUsername);
+		JLabel lblNewLabel_5_2 = new JLabel("Email");
+		lblNewLabel_5_2.setFont(new Font("Arial Nova", Font.PLAIN, 10));
+		lblNewLabel_5_2.setBounds(38, 209, 97, 13);
+		frame.getContentPane().add(lblNewLabel_5_2);
 		
-		txtemail = new JTextField();
-		txtemail.setBounds(166, 60, 207, 19);
-		frame.getContentPane().add(txtemail);
-		txtemail.setColumns(10);
+		emailtxt = new JTextField();
+		emailtxt.setFont(new Font("Arial Nova", Font.PLAIN, 10));
+		emailtxt.setColumns(10);
+		emailtxt.setBounds(39, 225, 164, 19);
+		frame.getContentPane().add(emailtxt);
 		
-		txtnome = new JTextField();
-		txtnome.setBounds(166, 141, 207, 19);
-		frame.getContentPane().add(txtnome);
-		txtnome.setColumns(10);
+		JLabel lblNewLabel_5_3 = new JLabel("Password");
+		lblNewLabel_5_3.setFont(new Font("Arial Nova", Font.PLAIN, 10));
+		lblNewLabel_5_3.setBounds(255, 209, 97, 13);
+		frame.getContentPane().add(lblNewLabel_5_3);
 		
-		txtcognome = new JTextField();
-		txtcognome.setBounds(166, 185, 207, 19);
-		frame.getContentPane().add(txtcognome);
-		txtcognome.setColumns(10);
+		JTextArea dettaglipasswordtxt = new JTextArea();
+		dettaglipasswordtxt.setForeground(SystemColor.textInactiveText);
+		dettaglipasswordtxt.setEditable(false);
+		dettaglipasswordtxt.setBackground(SystemColor.menu);
+		dettaglipasswordtxt.setFont(new Font("Arial Nova", Font.PLAIN, 9));
+		dettaglipasswordtxt.setText("La password deve contenere:\r\n · Lunghezza tra 8 e 20 caratteri\r\n · Almeno una letttera maiuscola\r\n · Almeno una lettera minuscola\r\n · Almeno un numero");
+		dettaglipasswordtxt.setBounds(255, 254, 164, 64);
+		dettaglipasswordtxt.setVisible(false);
+		frame.getContentPane().add(dettaglipasswordtxt);
 		
-		txtusername = new JTextField();
-		txtusername.setBounds(166, 103, 207, 19);
-		frame.getContentPane().add(txtusername);
-		txtusername.setColumns(10);
+		passwordtxt = new JPasswordField();
+		passwordtxt.setFont(new Font("Arial Nova", Font.PLAIN, 10));
+		passwordtxt.setBounds(256, 225, 164, 19);
+		frame.getContentPane().add(passwordtxt);
 		
-		txttelefono = new JTextField();
-		txttelefono.setBounds(166, 224, 207, 19);
-		frame.getContentPane().add(txttelefono);
-		txttelefono.setColumns(10);
+		JLabel lblNewLabel_6 = new JLabel("Consenso al trattamento dei dati personali");
+		lblNewLabel_6.setFont(new Font("Arial Nova", Font.BOLD, 11));
+		lblNewLabel_6.setBounds(101, 338, 262, 13);
+		frame.getContentPane().add(lblNewLabel_6);
 		
-		txtconferma = new JPasswordField();
-		txtconferma.setBounds(166, 306, 207, 19);
-		frame.getContentPane().add(txtconferma);
+		JTextArea txtrAiSensiDellart = new JTextArea();
+		txtrAiSensiDellart.setForeground(SystemColor.textInactiveText);
+		txtrAiSensiDellart.setEditable(false);
+		txtrAiSensiDellart.setBackground(SystemColor.menu);
+		txtrAiSensiDellart.setFont(new Font("Arial Nova", Font.PLAIN, 9));
+		txtrAiSensiDellart.setText("Ai sensi dell’art. 6.1 lett. a) del Regolamento (UE) 2016/679 (il “GDPR”) dichiaro di aver preso visione \r\ndell' INFORMATIVA SULLA PRIVACY  ed esprimo liberamente il consenso al trattamento dei miei dati \r\npersonali, anche mediante elaborazioni elettroniche, da parte di Trenord S.r.l. (il Titolare) per finalità di:");
+		txtrAiSensiDellart.setBounds(34, 353, 396, 38);
+		frame.getContentPane().add(txtrAiSensiDellart);
 		
-		JCheckBox agreement = new JCheckBox("Accetto termini e condizioni di utilizzo.");
-		agreement.setBounds(99, 374, 302, 23);
-		frame.getContentPane().add(agreement);
+		JCheckBox check1 = new JCheckBox("Acconsento");
+		check1.setFont(new Font("Arial Nova", Font.PLAIN, 10));
+		check1.setBounds(20, 463, 93, 21);
+		frame.getContentPane().add(check1);
 		
-		JLabel lblPassword_1 = new JLabel("password");
-		lblPassword_1.setBounds(57, 310, 70, 15);
-		frame.getContentPane().add(lblPassword_1);
+		JLabel lblNewLabel_7 = new JLabel("1. Vendita dei titoli di viaggio e servizi Trenord");
+		lblNewLabel_7.setFont(new Font("Arial Nova", Font.BOLD, 10));
+		lblNewLabel_7.setBounds(20, 401, 299, 13);
+		frame.getContentPane().add(lblNewLabel_7);
 		
-		JLabel txterrore = new JLabel("Errore");
-		txterrore.setVisible(false);
-		txterrore.setBounds(34, 413, 420, 15);
-		frame.getContentPane().add(txterrore);
+		JTextArea txtrProfilazioneDellaClientela = new JTextArea();
+		txtrProfilazioneDellaClientela.setForeground(SystemColor.textInactiveText);
+		txtrProfilazioneDellaClientela.setBackground(SystemColor.menu);
+		txtrProfilazioneDellaClientela.setEditable(false);
+		txtrProfilazioneDellaClientela.setFont(new Font("Arial Nova", Font.PLAIN, 9));
+		txtrProfilazioneDellaClientela.setText("Profilazione della clientela, per la vendita di titoli, offerte di viaggio Trenord e servizi dedicati quali effettuazione \r\nreclami, rimborsi etc.. Si ribadisce che in assenza di tale consenso non sarà possibile dare seguito alle obbligazioni \r\ncontrattualmente assunte.");
+		txtrProfilazioneDellaClientela.setBounds(20, 419, 434, 38);
+		frame.getContentPane().add(txtrProfilazioneDellaClientela);
+		
+		JLabel lblNewLabel_7_1 = new JLabel("2. Trattamento dei dati personali sensibili");
+		lblNewLabel_7_1.setFont(new Font("Arial Nova", Font.BOLD, 10));
+		lblNewLabel_7_1.setBounds(20, 493, 299, 13);
+		frame.getContentPane().add(lblNewLabel_7_1);
+		
+		JTextArea txtrAiSensiDellart_1 = new JTextArea();
+		txtrAiSensiDellart_1.setText("Ai sensi dell’art. 9.2 lett. a) del GDPR, presa visione dell'INFORMATIVA SULLA PRIVACY dei dati personali da \r\nparte del Titolare, esprimo liberamente il consenso al trattamento dei miei dati sensibili per finalità di conclusione \r\ned esecuzione del rapporto contrattuale con il Titolare.");
+		txtrAiSensiDellart_1.setForeground(SystemColor.textInactiveText);
+		txtrAiSensiDellart_1.setFont(new Font("Arial Nova", Font.PLAIN, 9));
+		txtrAiSensiDellart_1.setEditable(false);
+		txtrAiSensiDellart_1.setBackground(SystemColor.menu);
+		txtrAiSensiDellart_1.setBounds(20, 511, 434, 38);
+		frame.getContentPane().add(txtrAiSensiDellart_1);
+		
+		JCheckBox check2 = new JCheckBox("Acconsento");
+		check2.setFont(new Font("Arial Nova", Font.PLAIN, 10));
+		check2.setBounds(20, 555, 93, 21);
+		frame.getContentPane().add(check2);
+		
+		JLabel lblNewLabel_8 = new JLabel("Idietro");
+		lblNewLabel_8.setForeground(Color.BLUE);
+		lblNewLabel_8.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		lblNewLabel_8.setBounds(20, 619, 45, 13);
+		frame.getContentPane().add(lblNewLabel_8);
 		
 		//Azioni
-		
-		btnNewButton_3.addActionListener(new ActionListener() {
+		btnCreaAccount.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Login.main(null);
-				frame.setVisible(false);
+				String error = "";
+				
+				try {
+					error = Sessione.CheckRegistration(emailtxt.getText(), nometxt.getText(),cognometxt.getText(),String.valueOf(passwordtxt.getPassword()));
+				} catch (Exception e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				}
+				
+					
+				if(error.isEmpty()) {
+					utente.setName(nometxt.getText());
+					utente.setPassword(String.valueOf(passwordtxt.getPassword()));
+					utente.setCognome(cognometxt.getText());
+					utente.setEmail(emailtxt.getText());
+			
+					try {
+						//db.aggiungiUtente(utente);
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					Login.main(null);
+					frame.setVisible(false);
+				} 
+				
+				else {
+					   //txterrore.setText(error);
+					   //txterrore.setVisible(true);
+				}
 			}
 		});
 		
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-			error=Sessione.CheckRegistration(txtemail.getText(),txtusername.getText(),txtnome.getText(),txtcognome.getText(),txttelefono.getText(),txtpassword.getText(),txtconferma.getText());
-				
-			
-			
-			
-			if(error.isEmpty()) {
-				utente.setUsername(txtusername.getText());
-				utente.setName(txtnome.getText());
-				utente.setPassword(txtpassword.getText());
-				utente.setCognome(txtcognome.getText());
-				utente.setEmail(txtemail.getText());
-
-				
-				try {
-					db.aggiungiUtente(utente);
-				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				Login.main(null);
-				frame.setVisible(false);
-			} 
-			
-			else {
-				   txterrore.setText(error);
-				   txterrore.setVisible(true);
+		passwordtxt.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				dettaglipasswordtxt.setVisible(false);
 			}
-			  
-		
-				
-			
-			
+			@Override
+			public void focusGained(FocusEvent e) {
+				dettaglipasswordtxt.setVisible(true);
 			}
 		});
 

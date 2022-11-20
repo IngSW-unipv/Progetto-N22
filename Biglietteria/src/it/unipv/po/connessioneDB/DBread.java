@@ -41,15 +41,6 @@ public class DBread {
 		
 	}
 	
-	public String searchPassword(String user) throws Exception{
-		return strategiaDiLettura.searchPassword(user);
-	}
-	
-
-	public int searchUsername(String user) throws Exception {
-		return strategiaDiLettura.searchUsername(user);
-	}
-	
 	public double searchTariffaMezzo(Vehicle mezzo) throws Exception{
 		return strategiaDiLettura.searchTariffaMezzo(mezzo);
 	}

@@ -1,6 +1,6 @@
 package it.unipv.po.gui.ricerca;
 
-import java.awt.EventQueue; 
+import java.awt.EventQueue;
 import java.awt.Image;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -9,11 +9,15 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalTime;
 import java.awt.SystemColor;
 import javax.swing.border.TitledBorder;
+import it.unipv.po.connessioneDB.DBread;
+import it.unipv.po.trasporto.ricerca.Ricerca;
 import javax.swing.border.EtchedBorder;
 import java.awt.Color;
 import javax.swing.JToggleButton;
@@ -21,16 +25,11 @@ import javax.swing.JComboBox;
 import javax.swing.JSeparator;
 import javax.swing.JSlider;
 import javax.swing.event.ChangeListener;
-
-import it.unipv.po.connessioneDB.DBread;
-import it.unipv.po.trasporto.ricerca.Ricerca;
-
 import javax.swing.event.ChangeEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class Cerca extends JFrame {
-
 
 	private JFrame frame;
 	private DBread leggi = new DBread();
@@ -51,10 +50,6 @@ public class Cerca extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 * @throws Exception 
-	 */
 	public Cerca() throws Exception {
 		frame = new JFrame();
 		
@@ -101,12 +96,10 @@ public class Cerca extends JFrame {
 		JToggleButton tglBiglietto = new JToggleButton("Biglietto");
 		tglBiglietto.setSelected(true);
 		tglBiglietto.setBounds(10, 21, 127, 21);
-		tglBiglietto.setBorder(new RoundedBorder(10)); //10 is the radius
 		panel.add(tglBiglietto);
 		
 		JToggleButton tglAbbonamento = new JToggleButton("Abbonamento");
 		tglAbbonamento.setBounds(147, 21, 127, 21);
-		tglAbbonamento.setBorder(new RoundedBorder(10)); //10 is the radius
 		panel.add(tglAbbonamento);
 		
 		JComboBox comboBoxPartenza = new JComboBox(leggi.elencoFermate());
@@ -127,7 +120,7 @@ public class Cerca extends JFrame {
 		
 		JButton cercaBtn = new JButton("Cerca");
 		cercaBtn.setBounds(98, 382, 85, 21);
-		cercaBtn.setBorder(new RoundedBorder(10)); //10 is the radius
+		cercaBtn.setBackground(UIManager.getColor("control"));
 		panel.add(cercaBtn);
 		
 		JSeparator separator_1 = new JSeparator();
@@ -240,6 +233,13 @@ public class Cerca extends JFrame {
 			}
 		});
 		
+		cercaBtn.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				if(cercaBtn.getBackground() == Color.LIGHT_GRAY) cercaBtn.setBackground(UIManager.getColor("control"));
+				else cercaBtn.setBackground(Color.LIGHT_GRAY);
+			}
+		});
+		
 		cercaBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//Controllo che siano state selezionate le fermate
@@ -247,7 +247,7 @@ public class Cerca extends JFrame {
 					try {
 						//Controllo se la ricerca non da esito nullo e quindi non esista un percorso che rispetta le indicazioni inserite
 						if(ricerca.cercaEGenera(comboBoxPartenza.getSelectedItem().toString(), comboBoxArrivo.getSelectedItem().toString(), LocalTime.parse(orarioPartenzatxt.getText())).size() != 0) {
-							Cerca2.main(ricerca.cercaEGenera(comboBoxPartenza.getSelectedItem().toString(), comboBoxArrivo.getSelectedItem().toString(), LocalTime.parse(orarioPartenzatxt.getText())));
+							Viaggi.main(ricerca.cercaEGenera(comboBoxPartenza.getSelectedItem().toString(), comboBoxArrivo.getSelectedItem().toString(), LocalTime.parse(orarioPartenzatxt.getText())));
 							frame.setVisible(false);
 						}else JOptionPane.showMessageDialog(null, "Non è stato possibile trovare un percorso che rispettasse \nl'orario inseriro, si prega di cambiare orario e riprovare","Search error",JOptionPane.INFORMATION_MESSAGE);
 						
@@ -272,6 +272,7 @@ public class Cerca extends JFrame {
 				orarioPartenzatxt.setText(str);
 			}
 		});
+		
 		
 	}
 }

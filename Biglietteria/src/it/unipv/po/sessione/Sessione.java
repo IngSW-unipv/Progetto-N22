@@ -11,69 +11,39 @@ import it.unipv.po.utente.Utente;
 
 
 public class Sessione {
-
 	
-
-	public static boolean UserLogin(String user, String passtext) throws Exception {
-		boolean check=false;
-		String passdb="";
+	public static boolean UserLogin(String email, String passtext) throws Exception {
 		DBread db = new DBread();
 		
-		try {
-			passdb=db.searchPassword(user);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if(passtext.compareTo(db.userDownload(email).getPassword()) == 0) {
+			Utente utente = CreateUser(email);
+			utente.setTitoliAcquistati(scaricaTitoliUtente(email));
+			
+			return true;
 		}
 		
-		try {
-			if(passdb.compareTo(sha1(passtext)) == 0 ) check = true;
-		
-		} catch (NoSuchAlgorithmException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		Utente utente = CreateUser(user);
-		//genera Exception
-		utente.setTitoliAcquistati(scaricaTitoliUtente(user));
-		
-		return check;
+		return false;
 	}
 
-	private static Utente CreateUser(String user) {
+	private static Utente CreateUser(String email) throws Exception {
 		DBread db = new DBread();
-		
-      Utente utente = null;
-	try {
-		utente = db.userDownload(user);
-	} catch (Exception e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
-		
-		return utente;
+
+		return db.userDownload(email);
 	}
 	
-	private static ArrayList<Titolo> scaricaTitoliUtente(String user) throws Exception {
-		DBread dbReader = new DBread();
-		return dbReader.scaricaTitoliUtente(user);
+	private static ArrayList<Titolo> scaricaTitoliUtente(String email) throws Exception {
+		DBread db = new DBread();
+		
+		return db.scaricaTitoliUtente(email);
 	}
 
-	public static String CheckRegistration(String email, String username,String nome, String cognome, String telefono, String password, String conferma) {
+	public static String CheckRegistration(String email,String nome, String cognome, String password) throws Exception {
 	    String error="";
 		DBread db = new DBread();
 		
-	     if (!CheckEmail(email))   error="Email non valida";
-	     if (!(telefono!= null && telefono.matches("[0-9]+")&&telefono.length()==10)) error="Numero di telefono non valido";
-	     if((email.isEmpty() || username.isEmpty() || nome.isEmpty()|| cognome.isEmpty()|| telefono.isEmpty())) error = "Tutti i campi devono essere compilati";
-	     if(password.compareTo(conferma)!=0) error="Le password non coincidono"; 
-		try {
-			if(!(db.searchUsername(username)==0)) error="Username già esistente";
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	    if (!CheckEmail(email)) error="Email non valida";
+	    else if(email.isEmpty() || nome.isEmpty()|| cognome.isEmpty()) error = "Tutti i campi devono essere compilati";
+	    else if(db.userDownload(email).getEmail().compareTo(email) ==0) error="Username già esistente";
 		
 		return error;
 	}

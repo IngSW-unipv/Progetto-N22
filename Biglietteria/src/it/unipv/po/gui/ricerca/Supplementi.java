@@ -1,6 +1,7 @@
 package it.unipv.po.gui.ricerca;
 
-import java.awt.ComponentOrientation; 
+import java.awt.Color;
+import java.awt.ComponentOrientation;
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JTextArea;
@@ -15,6 +16,10 @@ import java.awt.Image;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
+
+import it.unipv.po.trasporto.ricerca.Ricerca;
+import it.unipv.po.trasporto.titolo.Biglietto;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -22,9 +27,6 @@ import javax.swing.JSpinner;
 import javax.swing.JSeparator;
 import javax.swing.border.EtchedBorder;
 import javax.swing.event.ChangeListener;
-
-import it.unipv.po.trasporto.titolo.Biglietto;
-
 import javax.swing.event.ChangeEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -33,9 +35,11 @@ public class Supplementi {
 
 	private JFrame frame;
 	private Biglietto biglietto;
-	private String[] passeggeri = {"","","",""};
-	private String[] prezzi = {"","","",""};
+	
+	private String[] passeggeri = new String[4];
+	private String[] prezzi = new String[4];
 	private DecimalFormat df=new DecimalFormat("0.00");
+	
 	private static JTextArea dettaglitxt;
 	private static JLabel totalePrezzotxt;
 	private static JTextArea bigliettitxt;
@@ -113,27 +117,22 @@ public class Supplementi {
 		JPanel bigliettopanel = new JPanel();
 		bigliettopanel.setBackground(SystemColor.controlHighlight);
 		bigliettopanel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		bigliettopanel.setBounds(249, 51, 222, 277);
+		bigliettopanel.setBounds(259, 51, 222, 277);
 		panel.add(bigliettopanel);
 		bigliettopanel.setLayout(null);
-		
-		JButton btnProsegui = new JButton("Prosegui");
-		btnProsegui.setBounds(56, 232, 119, 33);
-		btnProsegui.setBorder(new RoundedBorder(10));
-		bigliettopanel.add(btnProsegui);
 		
 		JSeparator separator = new JSeparator();
 		separator.setBounds(12, 185, 198, 2);
 		bigliettopanel.add(separator);
 				
-		JLabel lblNewLabel_4 = new JLabel("Passegeri");
+		JLabel lblNewLabel_4 = new JLabel("PASSEGGERI");
 		lblNewLabel_4.setHorizontalAlignment(SwingConstants.LEFT);
 		lblNewLabel_4.setBounds(9, 28, 90, 20);
 		panel.add(lblNewLabel_4);
 		
-		JLabel lblNewLabel_6 = new JLabel("Il tuo biglietto");
+		JLabel lblNewLabel_6 = new JLabel("IL TUO BIGLIETTO");
 		lblNewLabel_6.setHorizontalAlignment(SwingConstants.LEFT);
-		lblNewLabel_6.setBounds(249, 28, 90, 20);
+		lblNewLabel_6.setBounds(259, 28, 158, 20);
 		panel.add(lblNewLabel_6);
 		
 		JLabel lblPrezzoTotale = new JLabel("Totale da pagare:");
@@ -196,6 +195,7 @@ public class Supplementi {
 		panel4.add(lblNewLabel);
 
 		dettaglitxt = new JTextArea();
+		dettaglitxt.setEditable(false);
 		dettaglitxt.setBackground(SystemColor.controlHighlight);
 		dettaglitxt.setBounds(12, 10, 119, 71);
 		bigliettopanel.add(dettaglitxt);
@@ -203,26 +203,41 @@ public class Supplementi {
 		totalePrezzotxt = new JLabel("");
 		totalePrezzotxt.setFont(new Font("Tahoma", Font.BOLD, 12));
 		totalePrezzotxt.setHorizontalAlignment(SwingConstants.CENTER);
-		totalePrezzotxt.setBounds(166, 202, 44, 15);
+		totalePrezzotxt.setBounds(140, 202, 70, 15);
 		bigliettopanel.add(totalePrezzotxt);
 		
 		bigliettitxt = new JTextArea();
+		bigliettitxt.setEditable(false);
 		bigliettitxt.setBackground(SystemColor.controlHighlight);
 		bigliettitxt.setBounds(29, 91, 119, 84);
 		bigliettopanel.add(bigliettitxt);
 		
 		prezzitxt = new JTextArea();
+		prezzitxt.setEditable(false);
 		prezzitxt.setBackground(SystemColor.controlHighlight);
 		prezzitxt.setBounds(158, 91, 54, 84);
 		prezzitxt.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);;
 		bigliettopanel.add(prezzitxt);
 		
+		JButton btnProsegui = new JButton("Prosegui");
+		btnProsegui.setBounds(68, 232, 85, 21);
+		btnProsegui.setBorder(new RoundedBorder(10));
+		bigliettopanel.add(btnProsegui);
+		
 		//Azioni
 		btnIndietro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//permette di tornare una pagina indietro alla pressione del tasto
-				Cerca.main(null);
-				frame.setVisible(false);
+				Ricerca ricerca = new Ricerca();
+				
+				try {
+					Viaggi.main(ricerca.cercaEGenera(biglietto.getPercorso().get(0).getCodiceFermata(),biglietto.getPercorso().get(biglietto.getPercorso().size()-1).getCodiceFermata(), biglietto.getPercorso().get(0).getOrario()));
+					frame.setVisible(false);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
 			}
 		});
 		
@@ -294,33 +309,51 @@ public class Supplementi {
 			}
 		});
 		
+		btnProsegui.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				if(btnProsegui.getBackground() == Color.LIGHT_GRAY) btnProsegui.setBackground(UIManager.getColor("control"));
+				else btnProsegui.setBackground(Color.LIGHT_GRAY);
+			}
+		});
+		
 		btnProsegui.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				ArrayList<Biglietto> b = new ArrayList<Biglietto>();
 				ArrayList<Integer> spinner = new ArrayList<Integer>();
-				int adulto = (Integer) spinnerAdulto.getValue();
-				int bambino = (Integer) spinnerBambino.getValue();
-				int anziano = (Integer) spinnerAnziano.getValue();
-				int animale = (Integer) spinnerAnimale.getValue();
+				Biglietto bigliettonuovo;
+				String passeggero = "";
+				String prezzo = "";
 				
 				spinner.add((Integer) spinnerAdulto.getValue()); 
 				spinner.add((Integer) spinnerBambino.getValue()); 
 				spinner.add((Integer) spinnerAnziano.getValue()); 
 				spinner.add((Integer) spinnerAnimale.getValue()); 
-				
-				if((bambino != 0 || animale != 0) && (adulto == 0 && anziano == 0)) JOptionPane.showMessageDialog(null, "Minori e animali non posso viaggiare senza un maturo","Search error",JOptionPane.ERROR_MESSAGE);
-				else if(adulto != 0 || anziano != 0){
+			
+				//if((bambino != 0 || animale != 0) && (adulto == 0 && anziano == 0))
+				if((spinner.get(1) != 0 || spinner.get(3) != 0) && (spinner.get(0) == 0 && spinner.get(2) == 0)) JOptionPane.showMessageDialog(null, "Minori e animali non posso viaggiare senza un maturo","Search error",JOptionPane.ERROR_MESSAGE);
+				else if(spinner.get(0) != 0 || spinner.get(2) != 0){
 					for(int i = 0; i < 4; i++) {		
 						for(int j = 0; j < spinner.get(i); j++) {
-							biglietto.setPasseggero(passeggeri[i].replace(" • "+ spinner.get(i) +" Biglietto ", ""));
-							biglietto.setPrezzo(Double.valueOf(prezzi[i].replace(",", "."))/spinner.get(i));
-							b.add(biglietto);
-						}	
+							try {
+								bigliettonuovo = new Biglietto(biglietto.getPercorso());
+								
+								bigliettonuovo.setPasseggero(passeggeri[i].replace(" • "+ spinner.get(i) +" Biglietto ", ""));
+								bigliettonuovo.setPrezzo(Double.valueOf(prezzi[i].replace(",", "."))/spinner.get(i));
+								
+								b.add(bigliettonuovo);
+							} catch (Exception e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}		
+						}
+						
+						if(passeggeri[i] != null && passeggeri[i] != "") passeggero += passeggeri[i] +"\n";
+						if(prezzi[i] != null && prezzi[i] != "") prezzo += prezzi[i] +" €\n";
 					}
 				}
 				
-				Riepilogo.main(b);
+				Riepilogo.main(b, passeggero, prezzo);
 				frame.setVisible(false);
 			}
 		});

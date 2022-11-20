@@ -23,6 +23,7 @@ public class Utente {
 		carrello = new Carrello(username);
 		titoliAcquistati = new ArrayList<Titolo>();
 	}
+	
 	public Utente(String username) {
 		this.username = username;
 		carrello = new Carrello(username);
@@ -44,7 +45,6 @@ public class Utente {
 			sottraiPunti(puntiUtilizzati);
 			aggiungiPunti(payment.getPuntiOttenuti());
 		}
-		
 	}
 	
 	public void setTitoliAcquistati(ArrayList<Titolo> titoli) {

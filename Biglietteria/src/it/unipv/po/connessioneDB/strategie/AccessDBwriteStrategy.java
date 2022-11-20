@@ -80,7 +80,7 @@ public class AccessDBwriteStrategy implements IDBwriteStrategy{
 		String password="";
 		Connection connessione= getDBConnection();
 		PreparedStatement statement= connessione.prepareStatement(sql);
-		statement.setString(1, utente.getUsername());
+		statement.setString(1, "");
 		password = Sessione.sha1(utente.getPassword());
 		statement.setString(2, password);
 		statement.setString(3,utente.getName());

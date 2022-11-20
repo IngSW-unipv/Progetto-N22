@@ -1,7 +1,6 @@
 package it.unipv.po.gui.utente;
 
 import java.awt.EventQueue; 
-
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -10,15 +9,12 @@ import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
-
-import it.unipv.po.gui.home.Acquisto;
+import it.unipv.po.gui.home.Home;
 import it.unipv.po.sessione.Sessione;
-
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Toolkit;
 import java.awt.Font;
-import java.awt.HeadlessException;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -29,9 +25,6 @@ public class Login{
 	private JTextField txtUsername;
 	private JPasswordField txtpassword;
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -45,16 +38,10 @@ public class Login{
 		});
 	}
 
-	/**
-	 * Create the application.
-	 */
 	public Login() {
 		initialize();
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
 	private void initialize() {
 		frame = new JFrame();
 		frame.setIconImage(Toolkit.getDefaultToolkit().getImage("image\\monkey_128.png"));
@@ -65,7 +52,7 @@ public class Login{
 		
 		JLabel lblNewLabel = new JLabel("Login system");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(175, 22, 136, 13);
+		lblNewLabel.setBounds(175, 10, 136, 25);
 		frame.getContentPane().add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Username");
@@ -138,29 +125,25 @@ public class Login{
 		
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Sessione sessione = new Sessione();
 				String user = txtUsername.getText();
-				@SuppressWarnings("deprecation")
-				String password = txtpassword.getText();		
+				String password = String.valueOf(txtpassword.getPassword());		
 				
-					try {
-						if(Sessione.UserLogin(user,txtpassword.getText())) {
+				try {
+					if(user.compareTo("") != 0 && password.compareTo("") != 0) {
+						if(sessione.UserLogin(user,password)) {
 							
-							txtUsername.setText(null);
-							txtpassword.setText(null);
-							
-							Acquisto.main(null);
+							Home.main(null);
 							frame.setVisible(false);
 							
-						}else {
-							JOptionPane.showMessageDialog(null, "Invalid login details","Login error",JOptionPane.ERROR_MESSAGE);
-						}
-					} catch (Exception e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-			
-				} 
+						} else JOptionPane.showMessageDialog(null, "Username o password errata","Login error",JOptionPane.ERROR_MESSAGE);
+					} else JOptionPane.showMessageDialog(null, "Invalid login details","Login error",JOptionPane.ERROR_MESSAGE);
 					
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			} 	
 		});
 		
 		btnExit.addActionListener(new ActionListener() {

@@ -20,17 +20,12 @@ public class Pagamento implements IPagamento{
 	private IPaymentStrategy paymentMethod;
 	private CalcolatorePunti calcolatorePunti;
 	private boolean autorizzato;
-	
-	
-	
-
-	
 
 	public Pagamento(double costo, double puntiMax) {
 		autorizzato = false;
 		dataEora= LocalDateTime.now();
 		importo=costo;
-		payStrategySetter(PagamentiM.creditcard); //settiamo di default questo
+		payStrategySetter(PagamentiM.Creditcard); //settiamo di default questo
 		calcolatoreSconto = new CalcolatoreSconto();
 		calcolatorePunti = new CalcolatorePunti();
 		this.puntiMax=puntiMax;
@@ -49,13 +44,13 @@ public class Pagamento implements IPagamento{
 	
 	@Override
 	public void payStrategySetter(PagamentiM metodo) {
-		if (metodo==PagamentiM.paypal)
+		if (metodo==PagamentiM.Paypal)
 			paymentMethod= new PayPalPaymentStrategy();
-		if (metodo==PagamentiM.creditcard)
+		if (metodo==PagamentiM.Creditcard)
 			paymentMethod= new CreditCardPaymentStrategy();
-		if (metodo==PagamentiM.postepay)
+		if (metodo==PagamentiM.Postepay)
 			paymentMethod= new PostePayPaymentStrategy();
-		if (metodo==PagamentiM.visa)
+		if (metodo==PagamentiM.Visa)
 			paymentMethod= new VisaPaymentStrategy();
 	}
 	

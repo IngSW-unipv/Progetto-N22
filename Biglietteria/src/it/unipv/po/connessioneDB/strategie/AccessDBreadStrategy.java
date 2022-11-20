@@ -4,10 +4,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
-
 import it.unipv.po.trasporto.fermata.Fermata;
 import it.unipv.po.trasporto.linea.Linea;
 import it.unipv.po.trasporto.titolo.Abbonamento;
@@ -22,7 +20,6 @@ public class AccessDBreadStrategy implements IDBreadStrategy{
 	//percorso della directory del database
 	private static final String databaseURL  = "jdbc:ucanaccess://DB//DatabaseBiglietteria.accdb";
 
-	@Override
 	public Connection getDBConnection() throws Exception {
 		
 		// Funzione per creare la connessione
@@ -30,10 +27,8 @@ public class AccessDBreadStrategy implements IDBreadStrategy{
 		Connection dbConnection = DriverManager.getConnection(databaseURL);
 		
 		return dbConnection;
-		
 	}
 
-	@Override
 	public Linea getLinea(int id) throws Exception{
 		String sql = "SELECT * FROM Linea where Linea.ID = "+ id;
 		Connection connection = null;
@@ -66,7 +61,6 @@ public class AccessDBreadStrategy implements IDBreadStrategy{
 		return lineaDB;
 	}
 
-	@Override
 	public String getSnodi(String partenza, String destinazione) throws Exception {
 		
 		String sql = "select distinct IDfermata from Orario where IDlinea = (select distinct IDlinea from Linea Where IDlinea = '"+ partenza +"') and IDfermata IN (select distinct IDfermata from Orario where IDlinea = (select distinct IDlinea from Linea Where IDlinea = '"+ destinazione+"'))";
@@ -90,7 +84,6 @@ public class AccessDBreadStrategy implements IDBreadStrategy{
 		return result.getString("IDfermata");
 	}
 
-	@Override
 	public String[] elencoFermate() throws Exception{
 		String sql = "SELECT COUNT(IDfermata) FROM Fermata";
 		Connection connection = null;
@@ -124,10 +117,8 @@ public class AccessDBreadStrategy implements IDBreadStrategy{
      	}
 		
 		return str;
-		
 	}
 
-	@Override
 	public ArrayList<Fermata> getFermate(String IDlinea) throws Exception {
 		String sql = "SELECT * FROM Orario inner join Linea on Orario.IDlinea = Linea.IDlinea WHERE Orario.IDlinea = '"+ IDlinea +"'";
 		Connection connection = null;
@@ -163,11 +154,9 @@ public class AccessDBreadStrategy implements IDBreadStrategy{
 			connection.close();
 		}
 			
-		return lineaDB;
-		
+		return lineaDB;	
 	}
 
-	@Override
 	public ArrayList<Linea> searchLinea(String IDfermata) throws Exception {
 		String sql = "SELECT distinct Linea.ID FROM Orario inner join Linea on Linea.IDlinea = Orario.IDlinea WHERE IDfermata = '"+ IDfermata +"'";
 		Connection connection = null;
@@ -184,7 +173,6 @@ public class AccessDBreadStrategy implements IDBreadStrategy{
         	corsa.add(getLinea(result.getInt("Linea.ID")));
         			
         }
-      
         
     	// Chiudo la connessione
      	if(statement != null) {
@@ -196,58 +184,7 @@ public class AccessDBreadStrategy implements IDBreadStrategy{
      		
 		return corsa;
 	}
-	
-	
-	
-	
-	public String searchPassword(String user) throws Exception {
-		String sql = "SELECT Password FROM Utente WHERE Username = '"+ user +"'";
-		Connection connection = null;
-		Statement statement = null;
-		
-		connection = getDBConnection();
-		statement = connection.createStatement();
-        ResultSet result = statement.executeQuery(sql);
-        
-        result.next();
-        
-    	// Chiudo la connessione
-     	if(statement != null) {
-     		statement.close();
-     	}
-     	if(connection != null) {
-     		connection.close();
-     	}
-     		
-		return result.getString("Password");
-		
-	}
-	
-	
-	public int searchUsername(String user) throws Exception {
-		String sql = "SELECT count(*) FROM Utente WHERE Username = '"+ user +"'";
-		Connection connection = null;
-		Statement statement = null;
-		
-		connection = getDBConnection();
-		statement = connection.createStatement();
-        ResultSet result = statement.executeQuery(sql);
-        
-        result.next();
-        
-    	// Chiudo la connessione
-     	if(statement != null) {
-     		statement.close();
-     	}
-     	if(connection != null) {
-     		connection.close();
-     	}
-     		
-		return ((Number) result.getObject(1)).intValue();
-		
-	}
-	
-	@Override
+
 	public double searchTariffaMezzo(Vehicle mezzo) throws Exception {
 		String sql = "SELECT Tariffa FROM TariffaMezzo WHERE Mezzo = '"+ mezzo.toString() +"'";
 		Connection connection = null;
@@ -262,56 +199,55 @@ public class AccessDBreadStrategy implements IDBreadStrategy{
 		
 	}
 	
-
-@Override
-	public Utente userDownload(String username) throws Exception {
-		String sql = "SELECT * FROM Utente WHERE Username = '"+ username + "'" ;
+	public Utente userDownload(String email) throws Exception {
+		String sql = "SELECT * FROM Utente WHERE Email = '"+ email + "'" ;
 		Connection connection = null;
 		Statement statement = null;
 		
 		connection = getDBConnection();
 		statement = connection.createStatement();
         ResultSet result = statement.executeQuery(sql);
-        Utente user = new Utente(result.getString(1),result.getString(2),result.getString(3),result.getString(4),result.getString(5));
+        
+        result.next();
+        
+        Utente user = new Utente(result.getString("Username"),result.getString("Nome"),result.getString("Cognome"),result.getString("Email"),result.getString("Password"));
 
 		return user;
 	}
 
-@Override
-public ArrayList<Titolo> scaricaTitoliUtente(String user) throws Exception {
-	String sql = "SELECT * FROM CronologiaTitoli WHERE Username = '"+ user + "'" ;
-	Connection connection = null;
-	Statement statement = null;
-	
-	connection = getDBConnection();
-	statement = connection.createStatement();
-    ResultSet result = statement.executeQuery(sql);
-    
-    ArrayList<Titolo> titoliGenerati= new ArrayList<Titolo>();
-    while(result.next()) {
-	    String idTitolo = result.getString("IDtitolo");
-		String dataAcquisto = result.getString("DataAcquisto");
-		double prezzo = result.getDouble("PrezzoTitolo");
-		String percorso = result.getString("Percorso");
-	    if(result.getString("DataInizio").compareTo("") == 0) {
-	    	//è un biglietto
-	    	boolean attivo = result.getBoolean("Attivo");
-	    	boolean disponibile = result.getBoolean("Disponibile");
-	    	Biglietto titolo = new Biglietto(idTitolo, prezzo, percorso, disponibile, attivo, dataAcquisto);
-	    	titoliGenerati.add(titolo);
+	public ArrayList<Titolo> scaricaTitoliUtente(String email) throws Exception {
+		String sql = "SELECT * FROM CronologiaTitoli WHERE Utente = '"+ email + "'" ;
+		Connection connection = null;
+		Statement statement = null;
+		
+		connection = getDBConnection();
+		statement = connection.createStatement();
+	    ResultSet result = statement.executeQuery(sql);
+	    
+	    ArrayList<Titolo> titoliGenerati = new ArrayList<Titolo>();
+	    while(result.next()) {
+		    String idTitolo = result.getString("IDtitolo");
+			String dataAcquisto = result.getString("DataAcquisto");
+			double prezzo = result.getDouble("PrezzoTitolo");
+			String percorso = result.getString("Percorso");
+		    if(result.getString("DataInizio").compareTo("") == 0) {
+		    	//è un biglietto
+		    	boolean attivo = result.getBoolean("Attivo");
+		    	boolean disponibile = result.getBoolean("Disponibile");
+		    	Biglietto titolo = new Biglietto(idTitolo, prezzo, percorso, disponibile, attivo, dataAcquisto);
+		    	titoliGenerati.add(titolo);
+		    }
+		    else {
+		    	//è un abbonamento
+		    	String dataInizio = result.getString("DataInizio");
+		    	int durataGiorni = result.getInt("Durata");
+		    	Abbonamento titolo = new Abbonamento(idTitolo, prezzo, percorso,dataInizio,durataGiorni,dataAcquisto);
+		    	titoliGenerati.add(titolo);
+		    }
 	    }
-	    else {
-	    	//è un abbonamento
-	    	String dataInizio = result.getString("DataInizio");
-	    	int durataGiorni = result.getInt("Durata");
-	    	Abbonamento titolo = new Abbonamento(idTitolo, prezzo, percorso,dataInizio,durataGiorni,dataAcquisto);
-	    	titoliGenerati.add(titolo);
-	    }
-    }
-    return titoliGenerati;
-    
-    
+	    
+	    return titoliGenerati;
 	
-}
+	}
 		
 }
