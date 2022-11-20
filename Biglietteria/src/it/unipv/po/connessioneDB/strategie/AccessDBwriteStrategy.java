@@ -76,17 +76,16 @@ public class AccessDBwriteStrategy implements IDBwriteStrategy{
 	
 	//metodo per la registrazione degli utenti
 	public void aggiungiUtente(Utente utente) throws Exception {
-		String sql="INSERT into Utente(Username,Password,Nome,Cognome,Email,Punti) VALUES(?,?,?,?,?,?);";
+		String sql="INSERT into Utente(Password,Nome,Cognome,Email,Punti) VALUES(?,?,?,?,?);";
 		String password="";
 		Connection connessione= getDBConnection();
 		PreparedStatement statement= connessione.prepareStatement(sql);
-		statement.setString(1, "");
 		password = Sessione.sha1(utente.getPassword());
-		statement.setString(2, password);
-		statement.setString(3,utente.getName());
-		statement.setString(4,utente.getCognome());
-		statement.setString(5,utente.getEmail());	
-		statement.setString(6, "0");
+		statement.setString(1, password);
+		statement.setString(2,utente.getName());
+		statement.setString(3,utente.getCognome());
+		statement.setString(4,utente.getEmail());	
+		statement.setString(5, "0");
 		
 		statement.executeUpdate();
 		

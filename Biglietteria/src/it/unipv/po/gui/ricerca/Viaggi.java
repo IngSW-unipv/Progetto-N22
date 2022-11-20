@@ -7,8 +7,6 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
-import javax.swing.UIManager;
-
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -17,6 +15,7 @@ import java.util.ArrayList;
 import java.awt.SystemColor;
 import javax.swing.border.TitledBorder;
 import it.unipv.po.trasporto.titolo.Biglietto;
+import it.unipv.po.utente.Utente;
 import it.unipv.po.trasporto.fermata.Fermata;
 import it.unipv.po.trasporto.ricerca.Ricerca;
 import javax.swing.border.EtchedBorder;
@@ -29,13 +28,11 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.DecimalFormat;
 import java.time.LocalTime;
-import javax.swing.event.ChangeListener;
-import javax.swing.event.ChangeEvent;
 
 public class Viaggi extends JFrame {
 
 	private JFrame frame;
-	private Ricerca corsa = new Ricerca();
+	private Ricerca ricerca = new Ricerca();
 	private static ArrayList<Biglietto> biglietti;
 	
 	private static ArrayList<JRadioButton> radioButton = new ArrayList<JRadioButton>();
@@ -47,25 +44,25 @@ public class Viaggi extends JFrame {
 	private static JTextArea textArea;
 	private static JButton btnIndietro;
 
-	public static void main(ArrayList<Biglietto> bigliettiTrovati) {
+	public static void main(Utente utente, String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Viaggi window = new Viaggi(bigliettiTrovati);
+					Viaggi window = new Viaggi(utente, args);
 					window.frame.setVisible(true);
 					
 					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-
 			}
 		});
 	}
 
-	public Viaggi(ArrayList<Biglietto> bigliettiTrovati) throws Exception {
-		biglietti = bigliettiTrovati;
-		initialize();
+	public Viaggi(Utente utente, String[] args) throws Exception {
+		biglietti = ricerca.cercaEGenera(args[0], args[1], LocalTime.parse(args[2]));
+		
+		initialize(utente, args[2]);
 		
 		//Metodo per l'inizializzazione dell'interfaccia
 		//riempie le celle con le informazioni riguardanti le varie tratte trovate dalla ricerca
@@ -74,7 +71,7 @@ public class Viaggi extends JFrame {
 	
 	
 	
-	private void initialize() {
+	private void initialize(Utente utente, String orario) {
 		frame = new JFrame();
 		
 		frame.setResizable(false);
@@ -92,17 +89,19 @@ public class Viaggi extends JFrame {
 		frame.getContentPane().add(textArea);
 		
 		JLabel lblNewLabel_1 = new JLabel("Soluzioni di viaggio");
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblNewLabel_1.setFont(new Font("Arial Nova", Font.BOLD, 11));
 		lblNewLabel_1.setBounds(10, 45, 150, 31);
 		frame.getContentPane().add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_1_1 = new JLabel("Passeggeri e supplementi");
+		lblNewLabel_1_1.setFont(new Font("Arial Nova", Font.PLAIN, 10));
 		lblNewLabel_1_1.setForeground(SystemColor.controlShadow);
 		lblNewLabel_1_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_1_1.setBounds(180, 45, 150, 31);
 		frame.getContentPane().add(lblNewLabel_1_1);
 		
 		JLabel lblNewLabel_1_2 = new JLabel("Riepilogo e pagamento");
+		lblNewLabel_1_2.setFont(new Font("Arial Nova", Font.PLAIN, 10));
 		lblNewLabel_1_2.setForeground(SystemColor.controlShadow);
 		lblNewLabel_1_2.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewLabel_1_2.setBounds(354, 45, 150, 31);
@@ -157,7 +156,7 @@ public class Viaggi extends JFrame {
 			btnPrezzo.get(i).setBounds(373, y, 105, 21);
 			btnPrezzo.get(i).setVisible(false);
 			btnPrezzo.get(i).setBackground(null);
-			btnPrezzo.get(i).setBorder(new RoundedBorder(10)); //10 is the radius
+			//btnPrezzo.get(i).setBorder(new RoundedBorder(10)); //10 is the radius
 			panel.add(btnPrezzo.get(i));
 			
 			y += 71;
@@ -171,6 +170,7 @@ public class Viaggi extends JFrame {
 		panel_1.setLayout(new BorderLayout(0, 0));
 		
 		JLabel lblNewLabel = new JLabel("Dettagli viaggio");
+		lblNewLabel.setFont(new Font("Arial Nova", Font.PLAIN, 11));
 		panel_1.add(lblNewLabel, BorderLayout.NORTH);
 		
 		JScrollPane scrollPane = new JScrollPane();
@@ -198,7 +198,7 @@ public class Viaggi extends JFrame {
 					radioButton.get(3).setSelected(false);
 					
 					//Alla pressione del tasto 1 stampo i dettagli del viaggio assocaito
-					dettaglitxt.setText(corsa.stampaRicerca(biglietti.get(0).getPercorso()));
+					dettaglitxt.setText(ricerca.stampaRicerca(biglietti.get(0).getPercorso()));
 				}
 				
 			}
@@ -214,7 +214,7 @@ public class Viaggi extends JFrame {
 					radioButton.get(3).setSelected(false);
 					
 					//Alla pressione del tasto 2 stampo i dettagli del viaggio assocaito
-					dettaglitxt.setText(corsa.stampaRicerca(biglietti.get(1).getPercorso()));
+					dettaglitxt.setText(ricerca.stampaRicerca(biglietti.get(1).getPercorso()));
 				}
 			
 			}
@@ -230,7 +230,7 @@ public class Viaggi extends JFrame {
 					radioButton.get(3).setSelected(false);
 					
 					//Alla pressione del tasto 3 stampo i dettagli del viaggio assocaito
-					dettaglitxt.setText(corsa.stampaRicerca(biglietti.get(2).getPercorso()));
+					dettaglitxt.setText(ricerca.stampaRicerca(biglietti.get(2).getPercorso()));
 				}
 				
 			}
@@ -246,53 +246,30 @@ public class Viaggi extends JFrame {
 					radioButton.get(0).setSelected(false);
 					
 					//Alla pressione del tasto 4 stampo i dettagli del viaggio assocaito
-					dettaglitxt.setText(corsa.stampaRicerca(biglietti.get(3).getPercorso()));
+					dettaglitxt.setText(ricerca.stampaRicerca(biglietti.get(3).getPercorso()));
 				}
 				
-			}
-		});
-		
-		//Eventi che al passaggio del mouse sopra i bottoni dei prezzi li evidenzia
-		btnPrezzo.get(0).addChangeListener(new ChangeListener() {
-			public void stateChanged(ChangeEvent e) {
-				if(btnPrezzo.get(0).getBackground() == Color.LIGHT_GRAY) btnPrezzo.get(0).setBackground(UIManager.getColor("control"));
-				else btnPrezzo.get(0).setBackground(Color.LIGHT_GRAY);
-			}
-		});
-		
-		btnPrezzo.get(1).addChangeListener(new ChangeListener() {
-			public void stateChanged(ChangeEvent e) {
-				if(btnPrezzo.get(1).getBackground() == Color.LIGHT_GRAY) btnPrezzo.get(1).setBackground(UIManager.getColor("control"));
-				else btnPrezzo.get(1).setBackground(Color.LIGHT_GRAY);
-			}
-		});
-		
-		btnPrezzo.get(2).addChangeListener(new ChangeListener() {
-			public void stateChanged(ChangeEvent e) {
-				if(btnPrezzo.get(2).getBackground() == Color.LIGHT_GRAY) btnPrezzo.get(2).setBackground(UIManager.getColor("control"));
-				else btnPrezzo.get(2).setBackground(Color.LIGHT_GRAY);
-			}
-		});
-		
-		btnPrezzo.get(3).addChangeListener(new ChangeListener() {
-			public void stateChanged(ChangeEvent e) {
-				if(btnPrezzo.get(3).getBackground() == Color.LIGHT_GRAY) btnPrezzo.get(3).setBackground(UIManager.getColor("control"));
-				else btnPrezzo.get(3).setBackground(Color.LIGHT_GRAY);
 			}
 		});
 		
 		btnPrezzo.get(0).addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				Supplementi.main(biglietti.get(0));
-				frame.setVisible(false);
+				utente.getTitoliAcquistati().clear();
+				utente.getTitoliAcquistati().add(biglietti.get(0));
+				
+				Supplementi.main(utente, orario);
+				frame.setVisible(false); 
 			}
 		});
 		
 		btnPrezzo.get(1).addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				Supplementi.main(biglietti.get(1));
+				utente.getTitoliAcquistati().clear();
+				utente.getTitoliAcquistati().add(biglietti.get(1));
+				
+				Supplementi.main(utente, orario);
 				frame.setVisible(false);
 			}
 		});
@@ -300,7 +277,10 @@ public class Viaggi extends JFrame {
 		btnPrezzo.get(2).addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				Supplementi.main(biglietti.get(2));
+				utente.getTitoliAcquistati().clear();
+				utente.getTitoliAcquistati().add(biglietti.get(2));
+				
+				Supplementi.main(utente, orario);
 				frame.setVisible(false);
 			}
 		});
@@ -308,7 +288,10 @@ public class Viaggi extends JFrame {
 		btnPrezzo.get(3).addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				Supplementi.main(biglietti.get(3));
+				utente.getTitoliAcquistati().clear();
+				utente.getTitoliAcquistati().add(biglietti.get(3));
+				
+				Supplementi.main(utente, orario);
 				frame.setVisible(false);
 			}
 		});

@@ -17,9 +17,9 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
-
-import it.unipv.po.trasporto.ricerca.Ricerca;
 import it.unipv.po.trasporto.titolo.Biglietto;
+import it.unipv.po.trasporto.titolo.Titolo;
+import it.unipv.po.utente.Utente;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -34,7 +34,7 @@ import java.awt.event.MouseEvent;
 public class Supplementi {
 
 	private JFrame frame;
-	private Biglietto biglietto;
+	private Utente utente;
 	
 	private String[] passeggeri = new String[4];
 	private String[] prezzi = new String[4];
@@ -45,12 +45,12 @@ public class Supplementi {
 	private static JTextArea bigliettitxt;
 	private static JTextArea prezzitxt;
 	
-	public static void main(Biglietto bigliettoSelezionato) {
+	public static void main(Utente u, String orarioricerca) {
 		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Supplementi window = new Supplementi(bigliettoSelezionato);
+					Supplementi window = new Supplementi(u, orarioricerca);
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -59,14 +59,15 @@ public class Supplementi {
 		});
 	}
 
-	public Supplementi(Biglietto bigliettoSelezionato) {
-		biglietto = bigliettoSelezionato;
-		initialize();
+	public Supplementi(Utente u, String orarioricerca) {
+		utente = u;
+		
+		initialize(orarioricerca);
 		setGraficaRicerca();
 	
 	}
 
-	private void initialize() {
+	private void initialize(String orarioricerca) {
 		frame = new JFrame();
 		
 		frame.setBounds(100, 100, 525, 494);
@@ -82,19 +83,21 @@ public class Supplementi {
 		frame.getContentPane().add(textArea);
 		
 		JLabel lblNewLabel_1_2_1 = new JLabel("Soluzioni di viaggio");
+		lblNewLabel_1_2_1.setFont(new Font("Arial Nova", Font.PLAIN, 10));
 		lblNewLabel_1_2_1.setHorizontalAlignment(SwingConstants.LEFT);
 		lblNewLabel_1_2_1.setForeground(SystemColor.controlShadow);
 		lblNewLabel_1_2_1.setBounds(10, 35, 150, 31);
 		frame.getContentPane().add(lblNewLabel_1_2_1);
 		
 		JLabel lblNewLabel_1_1 = new JLabel("Passeggeri e supplementi");
-		lblNewLabel_1_1.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblNewLabel_1_1.setFont(new Font("Arial Nova", Font.BOLD, 11));
 		lblNewLabel_1_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_1_1.setForeground(SystemColor.desktop);
 		lblNewLabel_1_1.setBounds(180, 35, 150, 31);
 		frame.getContentPane().add(lblNewLabel_1_1);
 		
 		JLabel lblNewLabel_1_2 = new JLabel("Riepilogo e pagamento");
+		lblNewLabel_1_2.setFont(new Font("Arial Nova", Font.PLAIN, 10));
 		lblNewLabel_1_2.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewLabel_1_2.setForeground(SystemColor.controlShadow);
 		lblNewLabel_1_2.setBounds(356, 35, 150, 31);
@@ -126,17 +129,19 @@ public class Supplementi {
 		bigliettopanel.add(separator);
 				
 		JLabel lblNewLabel_4 = new JLabel("PASSEGGERI");
+		lblNewLabel_4.setFont(new Font("Arial Nova", Font.PLAIN, 10));
 		lblNewLabel_4.setHorizontalAlignment(SwingConstants.LEFT);
 		lblNewLabel_4.setBounds(9, 28, 90, 20);
 		panel.add(lblNewLabel_4);
 		
 		JLabel lblNewLabel_6 = new JLabel("IL TUO BIGLIETTO");
+		lblNewLabel_6.setFont(new Font("Arial Nova", Font.PLAIN, 10));
 		lblNewLabel_6.setHorizontalAlignment(SwingConstants.LEFT);
 		lblNewLabel_6.setBounds(259, 28, 158, 20);
 		panel.add(lblNewLabel_6);
 		
 		JLabel lblPrezzoTotale = new JLabel("Totale da pagare:");
-		lblPrezzoTotale.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblPrezzoTotale.setFont(new Font("Arial Nova", Font.BOLD, 13));
 		lblPrezzoTotale.setBounds(12, 197, 119, 25);
 		bigliettopanel.add(lblPrezzoTotale);	
 		
@@ -174,22 +179,22 @@ public class Supplementi {
 		panel1.add(spinnerAdulto);
 		
 		JLabel lblNewLabel_3_1 = new JLabel("Biglietto adulto");
-		lblNewLabel_3_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblNewLabel_3_1.setFont(new Font("Arial Nova", Font.PLAIN, 10));
 		lblNewLabel_3_1.setHorizontalAlignment(SwingConstants.LEFT);
 		lblNewLabel_3_1.setBounds(10, 17, 136, 22);
 		panel1.add(lblNewLabel_3_1);	
 		JLabel lblNewLabel_3 = new JLabel("Biglietto bambino");
-		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblNewLabel_3.setFont(new Font("Arial Nova", Font.PLAIN, 10));
 		lblNewLabel_3.setHorizontalAlignment(SwingConstants.LEFT);
 		lblNewLabel_3.setBounds(10, 15, 136, 25);
 		panel2.add(lblNewLabel_3);
 		JLabel lblNewLabel_2 = new JLabel("Biglietto anziano");
-		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblNewLabel_2.setFont(new Font("Arial Nova", Font.PLAIN, 10));
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.LEFT);
 		lblNewLabel_2.setBounds(10, 15, 136, 25);
 		panel3.add(lblNewLabel_2);		
 		JLabel lblNewLabel = new JLabel("Biglietto animale ");
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblNewLabel.setFont(new Font("Arial Nova", Font.PLAIN, 10));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.LEFT);
 		lblNewLabel.setBounds(10, 15, 136, 25);
 		panel4.add(lblNewLabel);
@@ -201,18 +206,20 @@ public class Supplementi {
 		bigliettopanel.add(dettaglitxt);
 		
 		totalePrezzotxt = new JLabel("");
-		totalePrezzotxt.setFont(new Font("Tahoma", Font.BOLD, 12));
+		totalePrezzotxt.setFont(new Font("Arial Nova", Font.BOLD, 13));
 		totalePrezzotxt.setHorizontalAlignment(SwingConstants.CENTER);
 		totalePrezzotxt.setBounds(140, 202, 70, 15);
 		bigliettopanel.add(totalePrezzotxt);
 		
 		bigliettitxt = new JTextArea();
+		bigliettitxt.setFont(new Font("Arial Nova", Font.PLAIN, 11));
 		bigliettitxt.setEditable(false);
 		bigliettitxt.setBackground(SystemColor.controlHighlight);
 		bigliettitxt.setBounds(29, 91, 119, 84);
 		bigliettopanel.add(bigliettitxt);
 		
 		prezzitxt = new JTextArea();
+		prezzitxt.setFont(new Font("Arial Nova", Font.PLAIN, 11));
 		prezzitxt.setEditable(false);
 		prezzitxt.setBackground(SystemColor.controlHighlight);
 		prezzitxt.setBounds(158, 91, 54, 84);
@@ -220,6 +227,7 @@ public class Supplementi {
 		bigliettopanel.add(prezzitxt);
 		
 		JButton btnProsegui = new JButton("Prosegui");
+		btnProsegui.setFont(new Font("Arial Nova", Font.PLAIN, 10));
 		btnProsegui.setBounds(68, 232, 85, 21);
 		btnProsegui.setBorder(new RoundedBorder(10));
 		bigliettopanel.add(btnProsegui);
@@ -228,10 +236,11 @@ public class Supplementi {
 		btnIndietro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//permette di tornare una pagina indietro alla pressione del tasto
-				Ricerca ricerca = new Ricerca();
-				
 				try {
-					Viaggi.main(ricerca.cercaEGenera(biglietto.getPercorso().get(0).getCodiceFermata(),biglietto.getPercorso().get(biglietto.getPercorso().size()-1).getCodiceFermata(), biglietto.getPercorso().get(0).getOrario()));
+					String[] args = {utente.getTitoliAcquistati().get(0).getPercorso().get(0).getCodiceFermata(), utente.getTitoliAcquistati().get(0).getPercorso().get(utente.getTitoliAcquistati().get(0).getPercorso().size()-1).getCodiceFermata(), orarioricerca};
+					utente.getTitoliAcquistati().clear();
+					
+					Viaggi.main(utente, args);
 					frame.setVisible(false);
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
@@ -247,7 +256,7 @@ public class Supplementi {
 				
 				if(myint != 0) {
 					passeggeri[0] = " • "+ spinnerAdulto.getValue() +" Biglietto adulto";
-					prezzi[0] = df.format(biglietto.getPrezzo()*myint);
+					prezzi[0] = df.format(utente.getTitoliAcquistati().get(0).getPrezzo()*myint);
 				}else  {
 					passeggeri[0]= "";
 					prezzi[0] = "";
@@ -264,7 +273,7 @@ public class Supplementi {
 				
 				if(myint != 0) {
 					passeggeri[1] = " • "+ spinnerBambino.getValue() +" Biglietto bambino";
-					prezzi[1] = df.format(biglietto.getPrezzo()*myint*0.5);
+					prezzi[1] = df.format(utente.getTitoliAcquistati().get(0).getPrezzo()*myint*0.5);
 				}else  {
 					passeggeri[1]= "";
 					prezzi[1] = "";
@@ -280,7 +289,7 @@ public class Supplementi {
 				
 				if(myint != 0) {
 					passeggeri[2] = " • "+ spinnerAnziano.getValue() +" Biglietto anziano";
-					prezzi[2] = df.format(biglietto.getPrezzo()*myint*0.8);
+					prezzi[2] = df.format(utente.getTitoliAcquistati().get(0).getPrezzo()*myint*0.8);
 				}else  {
 					passeggeri[2]= "";
 					prezzi[2] = "";
@@ -298,7 +307,7 @@ public class Supplementi {
 				
 				if(myint != 0) {
 					passeggeri[3] = " • "+ spinnerAnimale.getValue() +" Biglietto animale";
-					prezzi[3] = df.format(biglietto.getPrezzo()*myint*0.6);
+					prezzi[3] = df.format(utente.getTitoliAcquistati().get(0).getPrezzo()*myint*0.6);
 				}else  {
 					passeggeri[3]= "";
 					prezzi[3] = "";
@@ -319,7 +328,7 @@ public class Supplementi {
 		btnProsegui.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				ArrayList<Biglietto> b = new ArrayList<Biglietto>();
+				ArrayList<Titolo> b = new ArrayList<Titolo>();
 				ArrayList<Integer> spinner = new ArrayList<Integer>();
 				Biglietto bigliettonuovo;
 				String passeggero = "";
@@ -336,7 +345,7 @@ public class Supplementi {
 					for(int i = 0; i < 4; i++) {		
 						for(int j = 0; j < spinner.get(i); j++) {
 							try {
-								bigliettonuovo = new Biglietto(biglietto.getPercorso());
+								bigliettonuovo = new Biglietto(utente.getTitoliAcquistati().get(0).getPercorso());
 								
 								bigliettonuovo.setPasseggero(passeggeri[i].replace(" • "+ spinner.get(i) +" Biglietto ", ""));
 								bigliettonuovo.setPrezzo(Double.valueOf(prezzi[i].replace(",", "."))/spinner.get(i));
@@ -353,7 +362,10 @@ public class Supplementi {
 					}
 				}
 				
-				Riepilogo.main(b, passeggero, prezzo);
+				utente.setTitoliAcquistati(b);
+				String[] args = {passeggero, prezzo, orarioricerca};
+				
+				Riepilogo.main(args, utente);
 				frame.setVisible(false);
 			}
 		});
@@ -383,13 +395,13 @@ public class Supplementi {
 	
 	private void setGraficaRicerca() {
 		
-		String dettagliotxt = "🚍\n⦿ "+ biglietto.getPercorso().get(0).getCodiceFermata() +"\n ¦\n⦿ "+ biglietto.getPercorso().get(biglietto.getPercorso().size()-1).getCodiceFermata();
+		String dettagliotxt = "🚍\n⦿ "+ utente.getTitoliAcquistati().get(0).getPercorso().get(0).getCodiceFermata() +"\n ¦\n⦿ "+ utente.getTitoliAcquistati().get(0).getPercorso().get(utente.getTitoliAcquistati().get(0).getPercorso().size()-1).getCodiceFermata();
 		String passeggeritxt = " • 1 Biglietto adulto";
 		
 		dettaglitxt.setText(dettagliotxt);
 		
 		passeggeri[0] = passeggeritxt;
-		prezzi[0] = String.valueOf(df.format(biglietto.getPrezzo()));;
+		prezzi[0] = String.valueOf(df.format(utente.getTitoliAcquistati().get(0).getPrezzo()));;
 		
 		aggiornaBiglietti();
 		aggiornaPrezzi();

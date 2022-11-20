@@ -5,14 +5,21 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import it.unipv.po.gui.ricerca.Cerca;
+import it.unipv.po.utente.Utente;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Home extends JFrame {
 
@@ -23,11 +30,11 @@ public class Home extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public static void main(Utente login) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Home frame = new Home();
+					Home frame = new Home(login);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -36,12 +43,9 @@ public class Home extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
-	public Home() {
+	public Home(Utente login) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 873, 551);
+		setBounds(100, 100, 889, 551);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -58,6 +62,13 @@ public class Home extends JFrame {
 		bar.add(btnNewButton);
 		
 		JButton btnCerca = new JButton("Cerca");
+		btnCerca.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				Cerca.main(login);
+			}
+		});
 		btnCerca.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnCerca.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -107,9 +118,11 @@ public class Home extends JFrame {
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_1.setFont(new Font("Calibri", Font.BOLD, 26));
 		
+		/*Image img = new ImageIcon("Image/Sfondo.jpg").getImage();
+		Image newImage = img.getScaledInstance(770, 490, Image.SCALE_DEFAULT);*/
+		
 		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon("Image/mappaPiccola.png"));
-		lblNewLabel.setBounds(163, 91, 598, 356);
+		lblNewLabel.setBounds(10, 10, 616, 490);
 		homePagePanel.add(lblNewLabel);
 		
 		searchPagePanel = new JPanel();

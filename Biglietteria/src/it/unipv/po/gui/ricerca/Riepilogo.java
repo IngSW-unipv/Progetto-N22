@@ -9,7 +9,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -17,7 +16,8 @@ import javax.swing.JLabel;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
-import it.unipv.po.trasporto.titolo.Biglietto;
+import it.unipv.po.trasporto.titolo.Titolo;
+import it.unipv.po.utente.Utente;
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
 import javax.swing.event.ChangeEvent;
@@ -32,11 +32,11 @@ import javax.swing.JRadioButton;
 public class Riepilogo {
 	private JFrame frame;
 	private DecimalFormat df = new DecimalFormat("0.00");
-	private static ArrayList<Biglietto> biglietto;
+	private static Utente utente;
 	
-	private JTextField txtAlessandro;
-	private JTextField txtAlbertini;
-	private JTextField txtAlealbertinigmailcom;
+	private JTextField nometxt;
+	private JTextField cognometxt;
+	private JTextField emailtxt;
 	
 	private static JTextArea dettaglitxt;
 	private static JLabel totalePrezzotxt;
@@ -52,11 +52,11 @@ public class Riepilogo {
 	 * @param prezzo 
 	 * @param passeggero 
 	 */
-	public static void main(ArrayList<Biglietto> biglietti, String passeggero, String prezzo) {
+	public static void main(String[] args, Utente u) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Riepilogo window = new Riepilogo(biglietti, passeggero, prezzo);
+					Riepilogo window = new Riepilogo(args, u);
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -65,14 +65,14 @@ public class Riepilogo {
 		});
 	}
 
-	public Riepilogo(ArrayList<Biglietto> biglietti, String passeggero, String prezzo) {
-		biglietto = biglietti;
+	public Riepilogo(String[] args, Utente u) {
+		utente = u;
 		
-		initialize();
-		setGraficaBiglietto(passeggero, prezzo);
+		initialize(args[2]);
+		setGraficaBiglietto(args[0], args[1]);
 	}
 
-	private void initialize() {
+	private void initialize(String orarioricerca) {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 525, 632);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -89,12 +89,12 @@ public class Riepilogo {
 		JLabel lblNewLabel_1_1 = new JLabel("Passeggeri e supplementi");
 		lblNewLabel_1_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_1_1.setForeground(SystemColor.controlShadow);
-		lblNewLabel_1_1.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		lblNewLabel_1_1.setFont(new Font("Arial Nova", Font.PLAIN, 10));
 		lblNewLabel_1_1.setBounds(180, 40, 150, 31);
 		frame.getContentPane().add(lblNewLabel_1_1);
 		
 		JLabel lblNewLabel_1_2 = new JLabel("Riepilogo e pagamento");
-		lblNewLabel_1_2.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblNewLabel_1_2.setFont(new Font("Arial Nova", Font.BOLD, 11));
 		lblNewLabel_1_2.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewLabel_1_2.setForeground(SystemColor.desktop);
 		lblNewLabel_1_2.setBounds(356, 40, 150, 31);
@@ -156,7 +156,7 @@ public class Riepilogo {
 		panelBiglietto.add(separator);
 		
 		JLabel lblPrezzoTotale = new JLabel("Totale da pagare:");
-		lblPrezzoTotale.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblPrezzoTotale.setFont(new Font("Arial Nova", Font.BOLD, 13));
 		lblPrezzoTotale.setBounds(12, 197, 119, 25);
 		panelBiglietto.add(lblPrezzoTotale);
 		
@@ -168,24 +168,25 @@ public class Riepilogo {
 		
 		dettaglitxt = new JTextArea();
 		dettaglitxt.setEditable(false);
-		dettaglitxt.setText("🚍\r\n⦿ <dynamic>\r\n ¦\r\n⦿ <dynamic>");
 		dettaglitxt.setBackground(SystemColor.controlHighlight);
 		dettaglitxt.setBounds(12, 10, 119, 71);
 		panelBiglietto.add(dettaglitxt);
 		
 		totalePrezzotxt = new JLabel("");
 		totalePrezzotxt.setHorizontalAlignment(SwingConstants.CENTER);
-		totalePrezzotxt.setFont(new Font("Tahoma", Font.BOLD, 12));
+		totalePrezzotxt.setFont(new Font("Arial Nova", Font.BOLD, 13));
 		totalePrezzotxt.setBounds(140, 202, 70, 15);
 		panelBiglietto.add(totalePrezzotxt);
 		
 		bigliettitxt = new JTextArea();
+		bigliettitxt.setFont(new Font("Arial Nova", Font.PLAIN, 11));
 		bigliettitxt.setText("");
 		bigliettitxt.setBackground(SystemColor.controlHighlight);
 		bigliettitxt.setBounds(29, 91, 119, 84);
 		panelBiglietto.add(bigliettitxt);
 		
 		prezzitxt = new JTextArea();
+		prezzitxt.setFont(new Font("Arial Nova", Font.PLAIN, 11));
 		prezzitxt.setText("");
 		prezzitxt.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 		prezzitxt.setBackground(SystemColor.controlHighlight);
@@ -193,45 +194,49 @@ public class Riepilogo {
 		panelBiglietto.add(prezzitxt);
 		
 		JButton btnAcquista = new JButton("Acquista");
+		btnAcquista.setFont(new Font("Arial Nova", Font.PLAIN, 10));
 		btnAcquista.setBorder(new RoundedBorder(10));
 		btnAcquista.setBounds(68, 232, 85, 21);
 		panelBiglietto.add(btnAcquista);
 		
 		JLabel lblNewLabel_4 = new JLabel("INSERISCI DATI ACQUIRENTE");
+		lblNewLabel_4.setFont(new Font("Arial Nova", Font.PLAIN, 10));
 		lblNewLabel_4.setHorizontalAlignment(SwingConstants.LEFT);
 		lblNewLabel_4.setBounds(9, 28, 176, 20);
 		panel.add(lblNewLabel_4);
 		
 		JLabel lblNewLabel_6 = new JLabel("IL TUO BIGLIETTO");
+		lblNewLabel_6.setFont(new Font("Arial Nova", Font.PLAIN, 10));
 		lblNewLabel_6.setHorizontalAlignment(SwingConstants.LEFT);
 		lblNewLabel_6.setBounds(259, 28, 146, 20);
 		panel.add(lblNewLabel_6);	
 		
-		txtAlessandro = new JTextField();
-		txtAlessandro.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		txtAlessandro.setText("ALESSANDRO");
-		txtAlessandro.setEnabled(false);
-		txtAlessandro.setEditable(false);
-		txtAlessandro.setBounds(10, 21, 96, 25);
-		panelProfilo.add(txtAlessandro);
-		txtAlessandro.setColumns(10);
+		nometxt = new JTextField();
+		nometxt.setFont(new Font("Arial Nova", Font.PLAIN, 11));
+		nometxt.setEnabled(false);
+		nometxt.setEditable(false);
+		nometxt.setColumns(10);
+		nometxt.setBounds(10, 21, 96, 25);
+		nometxt.setText(utente.getName());
+		panelProfilo.add(nometxt);
 		
-		txtAlbertini = new JTextField();
-		txtAlbertini.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		txtAlbertini.setText("ALBERTINI");
-		txtAlbertini.setEnabled(false);
-		txtAlbertini.setEditable(false);
-		txtAlbertini.setColumns(10);
-		txtAlbertini.setBounds(123, 21, 96, 25);
-		panelProfilo.add(txtAlbertini);
 		
-		txtAlealbertinigmailcom = new JTextField();
-		txtAlealbertinigmailcom.setText("ale.albertini2000@gmail.com");
-		txtAlealbertinigmailcom.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		txtAlealbertinigmailcom.setBackground(SystemColor.menu);
-		txtAlealbertinigmailcom.setColumns(10);
-		txtAlealbertinigmailcom.setBounds(10, 73, 209, 25);
-		panelProfilo.add(txtAlealbertinigmailcom);
+		cognometxt = new JTextField();
+		cognometxt.setFont(new Font("Arial Nova", Font.PLAIN, 11));
+		cognometxt.setEnabled(false);
+		cognometxt.setEditable(false);
+		cognometxt.setColumns(10);
+		cognometxt.setBounds(123, 21, 96, 25);
+		cognometxt.setText(utente.getCognome());
+		panelProfilo.add(cognometxt);
+		
+		emailtxt = new JTextField();
+		emailtxt.setFont(new Font("Arial Nova", Font.PLAIN, 11));
+		emailtxt.setBackground(SystemColor.menu);
+		emailtxt.setColumns(10);
+		emailtxt.setBounds(10, 73, 209, 25);
+		emailtxt.setText(utente.getEmail());
+		panelProfilo.add(emailtxt);
 		
 		JLabel lblNewLabel = new JLabel("Nome");
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 8));
@@ -251,21 +256,24 @@ public class Riepilogo {
 		panelProfilo.add(lblNewLabel_2);
 		
 		JCheckBox chckbxNewCheckBox_1 = new JCheckBox("Utilizza il tuo credito residuo");
+		chckbxNewCheckBox_1.setFont(new Font("Arial Nova", Font.PLAIN, 10));
 		chckbxNewCheckBox_1.setBounds(6, 6, 217, 21);
 		panelPunti.add(chckbxNewCheckBox_1);
 		
-		JTextArea txtrHaiADisposizione = new JTextArea();
-		txtrHaiADisposizione.setBackground(SystemColor.menu);
-		txtrHaiADisposizione.setFont(new Font("Tahoma", Font.PLAIN, 10));
-		txtrHaiADisposizione.setText("Hai a disposizione 0,00 € (salda l'eventuale \r\ndifferenza con un altro metodo di pagamento)\r\n\r\n");
-		txtrHaiADisposizione.setBounds(6, 33, 213, 38);
-		panelPunti.add(txtrHaiADisposizione);
+		JTextArea puntitxt = new JTextArea();
+		puntitxt.setBackground(SystemColor.menu);
+		puntitxt.setFont(new Font("Arial Nova", Font.PLAIN, 10));
+		puntitxt.setText("Hai a disposizione "+ df.format(utente.getPunti()) +" € (salda l'eventuale \r\ndifferenza con un altro metodo di pagamento)\r\n\r\n");
+		puntitxt.setBounds(6, 33, 213, 38);
+		panelPunti.add(puntitxt);
 		
 		JLabel lblNewLabel_3 = new JLabel("SCEGLI IL METODO DI PAGAMENTO");
+		lblNewLabel_3.setFont(new Font("Arial Nova", Font.PLAIN, 10));
 		lblNewLabel_3.setBounds(9, 190, 229, 13);
 		panel.add(lblNewLabel_3);
 		
 		JLabel lblNewLabel_5 = new JLabel("Scegli come saldare la differenza");
+		lblNewLabel_5.setFont(new Font("Arial Nova", Font.PLAIN, 11));
 		lblNewLabel_5.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_5.setBounds(134, 342, 222, 13);
 		panel.add(lblNewLabel_5);
@@ -279,26 +287,30 @@ public class Riepilogo {
 		panel.add(separator_1_1);
 		
 		rdbtnCreditcard = new JRadioButton("Creditcard");
+		rdbtnCreditcard.setFont(new Font("Arial Nova", Font.PLAIN, 11));
 		rdbtnCreditcard.setSelected(true);
 		rdbtnCreditcard.setBounds(6, 14, 174, 21);
 		panelCarta.add(rdbtnCreditcard);
 		
 		rdbtnVisa = new JRadioButton("Visa");
+		rdbtnVisa.setFont(new Font("Arial Nova", Font.PLAIN, 11));
 		rdbtnVisa.setBounds(6, 14, 175, 21);
 		panelAmericaExpress.add(rdbtnVisa);
 		
 		rdbtnPostepay = new JRadioButton("Postepay");
+		rdbtnPostepay.setFont(new Font("Arial Nova", Font.PLAIN, 11));
 		rdbtnPostepay.setBounds(6, 14, 103, 21);
 		panelPaypall.add(rdbtnPostepay);
 		
 		rdbtnPaypal = new JRadioButton("Paypal");
+		rdbtnPaypal.setFont(new Font("Arial Nova", Font.PLAIN, 11));
 		rdbtnPaypal.setBounds(6, 14, 175, 21);
 		panelAmericaExpress_1.add(rdbtnPaypal);		
 		
 		JLabel lblNewLabel_1_1_1 = new JLabel("Soluzioni viaggio");
 		lblNewLabel_1_1_1.setHorizontalAlignment(SwingConstants.LEFT);
 		lblNewLabel_1_1_1.setForeground(SystemColor.controlShadow);
-		lblNewLabel_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		lblNewLabel_1_1_1.setFont(new Font("Arial Nova", Font.PLAIN, 10));
 		lblNewLabel_1_1_1.setBounds(10, 40, 150, 31);
 		frame.getContentPane().add(lblNewLabel_1_1_1);
 		
@@ -308,7 +320,7 @@ public class Riepilogo {
 				//permette di tornare una pagina indietro alla pressione del tasto
 				
 				try {
-					Supplementi.main(biglietto.get(0));
+					Supplementi.main(utente, orarioricerca);
 					frame.setVisible(false);
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
@@ -381,11 +393,11 @@ public class Riepilogo {
 	
 	private void setGraficaBiglietto(String passeggero, String prezzo) {
 		
-		String dettagliotxt = "🚍\n⦿ "+ biglietto.get(0).getPercorso().get(0).getCodiceFermata() +"\n ¦\n⦿ "+ biglietto.get(0).getPercorso().get(biglietto.get(0).getPercorso().size()-1).getCodiceFermata();
+		String dettagliotxt = "🚍\n⦿ "+ utente.getTitoliAcquistati().get(0).getPercorso().get(0).getCodiceFermata() +"\n ¦\n⦿ "+ utente.getTitoliAcquistati().get(0).getPercorso().get(utente.getTitoliAcquistati().get(0).getPercorso().size()-1).getCodiceFermata();
 		
 		double totale = 0;
 		
-		for(Biglietto n : biglietto) {
+		for(Titolo n : utente.getTitoliAcquistati()) {
 			totale += n.getPrezzo();
 		}
 

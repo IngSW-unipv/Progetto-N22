@@ -9,24 +9,28 @@ import it.unipv.po.trasporto.titolo.Titolo;
 
 
 public class Utente {
-    private String username, name, cognome, email,password;
+    private String name;
+    private String cognome;
+    private String email;
+    private String password;
 	private double punti;
 	private Carrello carrello;
 	private ArrayList<Titolo> titoliAcquistati;
 	
-	public Utente(String username, String name, String cognome, String email, String password) {
-		this.username = username;
+	public Utente(String name, String cognome, String email, String password) {
 		this.name = name;
 		this.cognome = cognome;
 		this.email = email;
 		this.password = password;
-		carrello = new Carrello(username);
+		carrello = new Carrello(email);
 		titoliAcquistati = new ArrayList<Titolo>();
 	}
 	
-	public Utente(String username) {
-		this.username = username;
-		carrello = new Carrello(username);
+	public Utente() {
+		this.name = "";
+		this.cognome = "";
+		this.email = "";
+		this.password = "";
 	}
 	
 	public void aggiungiTitolo(Titolo t) {
@@ -50,13 +54,9 @@ public class Utente {
 	public void setTitoliAcquistati(ArrayList<Titolo> titoli) {
 		this.titoliAcquistati = titoli;
 	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
+	
+	public ArrayList<Titolo> getTitoliAcquistati() {
+		return this.titoliAcquistati;
 	}
 
 	public String getName() {

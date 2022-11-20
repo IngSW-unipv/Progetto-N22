@@ -20,8 +20,8 @@ public class Main {
 		Ricerca corsa = new Ricerca();
         
         String partenza = "F004";
-        String  destinazione = "F020";
-        Utente u = new Utente("Rose");
+        String  destinazione = "F023";
+        Utente u = new Utente();
         
         
         ArrayList<ArrayList<Fermata>> elenco = corsa.cerca(partenza, destinazione, LocalTime.parse("12:00:00"));

@@ -10,7 +10,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalTime;
@@ -18,6 +17,7 @@ import java.awt.SystemColor;
 import javax.swing.border.TitledBorder;
 import it.unipv.po.connessioneDB.DBread;
 import it.unipv.po.trasporto.ricerca.Ricerca;
+import it.unipv.po.utente.Utente;
 import javax.swing.border.EtchedBorder;
 import java.awt.Color;
 import javax.swing.JToggleButton;
@@ -28,20 +28,19 @@ import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.Font;
 
 public class Cerca extends JFrame {
 
 	private JFrame frame;
 	private DBread leggi = new DBread();
 	private Ricerca ricerca = new Ricerca();
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
+	
+	public static void main(Utente utente) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Cerca window = new Cerca();
+					Cerca window = new Cerca(utente);
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -50,7 +49,7 @@ public class Cerca extends JFrame {
 		});
 	}
 
-	public Cerca() throws Exception {
+	public Cerca(Utente utente) throws Exception {
 		frame = new JFrame();
 		
 		frame.setResizable(false);
@@ -94,11 +93,13 @@ public class Cerca extends JFrame {
 		frame.getContentPane().add(panel);
 		
 		JToggleButton tglBiglietto = new JToggleButton("Biglietto");
+		tglBiglietto.setFont(new Font("Arial Nova", Font.PLAIN, 10));
 		tglBiglietto.setSelected(true);
 		tglBiglietto.setBounds(10, 21, 127, 21);
 		panel.add(tglBiglietto);
 		
 		JToggleButton tglAbbonamento = new JToggleButton("Abbonamento");
+		tglAbbonamento.setFont(new Font("Arial Nova", Font.PLAIN, 10));
 		tglAbbonamento.setBounds(147, 21, 127, 21);
 		panel.add(tglAbbonamento);
 		
@@ -119,6 +120,7 @@ public class Cerca extends JFrame {
 		panel.add(separator);
 		
 		JButton cercaBtn = new JButton("Cerca");
+		cercaBtn.setFont(new Font("Arial Nova", Font.PLAIN, 10));
 		cercaBtn.setBounds(98, 382, 85, 21);
 		cercaBtn.setBackground(UIManager.getColor("control"));
 		panel.add(cercaBtn);
@@ -132,10 +134,12 @@ public class Cerca extends JFrame {
 		panel.add(separator_2);
 		
 		JLabel lblNewLabel = new JLabel("Fermata di partenza");
+		lblNewLabel.setFont(new Font("Arial Nova", Font.PLAIN, 11));
 		lblNewLabel.setBounds(10, 99, 148, 13);
 		panel.add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Fermata di arrivo");
+		lblNewLabel_1.setFont(new Font("Arial Nova", Font.PLAIN, 11));
 		lblNewLabel_1.setBounds(10, 166, 148, 13);
 		panel.add(lblNewLabel_1);
 		
@@ -155,6 +159,7 @@ public class Cerca extends JFrame {
 		panel.add(orarioMaxtxt);
 		
 		JLabel orariotxt = new JLabel("A che ora vuoi partire?");
+		orariotxt.setFont(new Font("Arial Nova", Font.PLAIN, 11));
 		orariotxt.setBounds(28, 250, 172, 13);
 		panel.add(orariotxt);
 		
@@ -165,15 +170,15 @@ public class Cerca extends JFrame {
 		btnNewButton_1.setBounds(262, 23, 30, 30);
 		btnNewButton_1.setIcon(new ImageIcon(newImage));
 		frame.getContentPane().add(btnNewButton_1);
-		
+	
+		//Azioni
 		btnNewButton_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				Image img;
 				Image newImage;
 				
-				if(frame.getBounds().width != 528) {
-				
+				if(frame.getBounds().width != 528) {				
 					frame.setBounds(frame.getBounds().x, frame.getBounds().y, 528, 530);
 					img = new ImageIcon("image\\close.png").getImage();
 					newImage = img.getScaledInstance(30, 30, Image.SCALE_DEFAULT);
@@ -186,8 +191,6 @@ public class Cerca extends JFrame {
 				}
 			}
 		});
-		
-		//Azioni
 		
 		tglBiglietto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -233,13 +236,6 @@ public class Cerca extends JFrame {
 			}
 		});
 		
-		cercaBtn.addChangeListener(new ChangeListener() {
-			public void stateChanged(ChangeEvent e) {
-				if(cercaBtn.getBackground() == Color.LIGHT_GRAY) cercaBtn.setBackground(UIManager.getColor("control"));
-				else cercaBtn.setBackground(Color.LIGHT_GRAY);
-			}
-		});
-		
 		cercaBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//Controllo che siano state selezionate le fermate
@@ -247,7 +243,9 @@ public class Cerca extends JFrame {
 					try {
 						//Controllo se la ricerca non da esito nullo e quindi non esista un percorso che rispetta le indicazioni inserite
 						if(ricerca.cercaEGenera(comboBoxPartenza.getSelectedItem().toString(), comboBoxArrivo.getSelectedItem().toString(), LocalTime.parse(orarioPartenzatxt.getText())).size() != 0) {
-							Viaggi.main(ricerca.cercaEGenera(comboBoxPartenza.getSelectedItem().toString(), comboBoxArrivo.getSelectedItem().toString(), LocalTime.parse(orarioPartenzatxt.getText())));
+							String[] args = {comboBoxPartenza.getSelectedItem().toString(), comboBoxArrivo.getSelectedItem().toString(), orarioPartenzatxt.getText()};
+							
+							Viaggi.main(utente, args);
 							frame.setVisible(false);
 						}else JOptionPane.showMessageDialog(null, "Non è stato possibile trovare un percorso che rispettasse \nl'orario inseriro, si prega di cambiare orario e riprovare","Search error",JOptionPane.INFORMATION_MESSAGE);
 						

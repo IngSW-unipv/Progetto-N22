@@ -45,6 +45,7 @@ public class RicercaStrategy implements InterfaceRicercaStrategy{
 				
 				if(snodo != "") {
 					ricerca.add(new ArrayList<Fermata>());
+					
 					//calcolo le fermate dalla fermata di partenza fino allo snodo e dallo snodo alla destinazione
 					ricerca.get(ricercheAttive).addAll(LineeA.get(i).ricercaFermate(a, snodo, orario));
 					
@@ -53,9 +54,9 @@ public class RicercaStrategy implements InterfaceRicercaStrategy{
 					
 					if(dimtmp != 0) ricerca.get(ricercheAttive).addAll(LineeB.get(j).ricercaFermate(snodo, b, ricerca.get(ricercheAttive).get(ricerca.get(ricercheAttive).size()-1).getOrario()));
 					
-					//controllo se la ricercafermate mi ha restituito nels econdo tentativo di ricerca un vettore vuoto
-					//che significa che non ha trovato un percorso che rispettava l'orario imposto
-					if(dimtmp != ricerca.get(ricercheAttive).size()) {
+					//controllo se la ricercafermate mi ha restituito nel secondo tentativo di ricerca un vettore senza 
+					//la fermata di arrivo che significa che non ha trovato un percorso che rispettava l'orario imposto
+					if(ricerca.get(ricercheAttive).get(ricerca.get(ricercheAttive).size()-1).getCodiceFermata().compareTo(b) == 0) {
 						//rimozione snodo doppio e set dello snodo a true per agevolare il riconoscimento in stampa
 						ricerca.get(ricercheAttive).remove(dimtmp-1);
 						ricerca.get(ricercheAttive).get(dimtmp-1).setSnodo(true);

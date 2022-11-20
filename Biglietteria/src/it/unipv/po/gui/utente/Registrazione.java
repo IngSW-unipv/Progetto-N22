@@ -4,17 +4,14 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.SwingConstants;
-
 import it.unipv.po.connessioneDB.DBwrite;
 import it.unipv.po.sessione.Sessione;
 import it.unipv.po.utente.Utente;
-
 import javax.swing.JSeparator;
 import javax.swing.JButton;
-import javax.swing.ImageIcon;
-import java.awt.Image;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
@@ -23,8 +20,6 @@ import java.awt.Font;
 import java.awt.Color;
 import javax.swing.JTextArea;
 import java.awt.SystemColor;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.FocusAdapter;
@@ -32,9 +27,6 @@ import java.awt.event.FocusEvent;
 
 public class Registrazione {
 	private JFrame frame;
-	private Image img;
-	private Image newImage;
-	private static Utente utente;
 	DBwrite db = new DBwrite();
 	
 	String error;
@@ -44,7 +36,6 @@ public class Registrazione {
 	private JPasswordField passwordtxt;
 	
 	public static void main(String[] args) {
-		utente = new Utente("user1");
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -87,29 +78,26 @@ public class Registrazione {
 		btnCreaAccount.setBounds(320, 615, 114, 21);
 		frame.getContentPane().add(btnCreaAccount);
 		
-		this.img = new ImageIcon("image\\freccia.png").getImage();
-		this.newImage = img.getScaledInstance(20, 20, Image.SCALE_DEFAULT);
-		
-		JLabel lblNewLabel_1 = new JLabel("Crea un account Trenord e scopri un mondo di vantaggi");
+		JLabel lblNewLabel_1 = new JLabel("Crea un account GiavaTrip e scopri un mondo di vantaggi");
 		lblNewLabel_1.setFont(new Font("Arial Nova", Font.BOLD, 11));
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_1.setBounds(20, 62, 434, 13);
 		frame.getContentPane().add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_2 = new JLabel("Hai già un account?");
-		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		lblNewLabel_2.setFont(new Font("Arial Nova", Font.PLAIN, 10));
 		lblNewLabel_2.setBounds(163, 78, 121, 13);
 		frame.getContentPane().add(lblNewLabel_2);
 		
-		JLabel lblNewLabel_3 = new JLabel("Accedi");
-		lblNewLabel_3.setForeground(Color.BLUE);
-		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 10));
-		lblNewLabel_3.setBounds(255, 78, 45, 13);
-		frame.getContentPane().add(lblNewLabel_3);
+		JLabel btnAccedi = new JLabel("Accedi");
+		btnAccedi.setForeground(Color.BLUE);
+		btnAccedi.setFont(new Font("Arial Nova", Font.BOLD, 10));
+		btnAccedi.setBounds(255, 78, 45, 13);
+		frame.getContentPane().add(btnAccedi);
 		
 		JLabel lblNewLabel_4 = new JLabel("Attenzione: Per poter procedere alla registrazione occorre essere maggiorenni");
 		lblNewLabel_4.setForeground(SystemColor.textInactiveText);
-		lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 9));
+		lblNewLabel_4.setFont(new Font("Arial Nova", Font.PLAIN, 9));
 		lblNewLabel_4.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_4.setBounds(10, 93, 444, 13);
 		frame.getContentPane().add(lblNewLabel_4);
@@ -177,7 +165,7 @@ public class Registrazione {
 		txtrAiSensiDellart.setEditable(false);
 		txtrAiSensiDellart.setBackground(SystemColor.menu);
 		txtrAiSensiDellart.setFont(new Font("Arial Nova", Font.PLAIN, 9));
-		txtrAiSensiDellart.setText("Ai sensi dell’art. 6.1 lett. a) del Regolamento (UE) 2016/679 (il “GDPR”) dichiaro di aver preso visione \r\ndell' INFORMATIVA SULLA PRIVACY  ed esprimo liberamente il consenso al trattamento dei miei dati \r\npersonali, anche mediante elaborazioni elettroniche, da parte di Trenord S.r.l. (il Titolare) per finalità di:");
+		txtrAiSensiDellart.setText("Ai sensi dell’art. 6.1 lett. a) del Regolamento (UE) 2016/679 (il “GDPR”) dichiaro di aver preso visione \r\ndell' INFORMATIVA SULLA PRIVACY  ed esprimo liberamente il consenso al trattamento dei miei dati \r\npersonali, anche mediante elaborazioni elettroniche, da parte di GiavaTrip S.r.l. (il Titolare) per finalità di:");
 		txtrAiSensiDellart.setBounds(34, 353, 396, 38);
 		frame.getContentPane().add(txtrAiSensiDellart);
 		
@@ -186,7 +174,7 @@ public class Registrazione {
 		check1.setBounds(20, 463, 93, 21);
 		frame.getContentPane().add(check1);
 		
-		JLabel lblNewLabel_7 = new JLabel("1. Vendita dei titoli di viaggio e servizi Trenord");
+		JLabel lblNewLabel_7 = new JLabel("1. Vendita dei titoli di viaggio e servizi GiavaTrip ");
 		lblNewLabel_7.setFont(new Font("Arial Nova", Font.BOLD, 10));
 		lblNewLabel_7.setBounds(20, 401, 299, 13);
 		frame.getContentPane().add(lblNewLabel_7);
@@ -219,11 +207,11 @@ public class Registrazione {
 		check2.setBounds(20, 555, 93, 21);
 		frame.getContentPane().add(check2);
 		
-		JLabel lblNewLabel_8 = new JLabel("Idietro");
-		lblNewLabel_8.setForeground(Color.BLUE);
-		lblNewLabel_8.setFont(new Font("Tahoma", Font.PLAIN, 10));
-		lblNewLabel_8.setBounds(20, 619, 45, 13);
-		frame.getContentPane().add(lblNewLabel_8);
+		JLabel btnIndietro = new JLabel("Idietro");
+		btnIndietro.setForeground(Color.BLUE);
+		btnIndietro.setFont(new Font("Arial Nova", Font.BOLD, 10));
+		btnIndietro.setBounds(20, 619, 45, 13);
+		frame.getContentPane().add(btnIndietro);
 		
 		//Azioni
 		btnCreaAccount.addActionListener(new ActionListener() {
@@ -231,32 +219,35 @@ public class Registrazione {
 				String error = "";
 				
 				try {
+					if(!check1.isSelected() && !check2.isSelected()) error = "Consenso alla privacy obbligatorio";
+					
 					error = Sessione.CheckRegistration(emailtxt.getText(), nometxt.getText(),cognometxt.getText(),String.valueOf(passwordtxt.getPassword()));
+	
 				} catch (Exception e2) {
 					// TODO Auto-generated catch block
 					e2.printStackTrace();
 				}
 				
-					
 				if(error.isEmpty()) {
+					Utente utente = new Utente();
+					
 					utente.setName(nometxt.getText());
 					utente.setPassword(String.valueOf(passwordtxt.getPassword()));
 					utente.setCognome(cognometxt.getText());
 					utente.setEmail(emailtxt.getText());
 			
 					try {
-						//db.aggiungiUtente(utente);
+						db.aggiungiUtente(utente);
 					} catch (Exception e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
-					Login.main(null);
+					
+					String[] arg = {utente.getEmail(), utente.getPassword()};	
+					Login.main(arg);
 					frame.setVisible(false);
-				} 
-				
-				else {
-					   //txterrore.setText(error);
-					   //txterrore.setVisible(true);
+				}else {
+					JOptionPane.showMessageDialog(null, error,"Register error",JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
@@ -269,6 +260,38 @@ public class Registrazione {
 			@Override
 			public void focusGained(FocusEvent e) {
 				dettaglipasswordtxt.setVisible(true);
+			}
+		});
+		
+		btnIndietro.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Login.main(null);
+				frame.setVisible(false);
+			}
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				btnIndietro.setFont(new Font("Arial Nova", Font.PLAIN, 10));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				btnIndietro.setFont(new Font("Arial Nova", Font.BOLD, 10));
+			}
+		});
+		
+		btnAccedi.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Login.main(null);
+				frame.setVisible(false);
+			}
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				btnAccedi.setFont(new Font("Arial Nova", Font.PLAIN, 10));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				btnAccedi.setFont(new Font("Arial Nova", Font.BOLD, 10));
 			}
 		});
 

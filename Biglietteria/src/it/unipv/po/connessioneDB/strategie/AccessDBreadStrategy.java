@@ -207,12 +207,12 @@ public class AccessDBreadStrategy implements IDBreadStrategy{
 		connection = getDBConnection();
 		statement = connection.createStatement();
         ResultSet result = statement.executeQuery(sql);
+     
+        Utente utente = new Utente();
         
-        result.next();
+        if(result.next()) utente = new Utente(result.getString("Nome"),result.getString("Cognome"),result.getString("Email"),result.getString("Password"));
         
-        Utente user = new Utente(result.getString("Username"),result.getString("Nome"),result.getString("Cognome"),result.getString("Email"),result.getString("Password"));
-
-		return user;
+		return utente;
 	}
 
 	public ArrayList<Titolo> scaricaTitoliUtente(String email) throws Exception {
