@@ -3,9 +3,12 @@ package it.unipv.po.connessioneDB.strategie;
 import java.sql.Connection;  
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalTime;
 import java.util.ArrayList;
+
+import it.unipv.po.connessioneDB.eccezioni.DBException;
 import it.unipv.po.trasporto.fermata.Fermata;
 import it.unipv.po.trasporto.linea.Linea;
 import it.unipv.po.trasporto.titolo.Abbonamento;
@@ -19,17 +22,17 @@ public class AccessDBreadStrategy implements IDBreadStrategy{
 	
 	//percorso della directory del database
 	private static final String databaseURL  = "jdbc:ucanaccess://DB//DatabaseBiglietteria.accdb";
-
-	public Connection getDBConnection() throws Exception {
-		
+	//private static final String databaseURL  = "jdbc:ucanaccess://DB//DatabaseBiglietteri.accdb";
+	public Connection getDBConnection() throws SQLException{
+		Connection dbConnection = null;
 		// Funzione per creare la connessione
 		//System.out.println("------------- DB Connection -------------");
-		Connection dbConnection = DriverManager.getConnection(databaseURL);
+		dbConnection = DriverManager.getConnection(databaseURL);
 		
 		return dbConnection;
 	}
 
-	public Linea getLinea(int id) throws Exception{
+	public Linea getLinea(int id) throws SQLException{
 		String sql = "SELECT * FROM Linea where Linea.ID = "+ id;
 		Connection connection = null;
 		Statement statement = null;
@@ -61,7 +64,7 @@ public class AccessDBreadStrategy implements IDBreadStrategy{
 		return lineaDB;
 	}
 
-	public String getSnodi(String partenza, String destinazione) throws Exception {
+	public String getSnodi(String partenza, String destinazione) throws SQLException {
 		
 		String sql = "select distinct IDfermata from Orario where IDlinea = (select distinct IDlinea from Linea Where IDlinea = '"+ partenza +"') and IDfermata IN (select distinct IDfermata from Orario where IDlinea = (select distinct IDlinea from Linea Where IDlinea = '"+ destinazione+"'))";
 		Connection connection = null;
@@ -84,7 +87,7 @@ public class AccessDBreadStrategy implements IDBreadStrategy{
 		return result.getString("IDfermata");
 	}
 
-	public String[] elencoFermate() throws Exception{
+	public String[] elencoFermate() throws SQLException {
 		String sql = "SELECT COUNT(IDfermata) FROM Fermata";
 		Connection connection = null;
 		Statement statement = null;
@@ -119,7 +122,7 @@ public class AccessDBreadStrategy implements IDBreadStrategy{
 		return str;
 	}
 
-	public ArrayList<Fermata> getFermate(String IDlinea) throws Exception {
+	public ArrayList<Fermata> getFermate(String IDlinea) throws SQLException {
 		String sql = "SELECT * FROM Orario inner join Linea on Orario.IDlinea = Linea.IDlinea WHERE Orario.IDlinea = '"+ IDlinea +"'";
 		Connection connection = null;
 		Statement statement = null;
@@ -157,7 +160,7 @@ public class AccessDBreadStrategy implements IDBreadStrategy{
 		return lineaDB;	
 	}
 
-	public ArrayList<Linea> searchLinea(String IDfermata) throws Exception {
+	public ArrayList<Linea> searchLinea(String IDfermata) throws SQLException {
 		String sql = "SELECT distinct Linea.ID FROM Orario inner join Linea on Linea.IDlinea = Orario.IDlinea WHERE IDfermata = '"+ IDfermata +"'";
 		Connection connection = null;
 		Statement statement = null;
@@ -185,7 +188,7 @@ public class AccessDBreadStrategy implements IDBreadStrategy{
 		return corsa;
 	}
 
-	public double searchTariffaMezzo(Vehicle mezzo) throws Exception {
+	public double searchTariffaMezzo(Vehicle mezzo) throws SQLException {
 		String sql = "SELECT Tariffa FROM TariffaMezzo WHERE Mezzo = '"+ mezzo.toString() +"'";
 		Connection connection = null;
 		Statement statement = null;
@@ -199,7 +202,7 @@ public class AccessDBreadStrategy implements IDBreadStrategy{
 		
 	}
 	
-	public Utente userDownload(String email) throws Exception {
+	public Utente userDownload(String email) throws SQLException{
 		String sql = "SELECT * FROM Utente WHERE Email = '"+ email + "'" ;
 		Connection connection = null;
 		Statement statement = null;
@@ -208,14 +211,14 @@ public class AccessDBreadStrategy implements IDBreadStrategy{
 		statement = connection.createStatement();
         ResultSet result = statement.executeQuery(sql);
      
-        Utente utente = new Utente();
+        Utente utente;
         
         if(result.next()) utente = new Utente(result.getString("Nome"),result.getString("Cognome"),result.getString("Email"),result.getString("Password"));
-        
+        else utente = null;
 		return utente;
 	}
 
-	public ArrayList<Titolo> scaricaTitoliUtente(String email) throws Exception {
+	public ArrayList<Titolo> scaricaTitoliUtente(String email) throws SQLException {
 		String sql = "SELECT * FROM CronologiaTitoli WHERE Utente = '"+ email + "'" ;
 		Connection connection = null;
 		Statement statement = null;

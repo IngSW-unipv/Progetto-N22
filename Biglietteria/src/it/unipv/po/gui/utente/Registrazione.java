@@ -22,14 +22,15 @@ import javax.swing.JTextArea;
 import java.awt.SystemColor;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.SQLException;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 
 public class Registrazione {
 	private JFrame frame;
-	DBwrite db = new DBwrite();
+	private DBwrite db = new DBwrite();
 	
-	String error;
+	private String error;
 	private JTextField cognometxt;
 	private JTextField nometxt;
 	private JTextField emailtxt;
@@ -223,29 +224,31 @@ public class Registrazione {
 					
 					error = Sessione.CheckRegistration(emailtxt.getText(), nometxt.getText(),cognometxt.getText(),String.valueOf(passwordtxt.getPassword()));
 	
-				} catch (Exception e2) {
-					// TODO Auto-generated catch block
-					e2.printStackTrace();
-				}
+				} catch(SQLException sqlExc) {
+					error = "Connessione fallita!";
+				} catch(Exception e1) {
+					error = "Qualcosa non va";
+				} 
 				
 				if(error.isEmpty()) {
-					Utente utente = new Utente();
-					
-					utente.setName(nometxt.getText());
-					utente.setPassword(String.valueOf(passwordtxt.getPassword()));
-					utente.setCognome(cognometxt.getText());
-					utente.setEmail(emailtxt.getText());
+					String name = nometxt.getText();
+					String password = String.valueOf(passwordtxt.getPassword());
+					String cognome = cognometxt.getText();
+					String eMail = emailtxt.getText();
+					Utente utente = new Utente(name, password, cognome, eMail);
 			
 					try {
 						db.aggiungiUtente(utente);
-					} catch (Exception e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
+						String[] arg = {utente.getEmail(), utente.getPassword()};	
+						Login.main(arg);
+						frame.setVisible(false);
+					} catch (SQLException sqlExc) {
+						JOptionPane.showMessageDialog(null, "Connessione fallita!","DB error",JOptionPane.ERROR_MESSAGE);
+					} catch (Exception e2) {
+						JOptionPane.showMessageDialog(null, "Qualcosa non va","Generic error",JOptionPane.ERROR_MESSAGE);
 					}
 					
-					String[] arg = {utente.getEmail(), utente.getPassword()};	
-					Login.main(arg);
-					frame.setVisible(false);
+					
 				}else {
 					JOptionPane.showMessageDialog(null, error,"Register error",JOptionPane.ERROR_MESSAGE);
 				}

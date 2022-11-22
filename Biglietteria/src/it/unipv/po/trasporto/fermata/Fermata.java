@@ -1,5 +1,6 @@
 package it.unipv.po.trasporto.fermata;
 
+import java.sql.SQLException;
 import java.time.LocalTime;
 
 import it.unipv.po.connessioneDB.DBread;
@@ -87,7 +88,7 @@ public class Fermata {
 				+ CodiceLinea + ", mezzo=" + mezzo + "]";
 	}
 
-	public double getTariffaMezzo() throws Exception {
+	public double getTariffaMezzo() throws SQLException {
 		DBread reader = new DBread();
 		return reader.searchTariffaMezzo(mezzo);
 	}

@@ -1,6 +1,7 @@
 package it.unipv.po.connessioneDB;
    
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import it.unipv.po.connessioneDB.strategie.AccessDBwriteStrategy;
 import it.unipv.po.connessioneDB.strategie.IDBwriteStrategy;
@@ -21,8 +22,8 @@ private static IDBwriteStrategy strategiaDiScrittura;
 		 strategiaDiScrittura.aggiungiTotaleACronologia(username, data, prezzo, puntiUtilizzati);
 	
 	}
-	public void aggiungiTitoliACronologia(String user, LocalDateTime date, LinkedList<Titolo> list) throws Exception {
-		 strategiaDiScrittura.aggiungiTitoliACronologia(user, date, list);
+	public void aggiungiTitoliACronologia(String user, LocalDateTime date, ArrayList<Titolo> lista) throws Exception {
+		 strategiaDiScrittura.aggiungiTitoliACronologia(user, date, lista);
 	}
 	
 	public void aggiungiUtente(Utente utente) throws Exception {

@@ -1,6 +1,9 @@
 package it.unipv.po.connessioneDB;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
+
+import it.unipv.po.connessioneDB.eccezioni.DBException;
 import it.unipv.po.connessioneDB.strategie.AccessDBreadStrategy;
 import it.unipv.po.connessioneDB.strategie.IDBreadStrategy;
 import it.unipv.po.trasporto.fermata.Fermata;
@@ -17,41 +20,41 @@ public class DBread {
 		strategiaDiLettura = new AccessDBreadStrategy();
 	}
 	
-	public static Linea getLinea(int id) throws Exception{
+	public static Linea getLinea(int id) throws SQLException{
 		return strategiaDiLettura.getLinea(id);
 	}
 	
-	public static ArrayList<Fermata> getFermate(String IDlinea) throws Exception{
+	public static ArrayList<Fermata> getFermate(String IDlinea) throws SQLException{
 		return strategiaDiLettura.getFermate(IDlinea);
 	}
 	
-	public static ArrayList<Linea> searchLinea(String IDfermata) throws Exception {
+	public static ArrayList<Linea> searchLinea(String IDfermata) throws SQLException {
 		return strategiaDiLettura.searchLinea(IDfermata);
 		
 	}
 	
-	public static String getSnodi(String partenza, String destinazione) throws Exception {
+	public static String getSnodi(String partenza, String destinazione) throws SQLException {
 		return strategiaDiLettura.getSnodi(partenza, destinazione);
 		
 	}
 	
-	public static String[] elencoFermate() throws Exception {
+	public static String[] elencoFermate() throws SQLException {
 		
 		return strategiaDiLettura.elencoFermate();
 		
 	}
 	
-	public double searchTariffaMezzo(Vehicle mezzo) throws Exception{
+	public double searchTariffaMezzo(Vehicle mezzo) throws SQLException{
 		return strategiaDiLettura.searchTariffaMezzo(mezzo);
 	}
 
-	public Utente userDownload(String username) throws Exception {
+	public Utente userDownload(String username) throws SQLException{
 		
 		return strategiaDiLettura.userDownload(username);
 		
 	}
 
-	public ArrayList<Titolo> scaricaTitoliUtente(String user) throws Exception {
+	public ArrayList<Titolo> scaricaTitoliUtente(String user) throws SQLException {
 		return strategiaDiLettura.scaricaTitoliUtente(user);
 		
 	}

@@ -30,6 +30,7 @@ import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.SQLException;
 
 public class Supplementi {
 
@@ -237,14 +238,23 @@ public class Supplementi {
 			public void actionPerformed(ActionEvent e) {
 				//permette di tornare una pagina indietro alla pressione del tasto
 				try {
-					String[] args = {utente.getTitoliAcquistati().get(0).getPercorso().get(0).getCodiceFermata(), utente.getTitoliAcquistati().get(0).getPercorso().get(utente.getTitoliAcquistati().get(0).getPercorso().size()-1).getCodiceFermata(), orarioricerca};
-					utente.getTitoliAcquistati().clear();
+					//ottengo partenza e destinazione
+					//String[] args = {utente.getTitoliAcquistati().get(0).getPercorso().get(0).getCodiceFermata(), utente.getTitoliAcquistati().get(0).getPercorso().get(utente.getTitoliAcquistati().get(0).getPercorso().size()-1).getCodiceFermata(), orarioricerca};
+//					String[] args = {utente.getUltimoTitoloInCarrello().getPercorso().get(0).getCodiceFermata(),
+//									utente.getUltimoTitoloInCarrello().getPercorso().get(utente.getUltimoTitoloInCarrello().getPercorso().size()-1).getCodiceFermata()};
+					
+					String[] args = {utente.getCarrello().getTitoloModel().getPercorso().get(0).getCodiceFermata(),
+									utente.getCarrello().getTitoloModel().getPercorso().get(utente.getCarrello().getTitoloModel().getPercorso().size()-1).getCodiceFermata(),
+									orarioricerca};
+					
+					
+					//utente.getTitoliAcquistati().clear();
+					utente.cancellaCarrello();
 					
 					Viaggi.main(utente, args);
 					frame.setVisible(false);
 				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					JOptionPane.showMessageDialog(null, "Qualcosa non va","Generic error",JOptionPane.ERROR_MESSAGE);
 				}
 				
 			}
@@ -256,7 +266,9 @@ public class Supplementi {
 				
 				if(myint != 0) {
 					passeggeri[0] = " • "+ spinnerAdulto.getValue() +" Biglietto adulto";
-					prezzi[0] = df.format(utente.getTitoliAcquistati().get(0).getPrezzo()*myint);
+					//prezzi[0] = df.format(utente.getTitoliAcquistati().get(0).getPrezzo()*myint);
+					//prezzi[0] = df.format(utente.getUltimoTitoloInCarrello().getPrezzo()*myint);
+					prezzi[0] = df.format(utente.getCarrello().getTitoloModel().getPrezzo()*myint);
 				}else  {
 					passeggeri[0]= "";
 					prezzi[0] = "";
@@ -273,7 +285,9 @@ public class Supplementi {
 				
 				if(myint != 0) {
 					passeggeri[1] = " • "+ spinnerBambino.getValue() +" Biglietto bambino";
-					prezzi[1] = df.format(utente.getTitoliAcquistati().get(0).getPrezzo()*myint*0.5);
+					//prezzi[1] = df.format(utente.getTitoliAcquistati().get(0).getPrezzo()*myint*0.5);
+					//prezzi[1] = df.format(utente.getUltimoTitoloInCarrello().getPrezzo()*myint*0.5);
+					prezzi[1] = df.format(utente.getCarrello().getTitoloModel().getPrezzo()*myint*0.5);
 				}else  {
 					passeggeri[1]= "";
 					prezzi[1] = "";
@@ -289,7 +303,9 @@ public class Supplementi {
 				
 				if(myint != 0) {
 					passeggeri[2] = " • "+ spinnerAnziano.getValue() +" Biglietto anziano";
-					prezzi[2] = df.format(utente.getTitoliAcquistati().get(0).getPrezzo()*myint*0.8);
+					//prezzi[2] = df.format(utente.getTitoliAcquistati().get(0).getPrezzo()*myint*0.8);
+					//prezzi[2] = df.format(utente.getUltimoTitoloInCarrello().getPrezzo()*myint*0.8);
+					prezzi[2] = df.format(utente.getCarrello().getTitoloModel().getPrezzo()*myint*0.8);
 				}else  {
 					passeggeri[2]= "";
 					prezzi[2] = "";
@@ -307,7 +323,9 @@ public class Supplementi {
 				
 				if(myint != 0) {
 					passeggeri[3] = " • "+ spinnerAnimale.getValue() +" Biglietto animale";
-					prezzi[3] = df.format(utente.getTitoliAcquistati().get(0).getPrezzo()*myint*0.6);
+					//prezzi[3] = df.format(utente.getTitoliAcquistati().get(0).getPrezzo()*myint*0.6);
+					//prezzi[3] = df.format(utente.getUltimoTitoloInCarrello().getPrezzo()*myint*0.6);
+					prezzi[3] = df.format(utente.getCarrello().getTitoloModel().getPrezzo()*myint*0.6);
 				}else  {
 					passeggeri[3]= "";
 					prezzi[3] = "";
@@ -345,15 +363,17 @@ public class Supplementi {
 					for(int i = 0; i < 4; i++) {		
 						for(int j = 0; j < spinner.get(i); j++) {
 							try {
-								bigliettonuovo = new Biglietto(utente.getTitoliAcquistati().get(0).getPercorso());
+								//bigliettonuovo = new Biglietto(utente.getTitoliAcquistati().get(0).getPercorso());
+								bigliettonuovo = new Biglietto(utente.getCarrello().getTitoloModel().getPercorso());
 								
 								bigliettonuovo.setPasseggero(passeggeri[i].replace(" • "+ spinner.get(i) +" Biglietto ", ""));
 								bigliettonuovo.setPrezzo(Double.valueOf(prezzi[i].replace(",", "."))/spinner.get(i));
 								
-								b.add(bigliettonuovo);
+								//b.add(bigliettonuovo);
+								utente.aggiungiTitolo(bigliettonuovo);
 							} catch (Exception e1) {
-								// TODO Auto-generated catch block
-								e1.printStackTrace();
+								JOptionPane.showMessageDialog(null, "Qualcosa non va","Generic error",JOptionPane.ERROR_MESSAGE);
+								utente.getCarrello().clearAll();
 							}		
 						}
 						
@@ -362,7 +382,7 @@ public class Supplementi {
 					}
 				}
 				
-				utente.setTitoliAcquistati(b);
+				//utente.setTitoliAcquistati(b);
 				String[] args = {passeggero, prezzo, orarioricerca};
 				
 				Riepilogo.main(args, utente);
@@ -395,13 +415,18 @@ public class Supplementi {
 	
 	private void setGraficaRicerca() {
 		
-		String dettagliotxt = "🚍\n⦿ "+ utente.getTitoliAcquistati().get(0).getPercorso().get(0).getCodiceFermata() +"\n ¦\n⦿ "+ utente.getTitoliAcquistati().get(0).getPercorso().get(utente.getTitoliAcquistati().get(0).getPercorso().size()-1).getCodiceFermata();
+		//String dettagliotxt = "🚍\n⦿ "+ utente.getTitoliAcquistati().get(0).getPercorso().get(0).getCodiceFermata() +"\n ¦\n⦿ "+ utente.getTitoliAcquistati().get(0).getPercorso().get(utente.getTitoliAcquistati().get(0).getPercorso().size()-1).getCodiceFermata();
+		//String dettagliotxt = "🚍\n⦿ "+ utente.getUltimoTitoloInCarrello().getPercorso().get(0).getCodiceFermata() +"\n ¦\n⦿ "+ utente.getUltimoTitoloInCarrello().getPercorso().get(utente.getUltimoTitoloInCarrello().getPercorso().size()-1).getCodiceFermata();
+		String dettagliotxt = "🚍\n⦿ "+ utente.getCarrello().getTitoloModel().getPercorso().get(0).getCodiceFermata() +"\n ¦\n⦿ "+ utente.getCarrello().getTitoloModel().getPercorso().get(utente.getCarrello().getTitoloModel().getPercorso().size()-1).getCodiceFermata();
+		
 		String passeggeritxt = " • 1 Biglietto adulto";
 		
 		dettaglitxt.setText(dettagliotxt);
 		
 		passeggeri[0] = passeggeritxt;
-		prezzi[0] = String.valueOf(df.format(utente.getTitoliAcquistati().get(0).getPrezzo()));;
+		//prezzi[0] = String.valueOf(df.format(utente.getTitoliAcquistati().get(0).getPrezzo()));
+		//prezzi[0] = String.valueOf(df.format(utente.getUltimoTitoloInCarrello().getPrezzo()));
+		prezzi[0] = String.valueOf(df.format(utente.getCarrello().getTitoloModel().getPrezzo()));
 		
 		aggiornaBiglietti();
 		aggiornaPrezzi();

@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import it.unipv.po.sessione.Sessione;
 import it.unipv.po.trasporto.titolo.Titolo;
@@ -46,7 +47,7 @@ public class AccessDBwriteStrategy implements IDBwriteStrategy{
 	}
 	
 	@Override
-	public void aggiungiTitoliACronologia(String username, LocalDateTime date, LinkedList<Titolo> lista) throws Exception {
+	public void aggiungiTitoliACronologia(String username, LocalDateTime date, ArrayList<Titolo> lista) throws Exception {
 		String sql="INSERT into CronologiaTitoli(Utente,DataPagamento,IDTitolo,PrezzoTitolo,Percorso,Attivo,Disponibile,DataInizio,Durata) VALUES(?,?,?,?,?,?,?,?,?);";
 		Connection connessione= getDBConnection();
 		PreparedStatement statement= connessione.prepareStatement(sql);
@@ -90,6 +91,8 @@ public class AccessDBwriteStrategy implements IDBwriteStrategy{
 		statement.executeUpdate();
 		
 	}
+
+
 
     
 	

@@ -26,12 +26,13 @@ public class Utente {
 		titoliAcquistati = new ArrayList<Titolo>();
 	}
 	
-	public Utente() {
-		this.name = "";
-		this.cognome = "";
-		this.email = "";
-		this.password = "";
-	}
+//	public Utente() {
+//		this.name = "";
+//		this.cognome = "";
+//		this.email = "";
+//		this.password = "";
+//		
+//	}
 	
 	public void aggiungiTitolo(Titolo t) {
 		carrello.aggiungiTitolo(t);
@@ -49,6 +50,15 @@ public class Utente {
 			sottraiPunti(puntiUtilizzati);
 			aggiungiPunti(payment.getPuntiOttenuti());
 		}
+	}
+	public ArrayList<Titolo> getTitoliInCarrello(){
+		return (ArrayList<Titolo>) carrello.getTitoli();
+	}
+	public Titolo getUltimoTitoloInCarrello() {
+		return carrello.getTitoli().get(carrello.getTitoli().size()-1);
+	}
+	public void cancellaCarrello() {
+		carrello.clearAll();
 	}
 	
 	public void setTitoliAcquistati(ArrayList<Titolo> titoli) {
@@ -105,6 +115,9 @@ public class Utente {
 
 	public void sottraiPunti(double puntiSub) {
 		punti-=puntiSub;
+	}
+	public Carrello getCarrello() {
+		return carrello;
 	}
 	
     

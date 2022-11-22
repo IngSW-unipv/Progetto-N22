@@ -1,20 +1,22 @@
 package it.unipv.po.sessione;
 
-import java.security.MessageDigest; 
+import java.security.MessageDigest;  
 import java.security.NoSuchAlgorithmException;
+import java.sql.SQLException;
 import java.util.regex.Pattern;
 import it.unipv.po.connessioneDB.DBread;
+import it.unipv.po.connessioneDB.eccezioni.DBException;
 import it.unipv.po.utente.Utente;
 
 
 public class Sessione {
 	
-	public static Utente UserLogin(String email, String passtext) throws Exception {
+	public static Utente UserLogin(String email, String passtext) throws NoSuchAlgorithmException, SQLException, Exception{
 		DBread db = new DBread();
-		Utente utente = new Utente();
+		Utente utente;
 		
 		if(sha1(passtext).compareTo(db.userDownload(email).getPassword()) == 0) utente = CreateUser(email);
-
+		else utente = null;
 		return utente;
 	}
 
@@ -27,7 +29,7 @@ public class Sessione {
 		return utente;
 	}
 
-	public static String CheckRegistration(String email,String nome, String cognome, String password) throws Exception {
+	public static String CheckRegistration(String email,String nome, String cognome, String password) throws SQLException {
 		DBread db = new DBread();
 		Pattern emailPattern = Pattern.compile("^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^-]+(?:.[a-zA-Z0-9_!#$%&'*+/=?`{|}~^-]+)*@[a-zA-Z0-9-]+(?:.[a-zA-Z0-9-]+)*$");
 		Pattern passwordPattern = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).+$");

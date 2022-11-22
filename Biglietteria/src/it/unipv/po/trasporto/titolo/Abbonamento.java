@@ -1,4 +1,5 @@
 package it.unipv.po.trasporto.titolo;
+import java.sql.SQLException;
 import java.time.*; 
 import java.util.ArrayList;
 
@@ -11,7 +12,7 @@ public class Abbonamento extends Titolo{
 	private LocalDate dataInizio;
 	private int durataAbbonamento;
 	
-	public Abbonamento(LocalDate dataInizio, int durata, ArrayList<Fermata> percorso) throws Exception {
+	public Abbonamento(LocalDate dataInizio, int durata, ArrayList<Fermata> percorso) throws SQLException{
 		this.dataInizio = dataInizio;
 		this.durataAbbonamento = durata;
 		
@@ -27,7 +28,7 @@ public class Abbonamento extends Titolo{
 	}
 	
 	//usato quando si riprendono le informazioni dal DB
-	public Abbonamento(String idTitolo,double prezzo, String percorso, String dataInizio, int durata, String dataAcquisto) throws Exception {
+	public Abbonamento(String idTitolo,double prezzo, String percorso, String dataInizio, int durata, String dataAcquisto){
 		this.setIdTitolo(idTitolo);
 		this.setPrezzo(prezzo);
 		this.setPercorso(percorso);

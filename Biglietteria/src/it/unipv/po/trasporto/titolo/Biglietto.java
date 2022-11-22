@@ -1,5 +1,6 @@
 package it.unipv.po.trasporto.titolo;
 
+import java.sql.SQLException;
 import java.time.*; 
 import java.util.ArrayList;
 
@@ -15,7 +16,7 @@ public class Biglietto extends Titolo{
 	
 	//metodi
 	
-	public Biglietto(ArrayList<Fermata> percorso) throws Exception {
+	public Biglietto(ArrayList<Fermata> percorso) throws SQLException {
 		setPercorso(percorso);
 		this.calcolatoreID = new CalcolatoreID();
 		this.calcolatorePrezzo = new CalcolatorePrezzo();

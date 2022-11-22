@@ -255,8 +255,10 @@ public class Viaggi extends JFrame {
 		btnPrezzo.get(0).addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				utente.getTitoliAcquistati().clear();
-				utente.getTitoliAcquistati().add(biglietti.get(0));
+				//utente.getTitoliAcquistati().clear();
+				//utente.getTitoliAcquistati().add(biglietti.get(0));
+				//utente.aggiungiTitolo(biglietti.get(0));
+				utente.getCarrello().setTitoloModel(biglietti.get(0));
 				
 				Supplementi.main(utente, orario);
 				frame.setVisible(false); 
@@ -266,8 +268,10 @@ public class Viaggi extends JFrame {
 		btnPrezzo.get(1).addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				utente.getTitoliAcquistati().clear();
-				utente.getTitoliAcquistati().add(biglietti.get(1));
+//				utente.getTitoliAcquistati().clear();
+//				utente.getTitoliAcquistati().add(biglietti.get(1));
+				//utente.aggiungiTitolo(biglietti.get(1));
+				utente.getCarrello().setTitoloModel(biglietti.get(1));
 				
 				Supplementi.main(utente, orario);
 				frame.setVisible(false);
@@ -277,8 +281,10 @@ public class Viaggi extends JFrame {
 		btnPrezzo.get(2).addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				utente.getTitoliAcquistati().clear();
-				utente.getTitoliAcquistati().add(biglietti.get(2));
+//				utente.getTitoliAcquistati().clear();
+//				utente.getTitoliAcquistati().add(biglietti.get(2));
+				//utente.aggiungiTitolo(biglietti.get(2));
+				utente.getCarrello().setTitoloModel(biglietti.get(2));
 				
 				Supplementi.main(utente, orario);
 				frame.setVisible(false);
@@ -288,8 +294,10 @@ public class Viaggi extends JFrame {
 		btnPrezzo.get(3).addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				utente.getTitoliAcquistati().clear();
-				utente.getTitoliAcquistati().add(biglietti.get(3));
+//				utente.getTitoliAcquistati().clear();
+//				utente.getTitoliAcquistati().add(biglietti.get(3));
+				//utente.aggiungiTitolo(biglietti.get(3));
+				utente.getCarrello().setTitoloModel(biglietti.get(3));
 				
 				Supplementi.main(utente, orario);
 				frame.setVisible(false);

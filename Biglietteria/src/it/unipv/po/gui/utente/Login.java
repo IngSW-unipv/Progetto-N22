@@ -1,6 +1,6 @@
 package it.unipv.po.gui.utente;
 
-import java.awt.EventQueue; 
+import java.awt.EventQueue;  
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -17,6 +17,7 @@ import java.awt.Font;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.SQLException;
 
 public class Login{
 
@@ -146,11 +147,12 @@ public class Login{
 							
 						} else JOptionPane.showMessageDialog(null, "Username o password errata","Login error",JOptionPane.ERROR_MESSAGE);
 					} else JOptionPane.showMessageDialog(null, "Invalid login details","Login error",JOptionPane.ERROR_MESSAGE);
-					
-				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+				
+				} catch (SQLException sqlExc) {
+					JOptionPane.showMessageDialog(null, "Connessione fallita!","DB error",JOptionPane.ERROR_MESSAGE);
+			    } catch (Exception e1) {
+					JOptionPane.showMessageDialog(null, "Qualcosa non va","Generic error",JOptionPane.ERROR_MESSAGE);
+				} 
 			} 	
 		});
 		

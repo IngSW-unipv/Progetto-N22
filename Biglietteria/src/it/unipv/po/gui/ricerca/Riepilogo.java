@@ -13,6 +13,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
@@ -320,11 +321,11 @@ public class Riepilogo {
 				//permette di tornare una pagina indietro alla pressione del tasto
 				
 				try {
+					utente.getCarrello().clearAll();
 					Supplementi.main(utente, orarioricerca);
 					frame.setVisible(false);
 				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					JOptionPane.showMessageDialog(null, "Qualcosa non va","Generic error",JOptionPane.ERROR_MESSAGE);
 				}
 				
 			}
@@ -388,18 +389,25 @@ public class Riepilogo {
 				else btnAcquista.setBackground(Color.LIGHT_GRAY);
 			}
 		});
+//		btnAcquista.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				utente.acquistaCarrello(null, 0);
+//				
+//			}
+//		});
 		
 	}
 	
 	private void setGraficaBiglietto(String passeggero, String prezzo) {
 		
-		String dettagliotxt = "🚍\n⦿ "+ utente.getTitoliAcquistati().get(0).getPercorso().get(0).getCodiceFermata() +"\n ¦\n⦿ "+ utente.getTitoliAcquistati().get(0).getPercorso().get(utente.getTitoliAcquistati().get(0).getPercorso().size()-1).getCodiceFermata();
+		//String dettagliotxt = "🚍\n⦿ "+ utente.getTitoliAcquistati().get(0).getPercorso().get(0).getCodiceFermata() +"\n ¦\n⦿ "+ utente.getTitoliAcquistati().get(0).getPercorso().get(utente.getTitoliAcquistati().get(0).getPercorso().size()-1).getCodiceFermata();
+		String dettagliotxt = "🚍\n⦿ "+ utente.getUltimoTitoloInCarrello().getPercorso().get(0).getCodiceFermata() +"\n ¦\n⦿ "+ utente.getUltimoTitoloInCarrello().getPercorso().get(utente.getUltimoTitoloInCarrello().getPercorso().size()-1).getCodiceFermata();
 		
-		double totale = 0;
-		
-		for(Titolo n : utente.getTitoliAcquistati()) {
-			totale += n.getPrezzo();
-		}
+		double totale = utente.getCarrello().getTotale();
+//		double totale = 0;
+//		for(Titolo n : utente.getTitoliInCarrello()) {
+//			totale += n.getPrezzo();
+//		}
 
 		dettaglitxt.setText(dettagliotxt);
 		bigliettitxt.setText(passeggero);

@@ -21,7 +21,7 @@ public class Main {
         
         String partenza = "F004";
         String  destinazione = "F023";
-        Utente u = new Utente();
+        Utente u = new Utente("Nome","Cognome","mail@mail.com","Password0");
         
         
         ArrayList<ArrayList<Fermata>> elenco = corsa.cerca(partenza, destinazione, LocalTime.parse("12:00:00"));

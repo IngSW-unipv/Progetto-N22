@@ -10,36 +10,38 @@ import it.unipv.po.trasporto.titolo.Titolo;
 
 public class Carrello implements ICarrello {
 	private String user;
-	private LinkedList<Titolo> lista; //scegliamo la linkedlist rispetto all arraylist
-	//perchè non sarà di dimensioni elevate e leggerla tutta non impatterà sulle
-	//prestazioni
+	private ArrayList<Titolo> lista; 
 	private it.unipv.po.connessioneDB.DBwrite writer;
 	private double totale;
+	
+	//lo usiamo prima della fase supplementi quando ancora non mettiamo i titoli nel carrello
+	//ma ci serve conoscere le caratteristiche del titolo
+	private Titolo titoloModel;
 	
 	
 	public Carrello() {
 		totale=0;
 		writer = new DBwrite();
-		lista= new LinkedList<Titolo>();	
+		lista= new ArrayList<Titolo>();	
 	}
 	public Carrello(String user) {
 		totale=0;
 		writer = new DBwrite();
-		lista= new LinkedList<Titolo>();
+		lista= new ArrayList<Titolo>();
 		this.user=user;
 	}
 
 	@Override
 	public void aggiungiTitolo(Titolo t) {
 		lista.add(t);
-		incrementaTotale(t);
+//		incrementaTotale(t);
 		
 	}
 
 	@Override
 	public void rimuoviTitolo(Titolo t) {
 		lista.remove(t);
-		decrementaTotale(t);
+//		decrementaTotale(t);
 	}
 
 	@Override
@@ -50,6 +52,7 @@ public class Carrello implements ICarrello {
 	@Override
 	public void clearAll() {
 		lista.clear();
+		this.totale = 0;
 		
 	}
 
@@ -64,11 +67,19 @@ public class Carrello implements ICarrello {
 	}
 	@Override
 	public double getTotale() {
+		calcolaTotale();
 		return totale;
+	}
+	
+	public void calcolaTotale() {
+		for(int i = 0; i<lista.size(); i++) {
+			totale += lista.get(i).getPrezzo();
+		}
 	}
 	
 	@Override
 	public Pagamento chiudeEpaga(PagamentiM metodo, double puntiUtilizzati) throws Exception {
+		calcolaTotale();
 		Pagamento payment = new Pagamento(totale, puntiUtilizzati);
 		payment.calcolaPrezzoFinale(puntiUtilizzati);
 		payment.payStrategySetter(metodo);
@@ -85,6 +96,13 @@ public class Carrello implements ICarrello {
 		writer.aggiungiTotaleACronologia(user, date, importo, puntiUtilizzati);
 		writer.aggiungiTitoliACronologia(user, date, lista);
 	}
+	public Titolo getTitoloModel() {
+		return titoloModel;
+	}
+	public void setTitoloModel(Titolo titoloModel) {
+		this.titoloModel = titoloModel;
+	}
+	
 
 	
 

@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 import java.awt.Image;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -16,6 +17,7 @@ import java.time.LocalTime;
 import java.awt.SystemColor;
 import javax.swing.border.TitledBorder;
 import it.unipv.po.connessioneDB.DBread;
+import it.unipv.po.gui.errore.Errore;
 import it.unipv.po.trasporto.ricerca.Ricerca;
 import it.unipv.po.utente.Utente;
 import javax.swing.border.EtchedBorder;
@@ -28,6 +30,7 @@ import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.SQLException;
 import java.awt.Font;
 
 public class Cerca extends JFrame {
@@ -49,7 +52,7 @@ public class Cerca extends JFrame {
 		});
 	}
 
-	public Cerca(Utente utente) throws Exception {
+	public Cerca(Utente utente) {
 		frame = new JFrame();
 		
 		frame.setResizable(false);
@@ -103,18 +106,27 @@ public class Cerca extends JFrame {
 		tglAbbonamento.setBounds(147, 21, 127, 21);
 		panel.add(tglAbbonamento);
 		
-		JComboBox comboBoxPartenza = new JComboBox(leggi.elencoFermate());
-		comboBoxPartenza.setMaximumRowCount(10);
-		comboBoxPartenza.setBackground(Color.WHITE);
-		comboBoxPartenza.setBounds(147, 90, 103, 30);
-		panel.add(comboBoxPartenza);
-		
-		JComboBox comboBoxArrivo = new JComboBox(leggi.elencoFermate());
-		comboBoxArrivo.setMaximumRowCount(10);
-		comboBoxArrivo.setBackground(Color.WHITE);
-		comboBoxArrivo.setBounds(147, 157, 103, 30);
-		panel.add(comboBoxArrivo);
-		
+		JComboBox comboBoxPartenza = new JComboBox();
+		JComboBox comboBoxArrivo = new JComboBox();
+		try {
+			comboBoxPartenza.setModel(new DefaultComboBoxModel<String>(leggi.elencoFermate()));
+			//JComboBox comboBoxPartenza = new JComboBox(leggi.elencoFermate());
+			comboBoxPartenza.setMaximumRowCount(10);
+			comboBoxPartenza.setBackground(Color.WHITE);
+			comboBoxPartenza.setBounds(147, 90, 103, 30);
+			panel.add(comboBoxPartenza);
+			
+			comboBoxArrivo.setModel(new DefaultComboBoxModel<String>(leggi.elencoFermate()));
+			//JComboBox comboBoxArrivo = new JComboBox(leggi.elencoFermate());
+			comboBoxArrivo.setMaximumRowCount(10);
+			comboBoxArrivo.setBackground(Color.WHITE);
+			comboBoxArrivo.setBounds(147, 157, 103, 30);
+			panel.add(comboBoxArrivo);
+		} catch(SQLException sqlExc) {
+			JOptionPane.showMessageDialog(null, "Connessione fallita!","DB error",JOptionPane.ERROR_MESSAGE);
+		} catch(Exception e) {
+			JOptionPane.showMessageDialog(null, "Qualcosa non va","Generic error",JOptionPane.ERROR_MESSAGE);
+		}
 		JSeparator separator = new JSeparator();
 		separator.setBounds(10, 225, 264, 2);
 		panel.add(separator);
@@ -250,9 +262,10 @@ public class Cerca extends JFrame {
 						}else JOptionPane.showMessageDialog(null, "Non è stato possibile trovare un percorso che rispettasse \nl'orario inseriro, si prega di cambiare orario e riprovare","Search error",JOptionPane.INFORMATION_MESSAGE);
 						
 						
+					} catch (SQLException sqlExc) {
+						JOptionPane.showMessageDialog(null, "Connessione fallita!","DB error",JOptionPane.ERROR_MESSAGE);
 					} catch (Exception e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
+						JOptionPane.showMessageDialog(null, "Qualcosa non va","Generic error",JOptionPane.ERROR_MESSAGE);
 					}
 				}else JOptionPane.showMessageDialog(null, "Fermate non selezionate","Search error",JOptionPane.ERROR_MESSAGE);
 				
