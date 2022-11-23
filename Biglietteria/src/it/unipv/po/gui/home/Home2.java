@@ -1,6 +1,6 @@
 package it.unipv.po.gui.home;
 
-import java.awt.Color;
+import java.awt.Color; 
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -8,26 +8,36 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
+import it.unipv.po.gui.ricerca.CercaPanel;
+import it.unipv.po.gui.utente.AreaPersonalePanel;
+import it.unipv.po.utente.Utente;
+
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 import javax.swing.JSeparator;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
 
 public class Home2 extends JFrame {
 
 	private JPanel contentPane;
+	private CercaPanel cercaPanel;
+	private HomePanel homePanel;
+	private AreaPersonalePanel areaPersonalePanel;
+	
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public static void main(Utente utente) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Home2 frame = new Home2();
+					Home2 frame = new Home2(utente);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -39,7 +49,8 @@ public class Home2 extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Home2() {
+	public Home2(Utente utente) {
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 900, 600);
 		contentPane = new JPanel();
@@ -117,20 +128,52 @@ public class Home2 extends JFrame {
 		btnCerca_1_1_1.setBounds(10, 507, 220, 26);
 		panel.add(btnCerca_1_1_1);
 		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "", TitledBorder.LEFT, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		panel_1.setBounds(317, 10, 559, 543);
-		contentPane.add(panel_1);
-		panel_1.setLayout(null);
+		homePanel = new HomePanel();
+		contentPane.add(homePanel);
+		cercaPanel = new CercaPanel(utente);
+		areaPersonalePanel = new AreaPersonalePanel(utente);
+	
 		
-		JLabel lblNewLabel_1 = new JLabel("Biglietteria");
-		lblNewLabel_1.setFont(new Font("Dialog", Font.BOLD, 18));
-		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1.setBounds(10, 10, 539, 29);
-		panel_1.add(lblNewLabel_1);
 		
-		JSeparator separator_2 = new JSeparator();
-		separator_2.setBounds(90, 49, 386, 2);
-		panel_1.add(separator_2);
+		btnCerca.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				homePanel.hide();
+				contentPane.remove(homePanel);
+				areaPersonalePanel.hide();
+				contentPane.remove(areaPersonalePanel);
+				cercaPanel.setVisible(true);
+				contentPane.add(cercaPanel);
+				
+			}
+		});
+		
+		btnNewButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				cercaPanel.hide();
+				contentPane.remove(cercaPanel);
+				areaPersonalePanel.hide();
+				contentPane.remove(areaPersonalePanel);
+				homePanel.setVisible(true);
+				contentPane.add(homePanel);
+				
+			}
+		});
+		
+		btnCerca_1_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				cercaPanel.hide();
+				contentPane.remove(cercaPanel);
+				homePanel.hide();
+				contentPane.remove(homePanel);
+				areaPersonalePanel.setVisible(true);
+				contentPane.add(areaPersonalePanel);
+				
+				
+			}
+		});
+		
 	}
 }
