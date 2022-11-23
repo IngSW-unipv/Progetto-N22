@@ -1,11 +1,10 @@
 package it.unipv.po.sessione;
 
-import java.security.MessageDigest;  
+import java.security.MessageDigest;   
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.regex.Pattern;
 import it.unipv.po.connessioneDB.DBread;
-import it.unipv.po.connessioneDB.eccezioni.DBException;
 import it.unipv.po.utente.Utente;
 
 

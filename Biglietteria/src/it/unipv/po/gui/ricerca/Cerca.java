@@ -1,6 +1,6 @@
 package it.unipv.po.gui.ricerca;
 
-import java.awt.EventQueue;
+import java.awt.EventQueue; 
 import java.awt.Image;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -17,7 +17,6 @@ import java.time.LocalTime;
 import java.awt.SystemColor;
 import javax.swing.border.TitledBorder;
 import it.unipv.po.connessioneDB.DBread;
-import it.unipv.po.gui.errore.Errore;
 import it.unipv.po.trasporto.ricerca.Ricerca;
 import it.unipv.po.utente.Utente;
 import javax.swing.border.EtchedBorder;

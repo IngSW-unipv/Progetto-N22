@@ -1,9 +1,7 @@
 package it.unipv.po.connessioneDB;
 
-import java.sql.SQLException;
+import java.sql.SQLException; 
 import java.util.ArrayList;
-
-import it.unipv.po.connessioneDB.eccezioni.DBException;
 import it.unipv.po.connessioneDB.strategie.AccessDBreadStrategy;
 import it.unipv.po.connessioneDB.strategie.IDBreadStrategy;
 import it.unipv.po.trasporto.fermata.Fermata;

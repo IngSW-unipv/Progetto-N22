@@ -98,7 +98,7 @@ public class Home extends JFrame {
 		
 		JLabel lblNewLabel_2 = new JLabel("");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblNewLabel_2.setIcon(new ImageIcon("Image/bar3.png"));
+		lblNewLabel_2.setIcon(null);
 		lblNewLabel_2.setBounds(0, 11, 222, 524);
 		bar.add(lblNewLabel_2);
 		

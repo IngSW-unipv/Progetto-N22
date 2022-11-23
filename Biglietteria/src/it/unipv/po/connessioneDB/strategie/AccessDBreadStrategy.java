@@ -1,14 +1,12 @@
 package it.unipv.po.connessioneDB.strategie;
 
-import java.sql.Connection;  
+import java.sql.Connection;   
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalTime;
 import java.util.ArrayList;
-
-import it.unipv.po.connessioneDB.eccezioni.DBException;
 import it.unipv.po.trasporto.fermata.Fermata;
 import it.unipv.po.trasporto.linea.Linea;
 import it.unipv.po.trasporto.titolo.Abbonamento;
