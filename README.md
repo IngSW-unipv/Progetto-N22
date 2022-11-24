@@ -1,6 +1,6 @@
 # Progetto-N22
 ![Java](https://img.shields.io/badge/Backend-Java_17-orange)
-![Swing](https://img.shields.io/badge/Backend-Swing-blueviolet)
+![Swing](https://img.shields.io/badge/Frontend-Swing-blueviolet)
 ![SQL](https://img.shields.io/badge/Database-Microsoft_Access-blue)
 
 Progetto studenti (gruppo Giava)
@@ -12,7 +12,7 @@ per la consultazione e l'acquisto dei titoli di viaggio.
 ## Richiesto
 1. JRE 17 o superiore
 2. Microsoft Access
-3. Git
+
 
 
 ## Presentazione
