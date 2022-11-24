@@ -33,9 +33,8 @@ import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 
 public class Supplementi {
-
 	private JFrame frame;
-	private Utente utente;
+	private static Utente utente;
 	
 	private String[] passeggeri = new String[4];
 	private String[] prezzi = new String[4];
@@ -65,15 +64,18 @@ public class Supplementi {
 		
 		initialize(orarioricerca);
 		setGraficaRicerca();
+		
 	
 	}
 
 	private void initialize(String orarioricerca) {
+		
 		frame = new JFrame();
 		
 		frame.setBounds(100, 100, 525, 494);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		
 		
 		JTextArea textArea = new JTextArea();
 		textArea.setText("①------------------❷------------------③");

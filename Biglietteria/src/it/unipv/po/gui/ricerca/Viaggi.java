@@ -52,6 +52,7 @@ public class Viaggi extends JFrame {
 					window.frame.setVisible(true);
 					
 					
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -183,7 +184,7 @@ public class Viaggi extends JFrame {
 		btnIndietro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//permette di tornare una pagina indietro alla pressione del tasto
-				Cerca.main(null);
+				Cerca.main(utente);
 				frame.setVisible(false);
 			}
 		});

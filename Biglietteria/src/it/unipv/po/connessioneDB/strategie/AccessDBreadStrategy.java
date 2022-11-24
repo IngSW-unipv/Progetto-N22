@@ -196,6 +196,15 @@ public class AccessDBreadStrategy implements IDBreadStrategy{
         ResultSet result = statement.executeQuery(sql);
         
         result.next();
+        
+    	// Chiudo la connessione
+     	if(statement != null) {
+     		statement.close();
+     	}
+     	if(connection != null) {
+     		connection.close();
+     	}
+     	
         return result.getDouble("Tariffa");
 		
 	}
@@ -213,6 +222,15 @@ public class AccessDBreadStrategy implements IDBreadStrategy{
         
         if(result.next()) utente = new Utente(result.getString("Nome"),result.getString("Cognome"),result.getString("Email"),result.getString("Password"), result.getDouble("Punti"));
         else utente = null;
+        
+    	// Chiudo la connessione
+     	if(statement != null) {
+     		statement.close();
+     	}
+     	if(connection != null) {
+     		connection.close();
+     	}
+     	
 		return utente;
 	}
 
@@ -228,7 +246,7 @@ public class AccessDBreadStrategy implements IDBreadStrategy{
 	    ArrayList<Titolo> titoliGenerati = new ArrayList<Titolo>();
 	    while(result.next()) {
 		    String idTitolo = result.getString("IDtitolo");
-			String dataAcquisto = result.getString("DataAcquisto");
+			String dataAcquisto = result.getString("DataPagamento");
 			double prezzo = result.getDouble("PrezzoTitolo");
 			String percorso = result.getString("Percorso");
 		    if(result.getString("DataInizio").compareTo("") == 0) {
@@ -245,7 +263,17 @@ public class AccessDBreadStrategy implements IDBreadStrategy{
 		    	Abbonamento titolo = new Abbonamento(idTitolo, prezzo, percorso,dataInizio,durataGiorni,dataAcquisto);
 		    	titoliGenerati.add(titolo);
 		    }
+		    
 	    }
+	    
+		// Chiudo la connessione
+     	if(statement != null) {
+     		statement.close();
+     	}
+     	if(connection != null) {
+     		connection.close();
+     	}
+     	
 	    
 	    return titoliGenerati;
 	

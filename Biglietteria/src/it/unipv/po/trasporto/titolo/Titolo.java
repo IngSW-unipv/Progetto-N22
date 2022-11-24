@@ -44,6 +44,7 @@ public abstract class Titolo {
 	//ricostruisce l'array di fermate in forma non verbosa a partire dalla stringa
 	//generata dalla funzione precedente
 	public void setPercorso(String percorso) {
+		this.percorso = new ArrayList<Fermata>();
 		Scanner scanner = new Scanner(percorso);
 		scanner.useDelimiter("-|T");
 		while(scanner.hasNext()) {

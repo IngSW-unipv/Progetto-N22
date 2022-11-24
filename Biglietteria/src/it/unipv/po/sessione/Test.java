@@ -11,7 +11,8 @@ public class Test {
 		// TODO Auto-generated method stub
 		Sessione s = new Sessione();
 		Utente u = s.UserLogin("rose@unipv.it", "Password1");
-		System.out.println(""+ u.getCredito());
+		
+		
 		
 	}
 

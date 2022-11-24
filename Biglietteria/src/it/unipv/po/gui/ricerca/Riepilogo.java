@@ -82,6 +82,7 @@ public class Riepilogo {
 	}
 
 	private void initialize(String orarioricerca) {
+		
 		creditoUtilizzatodbl = 0;
 		metodoPagamento = PagamentiM.Creditcard;
 		
@@ -463,6 +464,7 @@ public class Riepilogo {
 			    } catch (Exception e1) {
 					JOptionPane.showMessageDialog(null, "Qualcosa non va","Generic error",JOptionPane.ERROR_MESSAGE);
 				} 
+				
 				
 				
 			}
