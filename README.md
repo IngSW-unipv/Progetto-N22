@@ -6,7 +6,7 @@
 Progetto studenti (gruppo Giava)
 
 # BIGLIETTERIA DIGITALE
-Biglietteria Digitale è un software indirizzato ad un'ipotetica impresa di trasporti la cui finalità è quella di offrire al cliente un servizio semplice immediato
+Biglietteria Digitale è un software pensato per un'ipotetica impresa di trasporti, la cui finalità è quella di offrire al cliente un servizio semplice e immediato
 per la consultazione e l'acquisto dei titoli di viaggio. 
 
 ## Richiesto
