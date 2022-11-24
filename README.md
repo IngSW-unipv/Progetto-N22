@@ -16,7 +16,7 @@ per la consultazione e l'acquisto dei titoli di viaggio.
 
 
 ## Presentazione
-(aggiungere link della presentazione)
+[(link presentazione)](https://www.canva.com/design/DAFS2ge3_F0/i6YMiq8o-NUNFGlJ62hOTg/edit?utm_content=DAFS2ge3_F0&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
 
 
 
