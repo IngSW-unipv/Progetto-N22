@@ -13,17 +13,30 @@ public class Utente {
     private String cognome;
     private String email;
     private String password;
-	private double punti;
+	private double credito;
 	private Carrello carrello;
 	private ArrayList<Titolo> titoliAcquistati;
 	
+	//per la registrazione
 	public Utente(String name, String cognome, String email, String password) {
 		this.name = name;
 		this.cognome = cognome;
 		this.email = email;
 		this.password = password;
+		this.credito = 0;
 		carrello = new Carrello(email);
 		titoliAcquistati = new ArrayList<Titolo>();
+	}
+	
+	//per il login
+	public Utente(String name, String cognome, String email, String password, double credito) {
+		this.name = name;
+		this.cognome = cognome;
+		this.email = email;
+		this.password = password;
+		this.credito = credito;
+		titoliAcquistati = new ArrayList<Titolo>();
+		carrello = new Carrello(email);
 	}
 	
 //	public Utente() {
@@ -34,6 +47,14 @@ public class Utente {
 //		
 //	}
 	
+	public void aggiungiCredito(double creditoAdd) {
+		credito+=creditoAdd;
+	}
+
+	public void sottraiCredito(double creditoSub) {
+		credito-=creditoSub;
+	}
+	
 	public void aggiungiTitolo(Titolo t) {
 		carrello.aggiungiTitolo(t);
 	}
@@ -42,14 +63,17 @@ public class Utente {
 		carrello.rimuoviTitolo(t);
 	}
 	
-	public void acquistaCarrello(PagamentiM metodo, double puntiUtilizzati) throws Exception {
-		if(puntiUtilizzati >= punti)
-			puntiUtilizzati = punti;
-		Pagamento payment = carrello.chiudeEpaga(metodo, puntiUtilizzati);
+	public boolean acquistaCarrello(PagamentiM metodo, double creditoUtilizzato) throws Exception {
+		if(creditoUtilizzato > credito)
+			creditoUtilizzato = credito;
+		if(creditoUtilizzato >= carrello.getTotale())
+			creditoUtilizzato = carrello.getTotale();
+		Pagamento payment = carrello.chiudeEpaga(metodo, creditoUtilizzato);
 		if(payment.isAutorizzato()) {
-			sottraiPunti(puntiUtilizzati);
-			aggiungiPunti(payment.getPuntiOttenuti());
+			sottraiCredito(creditoUtilizzato);
+			aggiungiCredito(payment.getCreditoOttenuto());
 		}
+		return payment.isAutorizzato();
 	}
 	public ArrayList<Titolo> getTitoliInCarrello(){
 		return (ArrayList<Titolo>) carrello.getTitoli();
@@ -101,21 +125,13 @@ public class Utente {
 		this.password = password;
 	}
 	
-	public double getPunti() {
-		return punti;
+	public double getCredito() {
+		return credito;
 	}
-	public void setPunti(double punti) {
-		this.punti = punti;
+	public void setCredito(double credito) {
+		this.credito = credito;
 	}
 	
-
-	public void aggiungiPunti(double puntiAdd) {
-		punti+=puntiAdd;
-	}
-
-	public void sottraiPunti(double puntiSub) {
-		punti-=puntiSub;
-	}
 	public Carrello getCarrello() {
 		return carrello;
 	}

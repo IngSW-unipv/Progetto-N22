@@ -76,7 +76,7 @@ public class DatiPanel extends JPanel {
 		creditotxt.setColumns(10);
 		creditotxt.setBounds(209, 251, 149, 19);
 		add(creditotxt);
-		creditotxt.setText(""+utente.getPunti());
+		creditotxt.setText(""+utente.getCredito());
 	}
 
 }

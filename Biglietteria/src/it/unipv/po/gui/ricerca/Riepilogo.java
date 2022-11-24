@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.SQLException;
 import java.text.DecimalFormat;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -17,6 +18,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
+
+import it.unipv.po.carrello.pagamento.supporto.PagamentiM;
 import it.unipv.po.trasporto.titolo.Titolo;
 import it.unipv.po.utente.Utente;
 import javax.swing.JPanel;
@@ -34,15 +37,20 @@ public class Riepilogo {
 	private JFrame frame;
 	private DecimalFormat df = new DecimalFormat("0.00");
 	private static Utente utente;
+	private double creditoUtilizzatodbl;
+	private PagamentiM metodoPagamento;
 	
 	private JTextField nometxt;
 	private JTextField cognometxt;
 	private JTextField emailtxt;
 	
+	
 	private static JTextArea dettaglitxt;
 	private static JLabel totalePrezzotxt;
 	private static JTextArea bigliettitxt;
 	private static JTextArea prezzitxt;
+	private static JTextArea creditoUtilizzatotxt;
+	private static JTextArea creditoDisponibile;
 	private static JRadioButton rdbtnCreditcard;
 	private static JRadioButton rdbtnVisa;
 	private static JRadioButton rdbtnPaypal;
@@ -74,6 +82,9 @@ public class Riepilogo {
 	}
 
 	private void initialize(String orarioricerca) {
+		creditoUtilizzatodbl = 0;
+		metodoPagamento = PagamentiM.Creditcard;
+		
 		frame = new JFrame();
 		frame.setBounds(100, 100, 525, 632);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -183,7 +194,7 @@ public class Riepilogo {
 		bigliettitxt.setFont(new Font("Arial Nova", Font.PLAIN, 11));
 		bigliettitxt.setText("");
 		bigliettitxt.setBackground(SystemColor.controlHighlight);
-		bigliettitxt.setBounds(29, 91, 119, 84);
+		bigliettitxt.setBounds(29, 91, 119, 41);
 		panelBiglietto.add(bigliettitxt);
 		
 		prezzitxt = new JTextArea();
@@ -191,14 +202,37 @@ public class Riepilogo {
 		prezzitxt.setText("");
 		prezzitxt.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 		prezzitxt.setBackground(SystemColor.controlHighlight);
-		prezzitxt.setBounds(158, 91, 54, 84);
+		prezzitxt.setBounds(158, 91, 54, 41);
 		panelBiglietto.add(prezzitxt);
+		
+		creditoUtilizzatotxt = new JTextArea();
+		creditoUtilizzatotxt.setBounds(158, 150, 54, 25);
+		creditoUtilizzatotxt.setFont(new Font("Arial Nova", Font.PLAIN, 11));
+		creditoUtilizzatotxt.setText("");
+		creditoUtilizzatotxt.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+		creditoUtilizzatotxt.setBackground(SystemColor.controlHighlight);
+		panelBiglietto.add(creditoUtilizzatotxt);
+		
+		creditoDisponibile = new JTextArea();
+		creditoDisponibile.setText(""+utente.getCredito());
+		creditoDisponibile.setFont(new Font("Dialog", Font.PLAIN, 11));
+		creditoDisponibile.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+		creditoDisponibile.setBackground(SystemColor.controlHighlight);
+		creditoDisponibile.setBounds(124, 38, 54, 25);
+		panelPunti.add(creditoDisponibile);
 		
 		JButton btnAcquista = new JButton("Acquista");
 		btnAcquista.setFont(new Font("Arial Nova", Font.PLAIN, 10));
 		btnAcquista.setBorder(new RoundedBorder(10));
 		btnAcquista.setBounds(68, 232, 85, 21);
 		panelBiglietto.add(btnAcquista);
+		
+		JLabel lblNewLabel_7 = new JLabel("Credito utilizzato:");
+		lblNewLabel_7.setFont(new Font("Dialog", Font.PLAIN, 11));
+		lblNewLabel_7.setBounds(29, 148, 102, 27);
+		panelBiglietto.add(lblNewLabel_7);
+		
+		
 		
 		JLabel lblNewLabel_4 = new JLabel("INSERISCI DATI ACQUIRENTE");
 		lblNewLabel_4.setFont(new Font("Arial Nova", Font.PLAIN, 10));
@@ -264,8 +298,8 @@ public class Riepilogo {
 		JTextArea puntitxt = new JTextArea();
 		puntitxt.setBackground(SystemColor.menu);
 		puntitxt.setFont(new Font("Arial Nova", Font.PLAIN, 10));
-		puntitxt.setText("Hai a disposizione "+ df.format(utente.getPunti()) +" € (salda l'eventuale \r\ndifferenza con un altro metodo di pagamento)\r\n\r\n");
-		puntitxt.setBounds(6, 33, 213, 38);
+		puntitxt.setText("Hai a disposizione : \r\n\r\n");
+		puntitxt.setBounds(6, 41, 108, 21);
 		panelPunti.add(puntitxt);
 		
 		JLabel lblNewLabel_3 = new JLabel("SCEGLI IL METODO DI PAGAMENTO");
@@ -331,6 +365,29 @@ public class Riepilogo {
 			}
 		});
 		
+		chckbxNewCheckBox_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if(chckbxNewCheckBox_1.isSelected() == true) {
+					creditoUtilizzatodbl = utente.getCredito();
+					if(creditoUtilizzatodbl > utente.getCarrello().getTotale())
+						creditoUtilizzatodbl = utente.getCarrello().getTotale();
+						creditoUtilizzatotxt.setText(""+creditoUtilizzatodbl+" €");
+						totalePrezzotxt.setText(String.valueOf(df.format(utente.getCarrello().getTotale()-creditoUtilizzatodbl)) +" €");
+				}
+				//aggiorno credito utilizzato e totale
+				
+				
+				if(chckbxNewCheckBox_1.isSelected() == false) {
+					creditoUtilizzatodbl = 0;
+					creditoUtilizzatotxt.setText(""+creditoUtilizzatodbl+" €");
+					totalePrezzotxt.setText(String.valueOf(df.format(utente.getCarrello().getTotale())) +" €");
+					
+				}
+			}
+		});
+		
+		
 		rdbtnCreditcard.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -339,6 +396,7 @@ public class Riepilogo {
 					rdbtnVisa.setSelected(false);
 					rdbtnPostepay.setSelected(false);
 					rdbtnPaypal.setSelected(false);
+					metodoPagamento = PagamentiM.Creditcard;
 				}
 				
 			}
@@ -352,6 +410,7 @@ public class Riepilogo {
 					rdbtnCreditcard.setSelected(false);
 					rdbtnPostepay.setSelected(false);
 					rdbtnPaypal.setSelected(false);
+					metodoPagamento = PagamentiM.Visa;
 				}
 				
 			}
@@ -365,6 +424,7 @@ public class Riepilogo {
 					rdbtnVisa.setSelected(false);
 					rdbtnCreditcard.setSelected(false);
 					rdbtnPaypal.setSelected(false);
+					metodoPagamento = PagamentiM.Postepay;
 				}
 				
 			}
@@ -378,6 +438,7 @@ public class Riepilogo {
 					rdbtnVisa.setSelected(false);
 					rdbtnPostepay.setSelected(false);
 					rdbtnCreditcard.setSelected(false);
+					metodoPagamento = PagamentiM.Paypal;
 				}
 				
 			}
@@ -389,12 +450,23 @@ public class Riepilogo {
 				else btnAcquista.setBackground(Color.LIGHT_GRAY);
 			}
 		});
-//		btnAcquista.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				utente.acquistaCarrello(null, 0);
-//				
-//			}
-//		});
+		
+		btnAcquista.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					if(utente.acquistaCarrello(metodoPagamento, creditoUtilizzatodbl)) 
+						JOptionPane.showMessageDialog(null, "Pagamento Avvenuto con successo","Pagamento",JOptionPane.INFORMATION_MESSAGE);
+					else
+						JOptionPane.showMessageDialog(null, "Il pagamento non è stato autorizzato","Pagamento",JOptionPane.WARNING_MESSAGE);
+				} catch (SQLException sqlExc) {
+					JOptionPane.showMessageDialog(null, "Connessione fallita!","DB error",JOptionPane.ERROR_MESSAGE);
+			    } catch (Exception e1) {
+					JOptionPane.showMessageDialog(null, "Qualcosa non va","Generic error",JOptionPane.ERROR_MESSAGE);
+				} 
+				
+				
+			}
+		});
 		
 	}
 	
@@ -413,6 +485,7 @@ public class Riepilogo {
 		bigliettitxt.setText(passeggero);
 		prezzitxt.setText(prezzo);
 		totalePrezzotxt.setText(String.valueOf(df.format(totale)) +" €");
+		creditoUtilizzatotxt.setText(""+creditoUtilizzatodbl+" €");
 		
 	}
 }

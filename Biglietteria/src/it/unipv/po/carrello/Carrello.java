@@ -72,20 +72,21 @@ public class Carrello implements ICarrello {
 	}
 	
 	public void calcolaTotale() {
+		totale = 0;
 		for(int i = 0; i<lista.size(); i++) {
 			totale += lista.get(i).getPrezzo();
 		}
 	}
 	
 	@Override
-	public Pagamento chiudeEpaga(PagamentiM metodo, double puntiUtilizzati) throws Exception {
+	public Pagamento chiudeEpaga(PagamentiM metodo, double creditoUtilizzato) throws Exception {
 		calcolaTotale();
-		Pagamento payment = new Pagamento(totale, puntiUtilizzati);
-		payment.calcolaPrezzoFinale(puntiUtilizzati);
+		Pagamento payment = new Pagamento(totale);
+		payment.calcolaPrezzoFinale(creditoUtilizzato);
 		payment.payStrategySetter(metodo);
 		boolean check = payment.autorizza();
 		if (check) 
-			aggiornaCronologia(payment.getDataEora(), payment.getImporto(), puntiUtilizzati);
+			aggiornaCronologia(payment.getDataEora(), payment.getImporto(), creditoUtilizzato);
 			
 		return payment;
 		

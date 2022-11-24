@@ -211,7 +211,7 @@ public class AccessDBreadStrategy implements IDBreadStrategy{
      
         Utente utente;
         
-        if(result.next()) utente = new Utente(result.getString("Nome"),result.getString("Cognome"),result.getString("Email"),result.getString("Password"));
+        if(result.next()) utente = new Utente(result.getString("Nome"),result.getString("Cognome"),result.getString("Email"),result.getString("Password"), result.getDouble("Punti"));
         else utente = null;
 		return utente;
 	}
