@@ -3,6 +3,7 @@ package it.unipv.po.connessioneDB.strategie;
 import java.sql.Connection;  
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -17,7 +18,7 @@ public class AccessDBwriteStrategy implements IDBwriteStrategy{
 	private static final String databaseURL  = "jdbc:ucanaccess://DB//DatabaseBiglietteria.accdb";
 	
 	@Override
-	public Connection getDBConnection() throws Exception {
+	public Connection getDBConnection() throws SQLException {
 		
 		// Funzione per creare la connessione
 		//System.out.println("------------- DB Connection -------------");
@@ -89,6 +90,24 @@ public class AccessDBwriteStrategy implements IDBwriteStrategy{
 		statement.setString(5, "0");
 		
 		statement.executeUpdate();
+		
+	}
+
+	@Override
+	public void oblitera(String idTitolo) throws SQLException {
+		String sql="UPDATE CronologiaTitoli SET Attivo='"+true+"', Disponibile='"+false+"'"
+					+ "WHERE IDTitolo='"+idTitolo+"';";
+		Connection connessione= getDBConnection();
+		PreparedStatement statement= connessione.prepareStatement(sql);
+		statement.executeUpdate();
+		
+    	// Chiudo la connessione
+     	if(statement != null) {
+     		statement.close();
+     	}
+     	if(connessione != null) {
+     		connessione.close();
+     	}
 		
 	}
 

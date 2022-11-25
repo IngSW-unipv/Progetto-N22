@@ -1,5 +1,6 @@
 package it.unipv.po.trasporto.titolo;
 
+import java.sql.SQLException;
 import java.time.*;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -100,6 +101,8 @@ public abstract class Titolo {
 
 	abstract public int getDurataAbbonamento();
 
+	public abstract void oblitera() throws SQLException;
+	public abstract void scadi();
 	
 	
 	

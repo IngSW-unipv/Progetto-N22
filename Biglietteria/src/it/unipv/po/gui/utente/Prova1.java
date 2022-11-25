@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.SystemColor;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -13,6 +15,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JSeparator;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
@@ -49,8 +52,12 @@ public class Prova1 extends JPanel{
 		ArrayList<JTextArea> text = new ArrayList<JTextArea>();
 		ArrayList<JButton> button = new ArrayList<JButton>();
 		
-		int j = 25;
+		
+		
+		int j = 40;
 	    for(int i =0;i<utente.getTitoliAcquistati().size();i++){
+	    	final int temp = i;
+	    	
 		    /*JLabel label = new JLabel("Enter Name " + i );
 		    JTextField text = new JTextField(15);
 		
@@ -69,21 +76,43 @@ public class Prova1 extends JPanel{
 	    	text.get(i).setBackground(SystemColor.menu);
 	    	button.add(new JButton("Oblitera"));
 	    	
+	    	
 	    	mainPanel.add(label.get(i));
 	    	mainPanel.add(text.get(i));
 	    	mainPanel.add(button.get(i));
 	    	
 	    	layout.putConstraint(SpringLayout.WEST, label.get(i), 10, SpringLayout.WEST, contentPane);
-	    	layout.putConstraint(SpringLayout.NORTH, label.get(i), j-25, SpringLayout.NORTH, contentPane);
+	    	layout.putConstraint(SpringLayout.NORTH, label.get(i), j-40, SpringLayout.NORTH, contentPane);
 	    	
-	    	layout.putConstraint(SpringLayout.NORTH, text.get(i), j-15, SpringLayout.NORTH, contentPane);
+	    	layout.putConstraint(SpringLayout.NORTH, text.get(i), j-23, SpringLayout.NORTH, contentPane);
 		    layout.putConstraint(SpringLayout.WEST, text.get(i), 10, SpringLayout.WEST, label.get(i));
 		    
 		    layout.putConstraint(SpringLayout.WEST, button.get(i), 20, SpringLayout.WEST, contentPane);
 	    	layout.putConstraint(SpringLayout.NORTH, button.get(i), j, SpringLayout.NORTH, contentPane);
 	    	 	
-		    j+=80;
+		    j+=100;
+		    
+		    //azioni
+		    if(!(utente.getTitoliAcquistati().get(i).isDisponibile()) || utente.getTitoliAcquistati().get(i).isAttivo()) {
+		    	button.get(i).disable();
+		    	button.get(i).hide();
+		    }
+			button.get(i).addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						try {
+						utente.getTitoliAcquistati().get(temp).oblitera();
+						System.out.println(""+ temp +"a  "+utente.getTitoliAcquistati().get(temp).isAttivo());
+						System.out.println(""+ temp +"d  "+utente.getTitoliAcquistati().get(temp).isDisponibile());
+						} catch(SQLException sqlExc) {
+							System.out.println("mannaggia!");
+						} catch(Exception e1) {
+							System.out.println("mannaggia!!!");
+						}
+						
+					}
+				});
 	    }
+	    
 	   
 		
 		mainPanel.setPreferredSize(new Dimension(mainPanel.getWidth(), 1500));

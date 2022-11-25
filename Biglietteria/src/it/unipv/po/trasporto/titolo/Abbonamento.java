@@ -78,5 +78,17 @@ public class Abbonamento extends Titolo{
 		return null;
 	}
 
+	@Override
+	public void oblitera() {
+		// doNothing
+		
+	}
+
+	@Override
+	public void scadi() {
+		// doNothing
+		
+	}
+
 
 }

@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.time.*; 
 import java.util.ArrayList;
 
+import it.unipv.po.connessioneDB.DBwrite;
 import it.unipv.po.trasporto.fermata.Fermata;
 import it.unipv.po.trasporto.titolo.supporto.CalcolatoreID;
 import it.unipv.po.trasporto.titolo.supporto.CalcolatorePrezzo;
@@ -45,16 +46,21 @@ public class Biglietto extends Titolo{
 		this.disponibile = disponibile;
 		
 	}
-	public void oblitera() {
+	
+	@Override
+	public void oblitera() throws SQLException {
 		
 		if(disponibile && !(attivo)) {
 			disponibile = false;
 			attivo = true;
 		}
+		DBwrite writer = new DBwrite();
+		writer.oblitera(getIdTitolo());
 		//start del timer dal server
 		// al termine verrÃ  chiamata il metodo scadi() 
 	}
 	
+	@Override
 	public void scadi() {
 		attivo = false;
 		// server rimuove da db le info del titolo

@@ -1,5 +1,6 @@
 package it.unipv.po.connessioneDB;
    
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -28,6 +29,13 @@ private static IDBwriteStrategy strategiaDiScrittura;
 	
 	public void aggiungiUtente(Utente utente) throws Exception {
 		 strategiaDiScrittura.aggiungiUtente(utente);
+	}
+
+
+
+	public void oblitera(String idTitolo) throws SQLException {
+		strategiaDiScrittura.oblitera(idTitolo);
+		
 	}
 	
 	
