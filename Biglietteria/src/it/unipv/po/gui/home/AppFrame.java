@@ -8,8 +8,6 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
-
-import it.unipv.po.gui.orari.OrariPanel;
 import it.unipv.po.gui.ricerca.CercaPanel;
 import it.unipv.po.gui.utente.AreaPersonalePanel;
 import it.unipv.po.utente.Utente;
@@ -22,17 +20,15 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 
-public class Home2 extends JFrame {
+public class AppFrame extends JFrame {
 
 	private JPanel contentPane;
 	private CercaPanel cercaPanel;
 	private HomePanel homePanel;
 	private AreaPersonalePanel areaPersonalePanel;
 	private ContattiPanel contattiPanel;
-	private OrariPanel orariPanel;
 	
 
 	/**
@@ -42,7 +38,7 @@ public class Home2 extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Home2 frame = new Home2(utente);
+					AppFrame frame = new AppFrame(utente);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -54,7 +50,7 @@ public class Home2 extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Home2(Utente utente) {
+	public AppFrame(Utente utente) {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 900, 600);
@@ -106,7 +102,6 @@ public class Home2 extends JFrame {
 		panel.add(separator_1_1);
 		
 		JButton btnCerca_1 = new JButton("Orari");
-	
 		btnCerca_1.setOpaque(false);
 		btnCerca_1.setFont(new Font("Source Code Pro ExtraLight", Font.PLAIN, 18));
 		btnCerca_1.setContentAreaFilled(false);
@@ -140,12 +135,6 @@ public class Home2 extends JFrame {
 		cercaPanel = new CercaPanel(utente);
 		areaPersonalePanel = new AreaPersonalePanel(utente);
 		contattiPanel = new ContattiPanel();
-		try {
-			orariPanel = new OrariPanel();
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
 	
 		
 		
@@ -158,8 +147,6 @@ public class Home2 extends JFrame {
 				contentPane.remove(areaPersonalePanel);
 				contattiPanel.hide();
 				contentPane.remove(contattiPanel);
-				orariPanel.hide();
-				contentPane.remove(orariPanel);
 				cercaPanel.setVisible(true);
 				contentPane.add(cercaPanel);
 				
@@ -175,8 +162,6 @@ public class Home2 extends JFrame {
 				contentPane.remove(areaPersonalePanel);
 				contattiPanel.hide();
 				contentPane.remove(contattiPanel);
-				orariPanel.hide();
-				contentPane.remove(orariPanel);
 				homePanel.setVisible(true);
 				contentPane.add(homePanel);
 				
@@ -192,9 +177,6 @@ public class Home2 extends JFrame {
 				contentPane.remove(homePanel);
 				contattiPanel.hide();
 				contentPane.remove(contattiPanel);
-				orariPanel.hide();
-				contentPane.remove(orariPanel);
-				
 				areaPersonalePanel.setVisible(true);
 				contentPane.add(areaPersonalePanel);
 				
@@ -212,27 +194,8 @@ public class Home2 extends JFrame {
 				contentPane.remove(homePanel);
 				areaPersonalePanel.hide();
 				contentPane.remove(areaPersonalePanel);
-				orariPanel.hide();
-				contentPane.remove(orariPanel);
 				contattiPanel.setVisible(true);
 				contentPane.add(contattiPanel);
-			}
-		});
-		
-		btnCerca_1.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				cercaPanel.hide();
-				contentPane.remove(cercaPanel);
-				homePanel.hide();
-				contentPane.remove(homePanel);
-				contattiPanel.hide();
-				contentPane.remove(contattiPanel);
-				areaPersonalePanel.hide();
-				contentPane.remove(areaPersonalePanel);
-				
-				orariPanel.setVisible(true);
-				contentPane.add(orariPanel);
 			}
 		});
 		

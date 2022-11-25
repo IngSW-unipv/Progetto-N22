@@ -9,8 +9,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
-import it.unipv.po.gui.home.Home;
-import it.unipv.po.gui.home.Home2;
+import it.unipv.po.gui.home.AppFrame;
 import it.unipv.po.sessione.Sessione;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -143,7 +142,7 @@ public class Login{
 					if(!email.isEmpty() && !password.isEmpty()) {
 						if(!sessione.UserLogin(email,password).getEmail().isEmpty()) {
 							
-							Home2.main(sessione.UserLogin(email,password));
+							AppFrame.main(sessione.UserLogin(email,password));
 							frame.setVisible(false);
 							
 						} else JOptionPane.showMessageDialog(null, "Username o password errata","Login error",JOptionPane.ERROR_MESSAGE);

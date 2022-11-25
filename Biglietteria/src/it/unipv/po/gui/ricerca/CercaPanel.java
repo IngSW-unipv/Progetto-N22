@@ -22,6 +22,7 @@ import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import javax.swing.JSlider;
 
@@ -131,6 +132,39 @@ public class CercaPanel extends JPanel {
 		orariotxt.setFont(new Font("Dialog", Font.PLAIN, 13));
 		orariotxt.setBounds(90, 295, 386, 13);
 		add(orariotxt);
+		
+//		JComboBox comboBoxGiorno = new JComboBox();
+//		for(int i = 1; i<=31; i++) {
+//			comboBoxGiorno.addItem(new Integer(i));
+//		}
+//		comboBoxGiorno.setBounds(150, 336, 45, 27);
+//		comboBoxGiorno.setFont(new Font("Dialog", Font.PLAIN, 13));
+//		add(comboBoxGiorno);
+//		
+//		JComboBox comboBoxMese = new JComboBox();
+//		for(int i = 1; i<=12; i++) {
+//			comboBoxMese.addItem(new Integer(i));
+//		}
+//		comboBoxMese.setFont(new Font("Dialog", Font.PLAIN, 13));
+//		comboBoxMese.setBounds(205, 336, 45, 27);
+//		add(comboBoxMese);
+//		
+//		JComboBox comboBoxAnno = new JComboBox();
+//		for(int i = 2022; i<=2023; i++) {
+//			comboBoxAnno.addItem(new Integer(i));
+//		}
+//		comboBoxAnno.setFont(new Font("Dialog", Font.PLAIN, 13));
+//		comboBoxAnno.setBounds(260, 336, 45, 27);
+//		add(comboBoxAnno);
+//		
+//		StringBuilder dataIniziostr = new StringBuilder(comboBoxGiorno.getSelectedItem().toString());
+//		dataIniziostr.append("-");
+//		dataIniziostr.append(comboBoxMese.getSelectedItem().toString());
+//		dataIniziostr.append("-");
+//		dataIniziostr.append(comboBoxAnno.getSelectedItem().toString());
+//		LocalDate dataInizio = LocalDate.parse(dataIniziostr);
+		
+		
 		
 		
 		//Azioni

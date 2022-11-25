@@ -1,5 +1,6 @@
 package it.unipv.po.connessioneDB;
    
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -19,15 +20,15 @@ private static IDBwriteStrategy strategiaDiScrittura;
 	
 
 	
-	public void aggiungiTotaleACronologia(String username, LocalDateTime data, double prezzo, double puntiUtilizzati) throws Exception {
+	public void aggiungiTotaleACronologia(String username, LocalDateTime data, double prezzo, double puntiUtilizzati) throws SQLException {
 		 strategiaDiScrittura.aggiungiTotaleACronologia(username, data, prezzo, puntiUtilizzati);
 	
 	}
-	public void aggiungiTitoliACronologia(String user, LocalDateTime date, ArrayList<Titolo> lista) throws Exception {
+	public void aggiungiTitoliACronologia(String user, LocalDateTime date, ArrayList<Titolo> lista) throws SQLException {
 		 strategiaDiScrittura.aggiungiTitoliACronologia(user, date, lista);
 	}
 	
-	public void aggiungiUtente(Utente utente) throws Exception {
+	public void aggiungiUtente(Utente utente) throws SQLException, NoSuchAlgorithmException {
 		 strategiaDiScrittura.aggiungiUtente(utente);
 	}
 
@@ -35,6 +36,13 @@ private static IDBwriteStrategy strategiaDiScrittura;
 
 	public void oblitera(String idTitolo) throws SQLException {
 		strategiaDiScrittura.oblitera(idTitolo);
+		
+	}
+
+
+
+	public void aggiornaCredito(double credito, String Email) throws SQLException{
+		strategiaDiScrittura.aggiornaCredito(credito, Email);
 		
 	}
 	

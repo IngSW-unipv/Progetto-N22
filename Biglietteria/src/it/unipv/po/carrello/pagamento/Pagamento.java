@@ -48,16 +48,10 @@ public class Pagamento implements IPagamento{
 	}
 	
 	@Override
-	public boolean autorizza() throws Exception {
-		try {
+	public boolean autorizza(){
 			boolean check = paymentMethod.autorizzaRichiesta(importo);
 			this.autorizzato = check;
 			return check;
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return false;
 	}
 	
 	public double getCreditoOttenuto() {

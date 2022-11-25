@@ -24,7 +24,7 @@ public class Abbonamento extends Titolo{
 						+dataInizio.toString()+"--"+durata;
 		setIdTitolo(tempID);
 		//richiedendo l'accesso al DB va gestita l'eccezione
-		setPrezzo(calcolatorePrezzo.calcolaPrezzo(percorso));
+		setPrezzo(calcolatorePrezzo.calcolaPrezzo(percorso, durata));
 	}
 	
 	//usato quando si riprendono le informazioni dal DB

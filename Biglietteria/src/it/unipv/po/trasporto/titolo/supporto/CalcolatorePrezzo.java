@@ -15,5 +15,17 @@ public class CalcolatorePrezzo {
 		}
 		return prezzo;
 	}
+	
+	public double calcolaPrezzo(ArrayList<Fermata> percorso, int durata) throws SQLException {
+		double prezzo = 0;
+		for(int i=0; i<percorso.size(); i++) {
+			prezzo += percorso.get(i).getTariffaMezzo();
+		}
+		prezzo *= durata;
+		prezzo -= prezzo*(durata/50);
+		return prezzo;
+	}
+	
+	
 
 }
