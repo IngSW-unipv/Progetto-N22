@@ -51,8 +51,7 @@ public class TitoliPanel extends JFrame{
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
-		contentPane.setLayout(null);
-		
+		contentPane.setLayout(null);	
 		
 		DBread db = new DBread();
 		utente = db.userDownload("rose@unipv.it");

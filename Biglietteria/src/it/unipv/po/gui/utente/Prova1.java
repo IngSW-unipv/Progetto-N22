@@ -74,15 +74,15 @@ public class Prova1 extends JPanel{
 	    	mainPanel.add(button.get(i));
 	    	
 	    	layout.putConstraint(SpringLayout.WEST, label.get(i), 10, SpringLayout.WEST, contentPane);
-	    	layout.putConstraint(SpringLayout.NORTH, label.get(i), j-20, SpringLayout.NORTH, contentPane);
+	    	layout.putConstraint(SpringLayout.NORTH, label.get(i), j-25, SpringLayout.NORTH, contentPane);
 	    	
-	    	layout.putConstraint(SpringLayout.NORTH, text.get(i), j, SpringLayout.NORTH, contentPane);
+	    	layout.putConstraint(SpringLayout.NORTH, text.get(i), j-15, SpringLayout.NORTH, contentPane);
 		    layout.putConstraint(SpringLayout.WEST, text.get(i), 10, SpringLayout.WEST, label.get(i));
 		    
-		    layout.putConstraint(SpringLayout.NORTH, button.get(i), j-20, SpringLayout.NORTH, contentPane);
-		    layout.putConstraint(SpringLayout.WEST, button.get(i), 20, SpringLayout.EAST, contentPane);
+		    layout.putConstraint(SpringLayout.WEST, button.get(i), 20, SpringLayout.WEST, contentPane);
+	    	layout.putConstraint(SpringLayout.NORTH, button.get(i), j, SpringLayout.NORTH, contentPane);
 	    	 	
-		    j+=60;
+		    j+=80;
 	    }
 	   
 		
