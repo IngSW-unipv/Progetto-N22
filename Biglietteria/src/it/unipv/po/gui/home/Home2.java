@@ -145,6 +145,8 @@ public class Home2 extends JFrame {
 				contentPane.remove(homePanel);
 				areaPersonalePanel.hide();
 				contentPane.remove(areaPersonalePanel);
+				contattiPanel.hide();
+				contentPane.remove(contattiPanel);
 				cercaPanel.setVisible(true);
 				contentPane.add(cercaPanel);
 				
@@ -158,6 +160,8 @@ public class Home2 extends JFrame {
 				contentPane.remove(cercaPanel);
 				areaPersonalePanel.hide();
 				contentPane.remove(areaPersonalePanel);
+				contattiPanel.hide();
+				contentPane.remove(contattiPanel);
 				homePanel.setVisible(true);
 				contentPane.add(homePanel);
 				
@@ -171,6 +175,8 @@ public class Home2 extends JFrame {
 				contentPane.remove(cercaPanel);
 				homePanel.hide();
 				contentPane.remove(homePanel);
+				contattiPanel.hide();
+				contentPane.remove(contattiPanel);
 				areaPersonalePanel.setVisible(true);
 				contentPane.add(areaPersonalePanel);
 				
@@ -186,6 +192,8 @@ public class Home2 extends JFrame {
 				contentPane.remove(cercaPanel);
 				homePanel.hide();
 				contentPane.remove(homePanel);
+				areaPersonalePanel.hide();
+				contentPane.remove(areaPersonalePanel);
 				contattiPanel.setVisible(true);
 				contentPane.add(contattiPanel);
 			}
