@@ -70,13 +70,13 @@ public class Login{
 		emailtxt = new JTextField();
 		emailtxt.setFont(new Font("Arial Nova", Font.PLAIN, 10));
 		emailtxt.setBounds(216, 77, 162, 19);
-		if(args.length == 2) emailtxt.setText(args[0]);
+	    if(args!=null && args.length == 2) emailtxt.setText(args[0]);
 		frame.getContentPane().add(emailtxt);
 		
 		passwordtxt = new JPasswordField();
 		passwordtxt.setFont(new Font("Arial Nova", Font.PLAIN, 10));
 		passwordtxt.setBounds(216, 131, 162, 19);
-		if(args.length == 2) passwordtxt.setText(args[1]);
+		if(args!=null && args.length == 2) passwordtxt.setText(args[1]);
 		frame.getContentPane().add(passwordtxt);
 		
 		JButton btnReset = new JButton("Reset");

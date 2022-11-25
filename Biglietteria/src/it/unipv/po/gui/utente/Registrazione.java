@@ -208,7 +208,7 @@ public class Registrazione {
 		check2.setBounds(20, 555, 93, 21);
 		frame.getContentPane().add(check2);
 		
-		JLabel btnIndietro = new JLabel("Idietro");
+		JLabel btnIndietro = new JLabel("Indietro");
 		btnIndietro.setForeground(Color.BLUE);
 		btnIndietro.setFont(new Font("Arial Nova", Font.BOLD, 10));
 		btnIndietro.setBounds(20, 619, 45, 13);
