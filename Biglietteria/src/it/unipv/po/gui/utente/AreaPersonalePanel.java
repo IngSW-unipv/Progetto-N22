@@ -2,18 +2,14 @@ package it.unipv.po.gui.utente;
 
 import java.awt.Color;
 import java.awt.Font;
-
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
-
 import it.unipv.po.utente.Utente;
-
 import javax.swing.JButton;
-import javax.swing.JTextField;
 
 public class AreaPersonalePanel extends JPanel {
 	private DatiPanel datiPanel;

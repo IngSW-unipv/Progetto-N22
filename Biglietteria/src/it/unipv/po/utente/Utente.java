@@ -39,13 +39,13 @@ public class Utente {
 		carrello = new Carrello(email);
 	}
 	
-//	public Utente() {
-//		this.name = "";
-//		this.cognome = "";
-//		this.email = "";
-//		this.password = "";
-//		
-//	}
+	public Utente() {
+		this.name = "";
+		this.cognome = "";
+		this.email = "";
+		this.password = "";
+		
+	}
 	
 	public void aggiungiCredito(double creditoAdd) {
 		credito+=creditoAdd;

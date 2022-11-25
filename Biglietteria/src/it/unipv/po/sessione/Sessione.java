@@ -12,10 +12,10 @@ public class Sessione {
 	
 	public static Utente UserLogin(String email, String passtext) throws NoSuchAlgorithmException, SQLException, Exception{
 		DBread db = new DBread();
-		Utente utente;
+		Utente utente = new Utente();
 		
 		if(sha1(passtext).compareTo(db.userDownload(email).getPassword()) == 0) utente = CreateUser(email);
-		else utente = null;
+	
 		return utente;
 	}
 
