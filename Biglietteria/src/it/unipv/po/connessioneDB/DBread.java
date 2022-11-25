@@ -56,4 +56,10 @@ public class DBread {
 		return strategiaDiLettura.scaricaTitoliUtente(user);
 		
 	}
+	
+	public String[] elencoLinee() throws SQLException{
+		return strategiaDiLettura.elencoLinee();
+	}
+	
+	
 }
