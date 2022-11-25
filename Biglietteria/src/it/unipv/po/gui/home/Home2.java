@@ -28,6 +28,7 @@ public class Home2 extends JFrame {
 	private CercaPanel cercaPanel;
 	private HomePanel homePanel;
 	private AreaPersonalePanel areaPersonalePanel;
+	private ContattiPanel contattiPanel;
 	
 
 	/**
@@ -39,7 +40,6 @@ public class Home2 extends JFrame {
 				try {
 					Home2 frame = new Home2(utente);
 					frame.setVisible(true);
-					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -122,6 +122,7 @@ public class Home2 extends JFrame {
 		panel.add(btnCerca_1_1);
 		
 		JButton btnCerca_1_1_1 = new JButton("contatti");
+	
 		btnCerca_1_1_1.setOpaque(false);
 		btnCerca_1_1_1.setFont(new Font("Microsoft Sans Serif", Font.PLAIN, 14));
 		btnCerca_1_1_1.setContentAreaFilled(false);
@@ -129,10 +130,11 @@ public class Home2 extends JFrame {
 		btnCerca_1_1_1.setBounds(10, 507, 220, 26);
 		panel.add(btnCerca_1_1_1);
 		
-		homePanel = new HomePanel();
+		homePanel = new HomePanel(utente.getName());
 		contentPane.add(homePanel);
 		cercaPanel = new CercaPanel(utente);
 		areaPersonalePanel = new AreaPersonalePanel(utente);
+		contattiPanel = new ContattiPanel();
 	
 		
 		
@@ -173,6 +175,19 @@ public class Home2 extends JFrame {
 				contentPane.add(areaPersonalePanel);
 				
 				
+			}
+		});
+		
+		
+		btnCerca_1_1_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				cercaPanel.hide();
+				contentPane.remove(cercaPanel);
+				homePanel.hide();
+				contentPane.remove(homePanel);
+				contattiPanel.setVisible(true);
+				contentPane.add(contattiPanel);
 			}
 		});
 		
