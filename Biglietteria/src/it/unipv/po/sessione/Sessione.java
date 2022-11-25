@@ -37,7 +37,11 @@ public class Sessione {
 	    if (!emailPattern.matcher(email).matches()) error = "Email non valida";
 	    else if(!password.matches(".*\\d.*") || !(password.length() <= 21 && password.length() >= 8) || !passwordPattern.matcher(password).matches()) error = "Password non valida";
 	    else if(email.isEmpty() || nome.isEmpty()|| cognome.isEmpty()) error = "Tutti i campi devono essere compilati";
-	    else if(db.userDownload(email).getEmail().compareTo(email) ==0) error = "Username già esistente";
+	    //else if(db.userDownload(email).getEmail().compareTo(email) ==0) error = "Username già esistente";
+	    else if(db.userDownload(email) != null) { 
+	    	if(db.userDownload(email).getEmail().compareTo(email) ==0)
+	    		error = "Username già esistente";
+	    }
 		
 		return error;
 	}

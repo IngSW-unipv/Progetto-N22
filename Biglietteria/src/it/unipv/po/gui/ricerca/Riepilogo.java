@@ -475,7 +475,7 @@ public class Riepilogo {
 	private void setGraficaBiglietto(String passeggero, String prezzo) {
 		
 		//String dettagliotxt = "🚍\n⦿ "+ utente.getTitoliAcquistati().get(0).getPercorso().get(0).getCodiceFermata() +"\n ¦\n⦿ "+ utente.getTitoliAcquistati().get(0).getPercorso().get(utente.getTitoliAcquistati().get(0).getPercorso().size()-1).getCodiceFermata();
-		String dettagliotxt = "🚍\n⦿ "+ utente.getUltimoTitoloInCarrello().getPercorso().get(0).getCodiceFermata() +"\n ¦\n⦿ "+ utente.getUltimoTitoloInCarrello().getPercorso().get(utente.getUltimoTitoloInCarrello().getPercorso().size()-1).getCodiceFermata();
+		String dettagliotxt = "🚍\n⦿ "+ utente.getCarrello().getTitoloModel().getPercorso().get(0).getCodiceFermata() +"\n ¦\n⦿ "+ utente.getCarrello().getTitoloModel().getPercorso().get(utente.getCarrello().getTitoloModel().getPercorso().size()-1).getCodiceFermata();
 		
 		double totale = utente.getCarrello().getTotale();
 //		double totale = 0;
