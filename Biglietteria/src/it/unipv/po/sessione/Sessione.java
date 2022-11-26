@@ -10,16 +10,18 @@ import it.unipv.po.utente.Utente;
 
 public class Sessione {
 	
-	public static Utente UserLogin(String email, String passtext) throws NoSuchAlgorithmException, SQLException, Exception{
+	public static Utente UserLogin(String email, String passtext) throws NoSuchAlgorithmException, SQLException, CredenzialiErrateException{
 		DBread db = new DBread();
 		Utente utente = new Utente();
-		
-		if(sha1(passtext).compareTo(db.userDownload(email).getPassword()) == 0) utente = CreateUser(email);
-	
+		if(db.userDownload(email) != null) {
+		if(sha1(passtext).compareTo(db.userDownload(email).getPassword()) == 0) 
+			utente = CreateUser(email);
+		} else 
+			throw new CredenzialiErrateException();
 		return utente;
 	}
 
-	private static Utente CreateUser(String email) throws Exception {
+	private static Utente CreateUser(String email) throws SQLException {
 		DBread db = new DBread();
 		
 		Utente utente = db.userDownload(email);

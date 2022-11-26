@@ -10,6 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 import it.unipv.po.gui.home.AppFrame;
+import it.unipv.po.sessione.CredenzialiErrateException;
 import it.unipv.po.sessione.Sessione;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -140,19 +141,17 @@ public class Login{
 				
 				try {
 					if(!email.isEmpty() && !password.isEmpty()) {
-						if(!sessione.UserLogin(email,password).getEmail().isEmpty()) {
-							
-							AppFrame.main(sessione.UserLogin(email,password));
-							frame.setVisible(false);
-							
-						} else JOptionPane.showMessageDialog(null, "Username o password errata","Login error",JOptionPane.ERROR_MESSAGE);
+								AppFrame.main(sessione.UserLogin(email,password));
+								frame.setVisible(false);
 					} else JOptionPane.showMessageDialog(null, "Invalid login details","Login error",JOptionPane.ERROR_MESSAGE);
 				
 				} catch (SQLException sqlExc) {
 					JOptionPane.showMessageDialog(null, "Connessione fallita!","DB error",JOptionPane.ERROR_MESSAGE);
-			    } catch (Exception e1) {
+			    } catch (CredenzialiErrateException cErr) {
+					JOptionPane.showMessageDialog(null, "Credenziali errate","Login error",JOptionPane.ERROR_MESSAGE);
+				}catch (Exception e1) {
 					JOptionPane.showMessageDialog(null, "Qualcosa non va","Generic error",JOptionPane.ERROR_MESSAGE);
-				} 
+				}
 			} 	
 		});
 		

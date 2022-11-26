@@ -10,7 +10,7 @@ public class Test {
 	public static void main(String[] args) throws NoSuchAlgorithmException, SQLException, Exception {
 		// TODO Auto-generated method stub
 		Sessione s = new Sessione();
-		Utente u = s.UserLogin("rose@unipv.it", "Password1");
+		s.UserLogin("ciao", "ciao");
 		
 		
 		
