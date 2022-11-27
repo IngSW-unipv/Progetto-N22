@@ -11,6 +11,11 @@ import it.unipv.po.connessioneDB.DBwrite;
 import it.unipv.po.trasporto.titolo.Titolo; 
 
 
+/**
+ * 
+ * @author Giava
+ *
+ */
 public class Utente {
     private String name;
     private String cognome;
@@ -50,26 +55,48 @@ public class Utente {
 		
 	}
 	
+	/**
+	 * Metodo per l'aggiunta di credito
+	 * @param creditoAdd parametro per il credito da aggiungere
+	 */
 	public void aggiungiCredito(double creditoAdd) {
 		credito+=creditoAdd;
 	}
 
+	/**
+	 * Metodo per la sottrazione del credito
+	 * @param creditoSub parametro per il credito da sottrarre
+	 * @throws SQLException 
+	 */
 	public void sottraiCredito(double creditoSub) throws SQLException {
 		credito-=creditoSub;
 		DBwrite writer = new DBwrite();
 		writer.aggiornaCredito(this.credito, this.email);
 	}
 	
+	/**
+	 * Metodo per l'aggiunta di titolo 
+	 * @param t
+	 * @throws SQLException
+	 */
 	public void aggiungiTitolo(Titolo t) throws SQLException {
 		carrello.aggiungiTitolo(t);
 		DBwrite writer = new DBwrite();
 		writer.aggiornaCredito(this.credito, this.email);
 	}
     
+
 	public void rimuoviTitolo(Titolo t) {
 		carrello.rimuoviTitolo(t);
 	}
 	
+	/**
+	 * Metodo per l'acquisto del contenuto del carrello
+	 * @param metodo
+	 * @param creditoUtilizzato
+	 * @return
+	 * @throws SQLException
+	 */
 	public boolean acquistaCarrello(PagamentiM metodo, double creditoUtilizzato) throws SQLException {
 		if(creditoUtilizzato > credito)
 			creditoUtilizzato = credito;

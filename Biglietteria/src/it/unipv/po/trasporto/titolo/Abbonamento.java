@@ -17,11 +17,12 @@ public class Abbonamento extends Titolo{
 	private int durataAbbonamento;
 	
 	/**
+	 * Costruttore di abbonamento 
 	 * 
-	 * @param dataInizio
-	 * @param durata
-	 * @param percorso
-	 * @throws SQLException
+	 * @param dataInizio 
+	 * @param durata 
+	 * @param percorso  
+	 * @throws SQLException 
 	 */
 	public Abbonamento(LocalDate dataInizio, int durata, ArrayList<Fermata> percorso) throws SQLException{
 		this.dataInizio = dataInizio;
@@ -30,7 +31,7 @@ public class Abbonamento extends Titolo{
 		setPercorso(percorso);
 		this.calcolatoreID = new CalcolatoreID();
 		this.calcolatorePrezzo = new CalcolatorePrezzo();
-		// per glii abbonamenti avremo nell'id un prefisso 'a'
+		// per gli abbonamenti avremo nell'id un prefisso 'a'
 		String tempID = "a--"+calcolatoreID.calcolaID(percorso)+"--"
 						+dataInizio.toString()+"--"+durata;
 		setIdTitolo(tempID);
@@ -39,15 +40,7 @@ public class Abbonamento extends Titolo{
 	}
 	
 	//usato quando si riprendono le informazioni dal DB
-	/**
-	 * 
-	 * @param idTitolo
-	 * @param prezzo
-	 * @param percorso
-	 * @param dataInizio
-	 * @param durata
-	 * @param dataAcquisto
-	 */
+
 	public Abbonamento(String idTitolo,double prezzo, String percorso, String dataInizio, int durata, String dataAcquisto){
 		this.setIdTitolo(idTitolo);
 		this.setPrezzo(prezzo);
