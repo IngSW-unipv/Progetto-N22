@@ -10,7 +10,11 @@ import it.unipv.po.trasporto.titolo.supporto.CalcolatoreID;
 import it.unipv.po.trasporto.titolo.supporto.CalcolatorePrezzo;
 
 
-
+/**
+ * 
+ * @author Giava
+ *
+ */
 public abstract class Titolo {
 	
 	private String idTitolo;
@@ -19,11 +23,17 @@ public abstract class Titolo {
 	private LocalDateTime dataAcquisto;
 	protected CalcolatorePrezzo calcolatorePrezzo;
 	protected CalcolatoreID calcolatoreID;
-	
+
+/**
+ * 
+ * @param percorso
+ */
 	public Titolo(ArrayList<Fermata> percorso) {
 		this.percorso = percorso;
 	}
-	
+/**
+ * 
+ */
 	public Titolo() {
 		this.idTitolo = "?????";
 		this.prezzo = 0;
@@ -70,7 +80,10 @@ public abstract class Titolo {
 	public double getPrezzo() {
 		return prezzo;
 	}
-
+/**
+ * 
+ * @param prezzo 
+ */
 	public void setPrezzo(double prezzo) {
 		this.prezzo = prezzo;
 	}
@@ -78,7 +91,10 @@ public abstract class Titolo {
 	public ArrayList<Fermata> getPercorso() {
 		return percorso;
 	}
-
+/**
+ * 
+ * @param percorso
+ */
 	public void setPercorso(ArrayList<Fermata> percorso) {
 		this.percorso = percorso;
 	}
@@ -88,17 +104,35 @@ public abstract class Titolo {
 		return dataAcquisto;
 	}
 
+	/**
+	 * 
+	 * @param dataAcquisto
+	 */
 	public void setDataAcquisto(LocalDateTime dataAcquisto) {
 		this.dataAcquisto = dataAcquisto;
 	}
 	
 	
-	
+/**
+ * 	
+ * @return
+ */
 	abstract public boolean isAttivo();
+	
 	abstract public boolean isDisponibile();
+	
 	abstract public String getDataInizio();
+	/**
+	 * 
+	 * @param percorso
+	 * @return
+	 */
 	abstract public LocalTime getDurataViaggio(ArrayList<Fermata> percorso);
 
+	/**
+	 * 
+	 * @return
+	 */
 	abstract public int getDurataAbbonamento();
 
 	public abstract void oblitera() throws SQLException;
