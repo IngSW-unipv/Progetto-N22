@@ -7,7 +7,8 @@ import it.unipv.po.carrello.pagamento.esterno.PayPalPaymentStrategy;
 import it.unipv.po.carrello.pagamento.esterno.PostePayPaymentStrategy;
 import it.unipv.po.carrello.pagamento.esterno.VisaPaymentStrategy;
 import it.unipv.po.carrello.pagamento.supporto.CalcolatoreCredito;
-import it.unipv.po.carrello.pagamento.supporto.PagamentiM; 
+import it.unipv.po.carrello.pagamento.supporto.PagamentiM;
+import it.unipv.po.carrello.pagamento.supporto.PayStrategyFactory; 
 
 
 
@@ -17,6 +18,7 @@ public class Pagamento implements IPagamento{
 	private IPaymentStrategy paymentMethod;
 	private CalcolatoreCredito calcolatoreCredito;
 	private boolean autorizzato;
+	private PayStrategyFactory payStrategyFactory;
 	
 	/**
 	 * Costruttore di Pagamento.
@@ -26,7 +28,9 @@ public class Pagamento implements IPagamento{
 		autorizzato = false;
 		dataEora= LocalDateTime.now();
 		importo=costo;
-		payStrategySetter(PagamentiM.Creditcard); //settiamo di default questo
+		//payStrategySetter(PagamentiM.Creditcard); //settiamo di default questo
+		payStrategyFactory = new PayStrategyFactory();
+		paymentMethod = payStrategyFactory.createPayStrategy(PagamentiM.Creditcard);
 		calcolatoreCredito = new CalcolatoreCredito();
 		//qua ci va un pure fabrication che mi crea una classe 
 		//che rappresenti il contesto di pagamento
@@ -39,17 +43,24 @@ public class Pagamento implements IPagamento{
 		
 	}
 	
+//	@Override
+//	public void payStrategySetter(PagamentiM metodo) {
+//		if (metodo==PagamentiM.Paypal)
+//			paymentMethod= new PayPalPaymentStrategy();
+//		if (metodo==PagamentiM.Creditcard)
+//			paymentMethod= new CreditCardPaymentStrategy();
+//		if (metodo==PagamentiM.Postepay)
+//			paymentMethod= new PostePayPaymentStrategy();
+//		if (metodo==PagamentiM.Visa)
+//			paymentMethod= new VisaPaymentStrategy();
+//	}
+	
 	@Override
 	public void payStrategySetter(PagamentiM metodo) {
-		if (metodo==PagamentiM.Paypal)
-			paymentMethod= new PayPalPaymentStrategy();
-		if (metodo==PagamentiM.Creditcard)
-			paymentMethod= new CreditCardPaymentStrategy();
-		if (metodo==PagamentiM.Postepay)
-			paymentMethod= new PostePayPaymentStrategy();
-		if (metodo==PagamentiM.Visa)
-			paymentMethod= new VisaPaymentStrategy();
+		paymentMethod = payStrategyFactory.createPayStrategy(metodo);
 	}
+	
+	
 	
 	@Override
 	public boolean autorizza(){
