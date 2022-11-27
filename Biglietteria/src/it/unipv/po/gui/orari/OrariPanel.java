@@ -1,30 +1,26 @@
 package it.unipv.po.gui.orari;
 
-import java.awt.Color;
+import java.awt.Color; 
 import java.awt.Font;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
-
 import it.unipv.po.connessioneDB.DBread;
+import it.unipv.po.sessione.CredenzialiErrateException;
 import it.unipv.po.trasporto.fermata.Fermata;
-import it.unipv.po.trasporto.linea.Linea;
-import it.unipv.po.trasporto.vehicleModel.Vehicle;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
-import java.awt.event.InputMethodListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.InputMethodEvent;
 import javax.swing.JTextArea;
-import javax.swing.JList;
-import javax.swing.JTable;
+
 
 public class OrariPanel extends JPanel {
 	ArrayList<Fermata> fermate;
@@ -33,8 +29,8 @@ public class OrariPanel extends JPanel {
 	 * Create the panel.
 	 * @throws SQLException 
 	 */
-	public OrariPanel() throws SQLException {
-		final Linea linee = new Linea();
+	public OrariPanel(){
+		
 		DBread db = new DBread();
 
 		
@@ -80,7 +76,14 @@ public class OrariPanel extends JPanel {
 		textAreaOrari.setBounds(309, 171, 184, 305);
 		add(textAreaOrari);
 		
-		JComboBox comboBox = new JComboBox(db.elencoLinee());
+		JComboBox comboBox = new JComboBox();
+		try {
+		comboBox.setModel(new DefaultComboBoxModel<String>(db.elencoLinee()));
+		} catch (SQLException sqlExc) {
+			JOptionPane.showMessageDialog(null, "Connessione fallita!","DB error",JOptionPane.ERROR_MESSAGE);
+	    } catch (Exception e1) {
+			JOptionPane.showMessageDialog(null, "Qualcosa non va","Generic error",JOptionPane.ERROR_MESSAGE);
+		}
 		comboBox.addActionListener (new ActionListener () {
 		    public void actionPerformed(ActionEvent e) {
 			    String selected; 
@@ -98,9 +101,10 @@ public class OrariPanel extends JPanel {
 				 textAreaOrari.append(fermate.get(i).getOrario()+"\n");
 				    }
 					
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+				} catch (SQLException sqlExc) {
+					JOptionPane.showMessageDialog(null, "Connessione fallita!","DB error",JOptionPane.ERROR_MESSAGE);
+			    } catch (Exception e1) {
+					JOptionPane.showMessageDialog(null, "Qualcosa non va","Generic error",JOptionPane.ERROR_MESSAGE);
 				}
 				
 				 

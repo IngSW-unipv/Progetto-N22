@@ -8,6 +8,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
+
+import it.unipv.po.gui.orari.OrariPanel;
 import it.unipv.po.gui.ricerca.CercaPanel;
 import it.unipv.po.gui.utente.AreaPersonalePanel;
 import it.unipv.po.utente.Utente;
@@ -29,6 +31,7 @@ public class AppFrame extends JFrame {
 	private HomePanel homePanel;
 	private AreaPersonalePanel areaPersonalePanel;
 	private ContattiPanel contattiPanel;
+	private OrariPanel orariPanel;
 	
 
 	/**
@@ -135,6 +138,8 @@ public class AppFrame extends JFrame {
 		cercaPanel = new CercaPanel(utente);
 		areaPersonalePanel = new AreaPersonalePanel(utente);
 		contattiPanel = new ContattiPanel();
+		orariPanel = new OrariPanel();
+		
 	
 		
 		
@@ -147,6 +152,8 @@ public class AppFrame extends JFrame {
 				contentPane.remove(areaPersonalePanel);
 				contattiPanel.hide();
 				contentPane.remove(contattiPanel);
+				orariPanel.hide();
+				contentPane.remove(orariPanel);
 				cercaPanel.setVisible(true);
 				contentPane.add(cercaPanel);
 				
@@ -162,6 +169,8 @@ public class AppFrame extends JFrame {
 				contentPane.remove(areaPersonalePanel);
 				contattiPanel.hide();
 				contentPane.remove(contattiPanel);
+				orariPanel.hide();
+				contentPane.remove(orariPanel);
 				homePanel.setVisible(true);
 				contentPane.add(homePanel);
 				
@@ -177,6 +186,8 @@ public class AppFrame extends JFrame {
 				contentPane.remove(homePanel);
 				contattiPanel.hide();
 				contentPane.remove(contattiPanel);
+				orariPanel.hide();
+				contentPane.remove(orariPanel);
 				areaPersonalePanel.setVisible(true);
 				contentPane.add(areaPersonalePanel);
 				
@@ -194,8 +205,26 @@ public class AppFrame extends JFrame {
 				contentPane.remove(homePanel);
 				areaPersonalePanel.hide();
 				contentPane.remove(areaPersonalePanel);
+				orariPanel.hide();
+				contentPane.remove(orariPanel);
 				contattiPanel.setVisible(true);
 				contentPane.add(contattiPanel);
+			}
+		});
+		
+		btnCerca_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				cercaPanel.hide();
+				contentPane.remove(cercaPanel);
+				homePanel.hide();
+				contentPane.remove(homePanel);
+				areaPersonalePanel.hide();
+				contentPane.remove(areaPersonalePanel);
+				contattiPanel.hide();
+				contentPane.remove(contattiPanel);
+				orariPanel.setVisible(true);
+				contentPane.add(orariPanel);
 			}
 		});
 		

@@ -26,11 +26,11 @@ public class Login{
 	private JTextField emailtxt;
 	private JPasswordField passwordtxt;
 
-	public static void main(String[] args) {
+	public static void main(Sessione sessione, String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Login window = new Login(args);
+					Login window = new Login(sessione, args);
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -39,11 +39,11 @@ public class Login{
 		});
 	}
 
-	public Login(String[] args) {	
-		initialize(args);
+	public Login(Sessione sessione, String[] args) {	
+		initialize(sessione, args);
 	}
 
-	private void initialize(String[] args) {
+	private void initialize(Sessione sessione, String[] args) {
 		frame = new JFrame();
 
 		frame.setResizable(false);
@@ -135,7 +135,6 @@ public class Login{
 		
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Sessione sessione = new Sessione();
 				String email = emailtxt.getText();
 				String password = String.valueOf(passwordtxt.getPassword());	
 				
