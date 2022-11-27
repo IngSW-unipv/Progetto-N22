@@ -1,5 +1,6 @@
 package it.unipv.po.trasporto.titolo;
 
+import java.sql.SQLException;
 import java.time.*;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -9,7 +10,11 @@ import it.unipv.po.trasporto.titolo.supporto.CalcolatoreID;
 import it.unipv.po.trasporto.titolo.supporto.CalcolatorePrezzo;
 
 
-
+/**
+ * 
+ * @author Giava
+ *
+ */
 public abstract class Titolo {
 	
 	private String idTitolo;
@@ -18,18 +23,23 @@ public abstract class Titolo {
 	private LocalDateTime dataAcquisto;
 	protected CalcolatorePrezzo calcolatorePrezzo;
 	protected CalcolatoreID calcolatoreID;
-	
+
+
 	public Titolo(ArrayList<Fermata> percorso) {
 		this.percorso = percorso;
 	}
-	
+
 	public Titolo() {
 		this.idTitolo = "?????";
 		this.prezzo = 0;
 		
 	}
 	
-	//trasforma l'array di fermate in una stringa di fermate con id e orario
+	
+	/** trasforma l'array di fermate in una stringa di fermate con id e orario
+	 * 
+	 * @return ottengo la string di fermate
+	 */
 	public String getStringPercorso() {
 		StringBuilder stringPercorso = new StringBuilder("");
 		for(int i = 0; i<percorso.size(); i++) {
@@ -41,8 +51,12 @@ public abstract class Titolo {
 		stringPercorso.deleteCharAt(stringPercorso.length()-1);
 		return stringPercorso.toString();
 	}
-	//ricostruisce l'array di fermate in forma non verbosa a partire dalla stringa
-	//generata dalla funzione precedente
+	
+	
+	/**ricostruisce l'array di fermate in forma non verbosa a partire dalla stringa generata dalla funzione precedente
+	 * 
+	 * @param percorso parametro
+	 */
 	public void setPercorso(String percorso) {
 		this.percorso = new ArrayList<Fermata>();
 		Scanner scanner = new Scanner(percorso);
@@ -87,19 +101,25 @@ public abstract class Titolo {
 		return dataAcquisto;
 	}
 
+	
 	public void setDataAcquisto(LocalDateTime dataAcquisto) {
 		this.dataAcquisto = dataAcquisto;
 	}
 	
 	
-	
+
 	abstract public boolean isAttivo();
+	
 	abstract public boolean isDisponibile();
+	
 	abstract public String getDataInizio();
+	
 	abstract public LocalTime getDurataViaggio(ArrayList<Fermata> percorso);
 
 	abstract public int getDurataAbbonamento();
 
+	public abstract void oblitera() throws SQLException;
+	public abstract void scadi();
 	
 	
 	

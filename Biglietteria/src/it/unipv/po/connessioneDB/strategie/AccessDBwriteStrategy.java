@@ -1,8 +1,10 @@
 package it.unipv.po.connessioneDB.strategie;
  
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;  
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -17,7 +19,7 @@ public class AccessDBwriteStrategy implements IDBwriteStrategy{
 	private static final String databaseURL  = "jdbc:ucanaccess://DB//DatabaseBiglietteria.accdb";
 	
 	@Override
-	public Connection getDBConnection() throws Exception {
+	public Connection getDBConnection() throws SQLException {
 		
 		// Funzione per creare la connessione
 		//System.out.println("------------- DB Connection -------------");
@@ -27,7 +29,7 @@ public class AccessDBwriteStrategy implements IDBwriteStrategy{
 	}
 
 	@Override
-	public void aggiungiTotaleACronologia(String username, LocalDateTime data, double prezzo, double puntiUtilizzati) throws Exception {
+	public void aggiungiTotaleACronologia(String username, LocalDateTime data, double prezzo, double puntiUtilizzati) throws SQLException {
 		String sql="INSERT into CronologiaTotali(Utente,DataPagamento,Prezzo,PuntiUtilizzati) VALUES(?,?,?,?);";
 		Connection connessione= getDBConnection();
 		PreparedStatement statement= connessione.prepareStatement(sql);
@@ -47,7 +49,7 @@ public class AccessDBwriteStrategy implements IDBwriteStrategy{
 	}
 	
 	@Override
-	public void aggiungiTitoliACronologia(String username, LocalDateTime date, ArrayList<Titolo> lista) throws Exception {
+	public void aggiungiTitoliACronologia(String username, LocalDateTime date, ArrayList<Titolo> lista) throws SQLException {
 		String sql="INSERT into CronologiaTitoli(Utente,DataPagamento,IDTitolo,PrezzoTitolo,Percorso,Attivo,Disponibile,DataInizio,Durata) VALUES(?,?,?,?,?,?,?,?,?);";
 		Connection connessione= getDBConnection();
 		PreparedStatement statement= connessione.prepareStatement(sql);
@@ -76,7 +78,7 @@ public class AccessDBwriteStrategy implements IDBwriteStrategy{
 	
 	
 	//metodo per la registrazione degli utenti
-	public void aggiungiUtente(Utente utente) throws Exception {
+	public void aggiungiUtente(Utente utente) throws SQLException, NoSuchAlgorithmException {
 		String sql="INSERT into Utente(Password,Nome,Cognome,Email,Punti) VALUES(?,?,?,?,?);";
 		String password="";
 		Connection connessione= getDBConnection();
@@ -89,6 +91,41 @@ public class AccessDBwriteStrategy implements IDBwriteStrategy{
 		statement.setString(5, "0");
 		
 		statement.executeUpdate();
+		
+	}
+
+	@Override
+	public void oblitera(String idTitolo) throws SQLException {
+		String sql="UPDATE CronologiaTitoli SET Attivo='"+true+"', Disponibile='"+false+"'"
+					+ "WHERE IDTitolo='"+idTitolo+"';";
+		Connection connessione= getDBConnection();
+		PreparedStatement statement= connessione.prepareStatement(sql);
+		statement.executeUpdate();
+		
+    	// Chiudo la connessione
+     	if(statement != null) {
+     		statement.close();
+     	}
+     	if(connessione != null) {
+     		connessione.close();
+     	}
+		
+	}
+
+	@Override
+	public void aggiornaCredito(double credito, String Email) throws SQLException {
+		String sql="UPDATE Utente SET Punti='"+credito+"'"+"WHERE Email='"+ Email +"';";
+	Connection connessione= getDBConnection();
+	PreparedStatement statement= connessione.prepareStatement(sql);
+	statement.executeUpdate();
+	
+	// Chiudo la connessione
+ 	if(statement != null) {
+ 		statement.close();
+ 	}
+ 	if(connessione != null) {
+ 		connessione.close();
+ 	}
 		
 	}
 

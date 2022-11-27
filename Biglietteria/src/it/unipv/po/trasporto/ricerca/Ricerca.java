@@ -12,6 +12,11 @@ import it.unipv.po.trasporto.titolo.Abbonamento;
 import it.unipv.po.trasporto.titolo.Biglietto;
 
 
+/**
+ * 
+ * @author Giava
+ *
+ */
 public class Ricerca{
 	private InterfaceRicercaStrategy ricercaStrategy;
 	
@@ -19,10 +24,19 @@ public class Ricerca{
 		ricercaStrategy = new RicercaStrategy();
 	}
 	
+	
 	public ArrayList<ArrayList<Fermata>>  cerca(String a, String b, LocalTime orario) throws Exception {
 		return ricercaStrategy.cerca(a, b, orario);
 	}
 	
+	/**
+	 * Metodo per la ricerca delle fermate e conseguente generazione del titolo di viaggio
+	 * @param a partenza
+	 * @param b arrivo
+	 * @param orario orario della partenza
+	 * @return restiruisce i biglietti trovati
+	 * @throws Exception
+	 */
 	public ArrayList<Biglietto> cercaEGenera(String a, String b, LocalTime orario) throws Exception {
 		ArrayList<Biglietto> bigliettiTrovati= new ArrayList<Biglietto>();
 		ArrayList<ArrayList<Fermata>> percorsi = ricercaStrategy.cerca(a, b, orario);
@@ -32,6 +46,15 @@ public class Ricerca{
 		return bigliettiTrovati;
 	}
 	
+	/**
+	 * Metodo per la ricerca delle fermate e conseguente generazione dell'abbonamento
+	 * @param a partenza
+	 * @param b arrivo
+	 * @param inizio 
+	 * @param giorniDurata 
+	 * @return
+	 * @throws Exception
+	 */
 	public ArrayList<Abbonamento> cercaEGenera(String a, String b, LocalDate inizio, int giorniDurata) throws Exception{
 		ArrayList<Abbonamento> abbonamentiTrovati= new ArrayList<Abbonamento>();
 		ArrayList<ArrayList<Fermata>> percorsi = ricercaStrategy.cerca(a, b, LocalTime.NOON);

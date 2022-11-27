@@ -1,4 +1,5 @@
 package it.unipv.po.carrello;
+import java.sql.SQLException;
 import java.time.LocalDateTime;   
 import java.util.*;
 
@@ -18,12 +19,10 @@ public class Carrello implements ICarrello {
 	//ma ci serve conoscere le caratteristiche del titolo
 	private Titolo titoloModel;
 	
-	
-	public Carrello() {
-		totale=0;
-		writer = new DBwrite();
-		lista= new ArrayList<Titolo>();	
-	}
+	/**
+	 * Costruttore di Carrello
+	 * @param user eMail dell'utente che lo ha generato
+	 */
 	public Carrello(String user) {
 		totale=0;
 		writer = new DBwrite();
@@ -34,7 +33,7 @@ public class Carrello implements ICarrello {
 	@Override
 	public void aggiungiTitolo(Titolo t) {
 		lista.add(t);
-//		incrementaTotale(t);
+
 		
 	}
 
@@ -56,21 +55,17 @@ public class Carrello implements ICarrello {
 		
 	}
 
-	@Override
-	public void incrementaTotale(Titolo t) {
-		totale += t.getPrezzo();
-	}
-	
-	@Override
-	public void decrementaTotale(Titolo t) {
-		totale -= t.getPrezzo();
-	}
+
 	@Override
 	public double getTotale() {
 		calcolaTotale();
 		return totale;
 	}
 	
+	/**
+	 * calcola e aggiorna il totale in base ai titoli
+	 * presenti nella lista di titoli del carrello.
+	 */
 	public void calcolaTotale() {
 		totale = 0;
 		for(int i = 0; i<lista.size(); i++) {
@@ -79,7 +74,7 @@ public class Carrello implements ICarrello {
 	}
 	
 	@Override
-	public Pagamento chiudeEpaga(PagamentiM metodo, double creditoUtilizzato) throws Exception {
+	public Pagamento chiudeEpaga(PagamentiM metodo, double creditoUtilizzato) throws SQLException{
 		calcolaTotale();
 		Pagamento payment = new Pagamento(totale);
 		payment.calcolaPrezzoFinale(creditoUtilizzato);
@@ -93,13 +88,23 @@ public class Carrello implements ICarrello {
 	}
 	  
 	@Override
-	public void aggiornaCronologia(LocalDateTime date, double importo, double puntiUtilizzati) throws Exception {
-		writer.aggiungiTotaleACronologia(user, date, importo, puntiUtilizzati);
+	public void aggiornaCronologia(LocalDateTime date, double importo, double creditoUtilizzato) throws SQLException {
+		writer.aggiungiTotaleACronologia(user, date, importo, creditoUtilizzato);
 		writer.aggiungiTitoliACronologia(user, date, lista);
 	}
+	
+	/**
+	 * getter di titoloModel
+	 * @return restituisce il titolo "titoloModel"
+	 */
 	public Titolo getTitoloModel() {
 		return titoloModel;
 	}
+	
+	/**
+	 * setter di titoloModel
+	 * @param titoloModel setta l'attributo titoloModel con il parametro ononimo
+	 */
 	public void setTitoloModel(Titolo titoloModel) {
 		this.titoloModel = titoloModel;
 	}

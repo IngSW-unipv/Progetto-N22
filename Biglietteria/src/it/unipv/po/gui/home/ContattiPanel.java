@@ -14,9 +14,6 @@ import javax.swing.JTextArea;
 
 public class ContattiPanel extends JPanel {
 
-	/**
-	 * Create the panel.
-	 */
 	public ContattiPanel() {
 		
 		setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "", TitledBorder.LEFT, TitledBorder.TOP, null, new Color(0, 0, 0)));

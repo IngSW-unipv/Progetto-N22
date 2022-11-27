@@ -7,7 +7,11 @@ import java.util.ArrayList;
 import it.unipv.po.trasporto.fermata.Fermata;
 import it.unipv.po.trasporto.vehicleModel.Vehicle;
 
-
+/**
+ * 
+ * @author Giava
+ *
+ */
 public class Linea {
 	
 	private ArrayList<Fermata> linea = new ArrayList<>();
@@ -32,6 +36,14 @@ public class Linea {
 	
 	//metodi
 	
+/**
+ * Metodo per la ricerca delle fermate con parametri partenza, destinazione e orario
+ * <p>
+ * @param partenza parametro per fermata di partenza
+ * @param destinazione parametro per fermata di destinazione
+ * @param orario parametro per orario desisderato
+ * @return
+ */
 	public ArrayList<Fermata> ricercaFermate(String partenza, String destinazione, LocalTime orario) {
 		ArrayList<Fermata> ricerca = new ArrayList<Fermata>();
 		int trovato = 0;

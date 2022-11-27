@@ -9,8 +9,8 @@ import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
-import it.unipv.po.gui.home.Home;
-import it.unipv.po.gui.home.Home2;
+import it.unipv.po.gui.home.AppFrame;
+import it.unipv.po.sessione.CredenzialiErrateException;
 import it.unipv.po.sessione.Sessione;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -26,11 +26,11 @@ public class Login{
 	private JTextField emailtxt;
 	private JPasswordField passwordtxt;
 
-	public static void main(String[] args) {
+	public static void main(Sessione sessione, String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Login window = new Login(args);
+					Login window = new Login(sessione, args);
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -39,11 +39,11 @@ public class Login{
 		});
 	}
 
-	public Login(String[] args) {	
-		initialize(args);
+	public Login(Sessione sessione, String[] args) {	
+		initialize(sessione, args);
 	}
 
-	private void initialize(String[] args) {
+	private void initialize(Sessione sessione, String[] args) {
 		frame = new JFrame();
 
 		frame.setResizable(false);
@@ -135,25 +135,22 @@ public class Login{
 		
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Sessione sessione = new Sessione();
 				String email = emailtxt.getText();
 				String password = String.valueOf(passwordtxt.getPassword());	
 				
 				try {
 					if(!email.isEmpty() && !password.isEmpty()) {
-						if(!sessione.UserLogin(email,password).getEmail().isEmpty()) {
-							
-							Home2.main(sessione.UserLogin(email,password));
-							frame.setVisible(false);
-							
-						} else JOptionPane.showMessageDialog(null, "Username o password errata","Login error",JOptionPane.ERROR_MESSAGE);
+								AppFrame.main(sessione.UserLogin(email,password));
+								frame.setVisible(false);
 					} else JOptionPane.showMessageDialog(null, "Invalid login details","Login error",JOptionPane.ERROR_MESSAGE);
 				
 				} catch (SQLException sqlExc) {
 					JOptionPane.showMessageDialog(null, "Connessione fallita!","DB error",JOptionPane.ERROR_MESSAGE);
-			    } catch (Exception e1) {
+			    } catch (CredenzialiErrateException cErr) {
+					JOptionPane.showMessageDialog(null, "Credenziali errate","Login error",JOptionPane.ERROR_MESSAGE);
+				}catch (Exception e1) {
 					JOptionPane.showMessageDialog(null, "Qualcosa non va","Generic error",JOptionPane.ERROR_MESSAGE);
-				} 
+				}
 			} 	
 		});
 		
