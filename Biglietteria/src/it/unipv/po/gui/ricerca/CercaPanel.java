@@ -49,17 +49,6 @@ public class CercaPanel extends JPanel {
 		separator_2.setBounds(90, 49, 386, 2);
 		add(separator_2);
 		
-		JToggleButton tglBiglietto = new JToggleButton("Biglietto");
-		tglBiglietto.setSelected(true);
-		tglBiglietto.setFont(new Font("Dialog", Font.PLAIN, 12));
-		tglBiglietto.setBounds(90, 71, 127, 21);
-		add(tglBiglietto);
-		
-		JToggleButton tglAbbonamento = new JToggleButton("Abbonamento");
-		tglAbbonamento.setFont(new Font("Dialog", Font.PLAIN, 12));
-		tglAbbonamento.setBounds(349, 71, 127, 21);
-		add(tglAbbonamento);
-		
 		JComboBox comboBoxPartenza = new JComboBox();
 		JComboBox comboBoxArrivo = new JComboBox();
 		try {
@@ -133,85 +122,11 @@ public class CercaPanel extends JPanel {
 		orariotxt.setBounds(90, 295, 386, 13);
 		add(orariotxt);
 		
-//		JComboBox comboBoxGiorno = new JComboBox();
-//		for(int i = 1; i<=31; i++) {
-//			comboBoxGiorno.addItem(new Integer(i));
-//		}
-//		comboBoxGiorno.setBounds(150, 336, 45, 27);
-//		comboBoxGiorno.setFont(new Font("Dialog", Font.PLAIN, 13));
-//		add(comboBoxGiorno);
-//		
-//		JComboBox comboBoxMese = new JComboBox();
-//		for(int i = 1; i<=12; i++) {
-//			comboBoxMese.addItem(new Integer(i));
-//		}
-//		comboBoxMese.setFont(new Font("Dialog", Font.PLAIN, 13));
-//		comboBoxMese.setBounds(205, 336, 45, 27);
-//		add(comboBoxMese);
-//		
-//		JComboBox comboBoxAnno = new JComboBox();
-//		for(int i = 2022; i<=2023; i++) {
-//			comboBoxAnno.addItem(new Integer(i));
-//		}
-//		comboBoxAnno.setFont(new Font("Dialog", Font.PLAIN, 13));
-//		comboBoxAnno.setBounds(260, 336, 45, 27);
-//		add(comboBoxAnno);
-//		
-//		StringBuilder dataIniziostr = new StringBuilder(comboBoxGiorno.getSelectedItem().toString());
-//		dataIniziostr.append("-");
-//		dataIniziostr.append(comboBoxMese.getSelectedItem().toString());
-//		dataIniziostr.append("-");
-//		dataIniziostr.append(comboBoxAnno.getSelectedItem().toString());
-//		LocalDate dataInizio = LocalDate.parse(dataIniziostr);
-		
-		
-		
-		
-		//Azioni
-			
-				tglBiglietto.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						
-						if(tglBiglietto.isSelected() == true) {
-							tglAbbonamento.setSelected(false);
-							//separator.setVisible(true);
-							orarioMaxtxt.setVisible(true);
-							orarioPartenzatxt.setVisible(true);
-							orarioSlider.setVisible(true);
-							orariotxt.setVisible(true);
-						}
-						else {
-							tglAbbonamento.setSelected(true);
-							//separator.setVisible(false);
-							orarioMaxtxt.setVisible(false);
-							orarioPartenzatxt.setVisible(false);
-							orarioSlider.setVisible(false);
-							orariotxt.setVisible(false);
-						}
-						
-					}
-				});
-						
-				tglAbbonamento.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						if(tglAbbonamento.isSelected() == true) {
-							tglBiglietto.setSelected(false);
-							//separator.setVisible(false);
-							orarioMaxtxt.setVisible(false);
-							orarioPartenzatxt.setVisible(false);
-							orarioSlider.setVisible(false);
-							orariotxt.setVisible(false);
-						}
-						else {
-							tglBiglietto.setSelected(true);
-							//separator.setVisible(true);
-							orarioMaxtxt.setVisible(true);
-							orarioPartenzatxt.setVisible(true);
-							orarioSlider.setVisible(true);
-							orariotxt.setVisible(true);
-						}
-					}
-				});
+		JLabel lblBiglietto = new JLabel("Biglietto");
+		lblBiglietto.setHorizontalAlignment(SwingConstants.CENTER);
+		lblBiglietto.setFont(new Font("Dialog", Font.PLAIN, 15));
+		lblBiglietto.setBounds(10, 72, 539, 29);
+		add(lblBiglietto);
 				
 				cercaBtnMain.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
