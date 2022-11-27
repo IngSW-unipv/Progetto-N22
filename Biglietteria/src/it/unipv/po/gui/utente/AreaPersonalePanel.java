@@ -2,10 +2,6 @@ package it.unipv.po.gui.utente;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.sql.SQLException;
-
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
@@ -17,7 +13,6 @@ import javax.swing.JButton;
 
 public class AreaPersonalePanel extends JPanel {
 	private DatiPanel datiPanel;
-	private TitoliPanel titoliPanel;
 	
 
 	/**
@@ -51,28 +46,6 @@ public class AreaPersonalePanel extends JPanel {
 		
 		datiPanel = new DatiPanel(utente);
 		add(datiPanel);
-		titoliPanel = new TitoliPanel(utente);
-		
-		btnNewButton_1.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				datiPanel.hide();
-				remove(datiPanel);
-				titoliPanel.setVisible(true);
-				add(titoliPanel);
-			}
-		});
-		
-		btnNewButton.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				titoliPanel.hide();
-				remove(titoliPanel);
-				datiPanel.setVisible(true);
-				add(datiPanel);
-				
-			}
-		});
 		
 		
 	}

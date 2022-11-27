@@ -1,5 +1,4 @@
 package it.unipv.po.carrello;
-import java.sql.SQLException;
 import java.time.LocalDateTime;   
 import java.util.*;
 
@@ -80,7 +79,7 @@ public class Carrello implements ICarrello {
 	}
 	
 	@Override
-	public Pagamento chiudeEpaga(PagamentiM metodo, double creditoUtilizzato) throws SQLException{
+	public Pagamento chiudeEpaga(PagamentiM metodo, double creditoUtilizzato) throws Exception {
 		calcolaTotale();
 		Pagamento payment = new Pagamento(totale);
 		payment.calcolaPrezzoFinale(creditoUtilizzato);
@@ -94,7 +93,7 @@ public class Carrello implements ICarrello {
 	}
 	  
 	@Override
-	public void aggiornaCronologia(LocalDateTime date, double importo, double puntiUtilizzati) throws SQLException {
+	public void aggiornaCronologia(LocalDateTime date, double importo, double puntiUtilizzati) throws Exception {
 		writer.aggiungiTotaleACronologia(user, date, importo, puntiUtilizzati);
 		writer.aggiungiTitoliACronologia(user, date, lista);
 	}

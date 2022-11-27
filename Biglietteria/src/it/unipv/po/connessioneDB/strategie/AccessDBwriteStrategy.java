@@ -1,6 +1,5 @@
 package it.unipv.po.connessioneDB.strategie;
  
-import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;  
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -29,7 +28,7 @@ public class AccessDBwriteStrategy implements IDBwriteStrategy{
 	}
 
 	@Override
-	public void aggiungiTotaleACronologia(String username, LocalDateTime data, double prezzo, double puntiUtilizzati) throws SQLException {
+	public void aggiungiTotaleACronologia(String username, LocalDateTime data, double prezzo, double puntiUtilizzati) throws Exception {
 		String sql="INSERT into CronologiaTotali(Utente,DataPagamento,Prezzo,PuntiUtilizzati) VALUES(?,?,?,?);";
 		Connection connessione= getDBConnection();
 		PreparedStatement statement= connessione.prepareStatement(sql);
@@ -49,7 +48,7 @@ public class AccessDBwriteStrategy implements IDBwriteStrategy{
 	}
 	
 	@Override
-	public void aggiungiTitoliACronologia(String username, LocalDateTime date, ArrayList<Titolo> lista) throws SQLException {
+	public void aggiungiTitoliACronologia(String username, LocalDateTime date, ArrayList<Titolo> lista) throws Exception {
 		String sql="INSERT into CronologiaTitoli(Utente,DataPagamento,IDTitolo,PrezzoTitolo,Percorso,Attivo,Disponibile,DataInizio,Durata) VALUES(?,?,?,?,?,?,?,?,?);";
 		Connection connessione= getDBConnection();
 		PreparedStatement statement= connessione.prepareStatement(sql);
@@ -78,7 +77,7 @@ public class AccessDBwriteStrategy implements IDBwriteStrategy{
 	
 	
 	//metodo per la registrazione degli utenti
-	public void aggiungiUtente(Utente utente) throws SQLException, NoSuchAlgorithmException {
+	public void aggiungiUtente(Utente utente) throws Exception {
 		String sql="INSERT into Utente(Password,Nome,Cognome,Email,Punti) VALUES(?,?,?,?,?);";
 		String password="";
 		Connection connessione= getDBConnection();
@@ -109,23 +108,6 @@ public class AccessDBwriteStrategy implements IDBwriteStrategy{
      	if(connessione != null) {
      		connessione.close();
      	}
-		
-	}
-
-	@Override
-	public void aggiornaCredito(double credito, String Email) throws SQLException {
-		String sql="UPDATE Utente SET Punti='"+credito+"'"+"WHERE Email='"+ Email +"';";
-	Connection connessione= getDBConnection();
-	PreparedStatement statement= connessione.prepareStatement(sql);
-	statement.executeUpdate();
-	
-	// Chiudo la connessione
- 	if(statement != null) {
- 		statement.close();
- 	}
- 	if(connessione != null) {
- 		connessione.close();
- 	}
 		
 	}
 

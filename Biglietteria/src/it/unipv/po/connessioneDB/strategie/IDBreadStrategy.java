@@ -21,8 +21,6 @@ public interface IDBreadStrategy {
 	double searchTariffaMezzo(Vehicle mezzo) throws SQLException;
 	public Utente userDownload(String username) throws SQLException;
 	public ArrayList<Titolo> scaricaTitoliUtente(String user) throws SQLException;
-	public String[] elencoLinee() throws SQLException;
-	
 
 	
 	

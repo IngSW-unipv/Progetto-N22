@@ -83,7 +83,6 @@ public class HomePanel extends JPanel {
 		add(l5);
 
 	}
-
 	
 
 

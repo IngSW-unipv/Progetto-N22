@@ -12,6 +12,5 @@
 	<classpathentry kind="lib" path="Libs/jackcess-3.0.1.jar"/>
 	<classpathentry kind="lib" path="Libs/ucanaccess-5.0.1.jar"/>
 	<classpathentry kind="lib" path="Libs/miglayout15-swing.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

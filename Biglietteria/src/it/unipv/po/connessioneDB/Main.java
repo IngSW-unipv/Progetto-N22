@@ -8,7 +8,6 @@ import java.util.LinkedList;
 
 import it.unipv.po.trasporto.fermata.Fermata;
 import it.unipv.po.trasporto.ricerca.Ricerca;
-import it.unipv.po.trasporto.titolo.Biglietto;
 import it.unipv.po.utente.Utente;
 
 
@@ -28,14 +27,14 @@ public class Main {
         ArrayList<ArrayList<Fermata>> elenco = corsa.cerca(partenza, destinazione, LocalTime.parse("12:00:00"));
         System.out.println(elenco.size());
         
-        ArrayList<Biglietto> biglietti = corsa.cercaEGenera(partenza, destinazione, LocalTime.parse("12:00:00"));
+        /*ArrayList<Biglietto> biglietti = corsa.cercaEGenera(partenza, destinazione, LocalTime.parse("12:00:00"));
         for(int i = 0; i<biglietti.size(); i++) {
         	//u.aggiungiTitolo(biglietti.get(i));        	
         	System.out.println(biglietti.get(i).getIdTitolo());
         	System.out.println(biglietti.get(i).getPrezzo());
        	
         
-        }
+        }*/
         /*u.acquistaCarrello(PagamentiM.creditcard, 0);
         Biglietto biglietto = new Biglietto(elenco);
         System.out.println(biglietto.getIdTitolo());

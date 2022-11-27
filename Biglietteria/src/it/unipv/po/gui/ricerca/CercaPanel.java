@@ -22,7 +22,6 @@ import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.time.LocalTime;
 import javax.swing.JSlider;
 
@@ -48,6 +47,17 @@ public class CercaPanel extends JPanel {
 		JSeparator separator_2 = new JSeparator();
 		separator_2.setBounds(90, 49, 386, 2);
 		add(separator_2);
+		
+		JToggleButton tglBiglietto = new JToggleButton("Biglietto");
+		tglBiglietto.setSelected(true);
+		tglBiglietto.setFont(new Font("Dialog", Font.PLAIN, 12));
+		tglBiglietto.setBounds(90, 71, 127, 21);
+		add(tglBiglietto);
+		
+		JToggleButton tglAbbonamento = new JToggleButton("Abbonamento");
+		tglAbbonamento.setFont(new Font("Dialog", Font.PLAIN, 12));
+		tglAbbonamento.setBounds(349, 71, 127, 21);
+		add(tglAbbonamento);
 		
 		JComboBox comboBoxPartenza = new JComboBox();
 		JComboBox comboBoxArrivo = new JComboBox();
@@ -122,11 +132,52 @@ public class CercaPanel extends JPanel {
 		orariotxt.setBounds(90, 295, 386, 13);
 		add(orariotxt);
 		
-		JLabel lblBiglietto = new JLabel("Biglietto");
-		lblBiglietto.setHorizontalAlignment(SwingConstants.CENTER);
-		lblBiglietto.setFont(new Font("Dialog", Font.PLAIN, 15));
-		lblBiglietto.setBounds(10, 72, 539, 29);
-		add(lblBiglietto);
+		
+		//Azioni
+			
+				tglBiglietto.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						
+						if(tglBiglietto.isSelected() == true) {
+							tglAbbonamento.setSelected(false);
+							//separator.setVisible(true);
+							orarioMaxtxt.setVisible(true);
+							orarioPartenzatxt.setVisible(true);
+							orarioSlider.setVisible(true);
+							orariotxt.setVisible(true);
+						}
+						else {
+							tglAbbonamento.setSelected(true);
+							//separator.setVisible(false);
+							orarioMaxtxt.setVisible(false);
+							orarioPartenzatxt.setVisible(false);
+							orarioSlider.setVisible(false);
+							orariotxt.setVisible(false);
+						}
+						
+					}
+				});
+						
+				tglAbbonamento.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						if(tglAbbonamento.isSelected() == true) {
+							tglBiglietto.setSelected(false);
+							//separator.setVisible(false);
+							orarioMaxtxt.setVisible(false);
+							orarioPartenzatxt.setVisible(false);
+							orarioSlider.setVisible(false);
+							orariotxt.setVisible(false);
+						}
+						else {
+							tglBiglietto.setSelected(true);
+							//separator.setVisible(true);
+							orarioMaxtxt.setVisible(true);
+							orarioPartenzatxt.setVisible(true);
+							orarioSlider.setVisible(true);
+							orariotxt.setVisible(true);
+						}
+					}
+				});
 				
 				cercaBtnMain.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
