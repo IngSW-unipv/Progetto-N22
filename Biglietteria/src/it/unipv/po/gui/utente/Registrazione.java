@@ -235,7 +235,7 @@ public class Registrazione {
 					String password = String.valueOf(passwordtxt.getPassword());
 					String cognome = cognometxt.getText();
 					String eMail = emailtxt.getText();
-					Utente utente = new Utente(name, password, cognome, eMail);
+					Utente utente = new Utente(name, cognome, eMail, password);
 			
 					try {
 						db.aggiungiUtente(utente);

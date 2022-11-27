@@ -10,6 +10,15 @@ import it.unipv.po.utente.Utente;
 
 public class Sessione {
 	
+	/**
+	 * Metodo per il login dell'utente.
+	 * @param email							email inserita
+	 * @param passtext						password inserita
+	 * @return								restituisce l'utente trovato su DB
+	 * @throws NoSuchAlgorithmException		
+	 * @throws SQLException					dovuta alla connessione con il DB
+	 * @throws CredenzialiErrateException	viene generata se le credenziali non corrispondono
+	 */
 	public static Utente UserLogin(String email, String passtext) throws NoSuchAlgorithmException, SQLException, CredenzialiErrateException{
 		DBread db = new DBread();
 		Utente utente = new Utente();
@@ -20,7 +29,13 @@ public class Sessione {
 			throw new CredenzialiErrateException();
 		return utente;
 	}
-
+	
+	/**
+	 * Metodo per la costruzione dell'utente a seguito del login.
+	 * @param email			email dell'utente
+	 * @return				restituisce l'utente costruito
+	 * @throws SQLException	dovuta alla connessione col DB
+	 */
 	private static Utente CreateUser(String email) throws SQLException {
 		DBread db = new DBread();
 		
@@ -29,7 +44,16 @@ public class Sessione {
 		
 		return utente;
 	}
-
+	
+	/**
+	 * Metodo per il controllo della registrazione.
+	 * @param email			email inserita
+	 * @param nome			nome inserito
+	 * @param cognome		cognome inserito
+	 * @param password		password inserita
+	 * @return				restituisce il messaggio di errore, vuoto se la registrazione andata a buon fine
+	 * @throws SQLException	dovuta alla connessione col DB
+	 */
 	public static String CheckRegistration(String email,String nome, String cognome, String password) throws SQLException {
 		DBread db = new DBread();
 		Pattern emailPattern = Pattern.compile("^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^-]+(?:.[a-zA-Z0-9_!#$%&'*+/=?`{|}~^-]+)*@[a-zA-Z0-9-]+(?:.[a-zA-Z0-9-]+)*$");
@@ -48,7 +72,13 @@ public class Sessione {
 		return error;
 	}
 	 
-	 public static String sha1(String input) throws NoSuchAlgorithmException {
+	/**
+	 * Per la crittografia della password.
+	 * @param input						stringa in input
+	 * @return							stringa criptata
+	 * @throws NoSuchAlgorithmException
+	 */
+	public static String sha1(String input) throws NoSuchAlgorithmException {
 	    MessageDigest mDigest = MessageDigest.getInstance("SHA1");
 	    byte[] result = mDigest.digest(input.getBytes());
 	    StringBuffer sb = new StringBuffer();

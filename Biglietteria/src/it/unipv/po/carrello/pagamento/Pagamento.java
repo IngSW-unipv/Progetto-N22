@@ -17,7 +17,11 @@ public class Pagamento implements IPagamento{
 	private IPaymentStrategy paymentMethod;
 	private CalcolatoreCredito calcolatoreCredito;
 	private boolean autorizzato;
-
+	
+	/**
+	 * Costruttore di Pagamento.
+	 * @param costo importo iniziale da pagare
+	 */
 	public Pagamento(double costo) {
 		autorizzato = false;
 		dataEora= LocalDateTime.now();
@@ -54,20 +58,31 @@ public class Pagamento implements IPagamento{
 			return check;
 	}
 	
+	@Override
 	public double getCreditoOttenuto() {
 		return calcolatoreCredito.calcolaCredito(importo);
 	}
-
+	
+	/**
+	 * getter data e ora pagamento
+	 * @return restituisce la data e ora pagamento
+	 */
 	public LocalDateTime getDataEora() {
 		return dataEora;
 	}
 
-
+	/**
+	 * 
+	 * @return restituisce l'importo pagato
+	 */
 	public double getImporto() {
 		return importo;
 	}
 
-
+	/**
+	 * 
+	 * @return restituisce lo stato di autorizzazione del pagamento
+	 */
 	public boolean isAutorizzato() {
 		return autorizzato;
 	}

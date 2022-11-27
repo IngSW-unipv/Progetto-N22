@@ -13,10 +13,10 @@ public class TestLogin {
 	public static void main(String[] args) throws NoSuchAlgorithmException, SQLException, Exception {
 		// TODO Auto-generated method stub
 		Sessione s = new Sessione();
-		s.UserLogin("rose@unipv.it", "Password1");
-//		String[] argomenti = new String[] {"",""};
-//		Login login = new Login(s, argomenti);
-//		login.main(s, args);
+		//s.UserLogin("rose@unipv.it", "Password1");
+		String[] argomenti = new String[] {"",""};
+		Login login = new Login(s, argomenti);
+		login.main(s, args);
 		
 		
 		
