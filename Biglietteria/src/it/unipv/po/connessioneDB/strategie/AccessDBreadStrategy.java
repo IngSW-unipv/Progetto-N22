@@ -29,7 +29,8 @@ public class AccessDBreadStrategy implements IDBreadStrategy{
 		
 		return dbConnection;
 	}
-
+	
+	@Override
 	public Linea getLinea(int id) throws SQLException{
 		String sql = "SELECT * FROM Linea where Linea.ID = "+ id;
 		Connection connection = null;
@@ -61,7 +62,8 @@ public class AccessDBreadStrategy implements IDBreadStrategy{
 				
 		return lineaDB;
 	}
-
+	
+	@Override
 	public String getSnodi(String partenza, String destinazione) throws SQLException {
 		
 		String sql = "select distinct IDfermata from Orario where IDlinea = (select distinct IDlinea from Linea Where IDlinea = '"+ partenza +"') and IDfermata IN (select distinct IDfermata from Orario where IDlinea = (select distinct IDlinea from Linea Where IDlinea = '"+ destinazione+"'))";
@@ -84,7 +86,8 @@ public class AccessDBreadStrategy implements IDBreadStrategy{
 		
 		return result.getString("IDfermata");
 	}
-
+	
+	@Override
 	public String[] elencoFermate() throws SQLException {
 		String sql = "SELECT COUNT(IDfermata) FROM Fermata";
 		Connection connection = null;
@@ -119,7 +122,8 @@ public class AccessDBreadStrategy implements IDBreadStrategy{
 		
 		return str;
 	}
-
+	
+	@Override
 	public ArrayList<Fermata> getFermate(String IDlinea) throws SQLException {
 		String sql = "SELECT * FROM Orario inner join Linea on Orario.IDlinea = Linea.IDlinea WHERE Orario.IDlinea = '"+ IDlinea +"'";
 		Connection connection = null;
@@ -157,7 +161,8 @@ public class AccessDBreadStrategy implements IDBreadStrategy{
 			
 		return lineaDB;	
 	}
-
+	
+	@Override
 	public ArrayList<Linea> searchLinea(String IDfermata) throws SQLException {
 		String sql = "SELECT distinct Linea.ID FROM Orario inner join Linea on Linea.IDlinea = Orario.IDlinea WHERE IDfermata = '"+ IDfermata +"'";
 		Connection connection = null;
@@ -185,7 +190,8 @@ public class AccessDBreadStrategy implements IDBreadStrategy{
      		
 		return corsa;
 	}
-
+	
+	@Override
 	public double searchTariffaMezzo(Vehicle mezzo) throws SQLException {
 		String sql = "SELECT Tariffa FROM TariffaMezzo WHERE Mezzo = '"+ mezzo.toString() +"'";
 		Connection connection = null;
@@ -209,6 +215,7 @@ public class AccessDBreadStrategy implements IDBreadStrategy{
 		
 	}
 	
+	@Override
 	public Utente userDownload(String email) throws SQLException{
 		String sql = "SELECT * FROM Utente WHERE Email = '"+ email + "'" ;
 		Connection connection = null;
@@ -233,7 +240,8 @@ public class AccessDBreadStrategy implements IDBreadStrategy{
      	
 		return utente;
 	}
-
+	
+	@Override
 	public ArrayList<Titolo> scaricaTitoliUtente(String email) throws SQLException {
 		String sql = "SELECT * FROM CronologiaTitoli WHERE Utente = '"+ email + "'" ;
 		Connection connection = null;
@@ -277,6 +285,40 @@ public class AccessDBreadStrategy implements IDBreadStrategy{
 	    
 	    return titoliGenerati;
 	
+	}
+	
+	@Override
+	public String[] elencoLinee() throws SQLException {
+		String sql = "SELECT IDlinea FROM Linea";
+		Connection connection = null;
+		Statement statement = null;
+		
+		connection = getDBConnection();
+		statement = connection.createStatement();
+        ResultSet result = statement.executeQuery(sql);
+        
+        
+        int i = 1;
+        String[] str = new String[100];
+        str[0]="";
+ 
+        
+        while (result.next()) {
+			
+			str[i] = result.getString("IDlinea");
+			i++;
+            
+	    }
+        
+        // Chiudo la connessione
+     	if(statement != null) {
+     		statement.close();
+     	}
+     	if(connection != null) {
+     		connection.close();
+     	}
+		
+		return str;
 	}
 		
 }

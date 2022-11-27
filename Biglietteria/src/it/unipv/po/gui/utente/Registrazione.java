@@ -36,11 +36,11 @@ public class Registrazione {
 	private JTextField emailtxt;
 	private JPasswordField passwordtxt;
 	
-	public static void main(String[] args) {
+	public static void main(Sessione sessione) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Registrazione window = new Registrazione();
+					Registrazione window = new Registrazione(sessione);
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -49,11 +49,11 @@ public class Registrazione {
 		});
 	}
 
-	public Registrazione() {
-		initialize();
+	public Registrazione(Sessione sessione) {
+		initialize(sessione);
 	}
 
-	private void initialize() {
+	private void initialize(Sessione sessione) {
 		frame = new JFrame();
 		frame.getContentPane().setFont(new Font("Tahoma", Font.PLAIN, 7));
 		frame.setBounds(100, 100, 478, 687);
@@ -222,7 +222,7 @@ public class Registrazione {
 				try {
 					if(!check1.isSelected() && !check2.isSelected()) error = "Consenso alla privacy obbligatorio";
 					
-					error = Sessione.CheckRegistration(emailtxt.getText(), nometxt.getText(),cognometxt.getText(),String.valueOf(passwordtxt.getPassword()));
+					error = sessione.CheckRegistration(emailtxt.getText(), nometxt.getText(),cognometxt.getText(),String.valueOf(passwordtxt.getPassword()));
 	
 				} catch(SQLException sqlExc) {
 					error = "Connessione fallita!";
@@ -240,7 +240,7 @@ public class Registrazione {
 					try {
 						db.aggiungiUtente(utente);
 						String[] arg = {utente.getEmail(), utente.getPassword()};	
-						Login.main(arg);
+						Login.main(sessione, arg);
 						frame.setVisible(false);
 					} catch (SQLException sqlExc) {
 						JOptionPane.showMessageDialog(null, "Connessione fallita!","DB error",JOptionPane.ERROR_MESSAGE);
@@ -269,7 +269,7 @@ public class Registrazione {
 		btnIndietro.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				Login.main(null);
+				Login.main(sessione, null);
 				frame.setVisible(false);
 			}
 			@Override
@@ -285,7 +285,7 @@ public class Registrazione {
 		btnAccedi.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				Login.main(null);
+				Login.main(sessione, null);
 				frame.setVisible(false);
 			}
 			@Override

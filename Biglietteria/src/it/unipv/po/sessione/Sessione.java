@@ -10,16 +10,18 @@ import it.unipv.po.utente.Utente;
 
 public class Sessione {
 	
-	public static Utente UserLogin(String email, String passtext) throws NoSuchAlgorithmException, SQLException, Exception{
+	public static Utente UserLogin(String email, String passtext) throws NoSuchAlgorithmException, SQLException, CredenzialiErrateException{
 		DBread db = new DBread();
 		Utente utente = new Utente();
-		
-		if(sha1(passtext).compareTo(db.userDownload(email).getPassword()) == 0) utente = CreateUser(email);
-	
+		if(db.userDownload(email) != null) {
+		if(sha1(passtext).compareTo(db.userDownload(email).getPassword()) == 0) 
+			utente = CreateUser(email);
+		} else 
+			throw new CredenzialiErrateException();
 		return utente;
 	}
 
-	private static Utente CreateUser(String email) throws Exception {
+	private static Utente CreateUser(String email) throws SQLException {
 		DBread db = new DBread();
 		
 		Utente utente = db.userDownload(email);
@@ -37,7 +39,11 @@ public class Sessione {
 	    if (!emailPattern.matcher(email).matches()) error = "Email non valida";
 	    else if(!password.matches(".*\\d.*") || !(password.length() <= 21 && password.length() >= 8) || !passwordPattern.matcher(password).matches()) error = "Password non valida";
 	    else if(email.isEmpty() || nome.isEmpty()|| cognome.isEmpty()) error = "Tutti i campi devono essere compilati";
-	    else if(db.userDownload(email).getEmail().compareTo(email) ==0) error = "Username già esistente";
+	    //else if(db.userDownload(email).getEmail().compareTo(email) ==0) error = "Username già esistente";
+	    else if(db.userDownload(email) != null) { 
+	    	if(db.userDownload(email).getEmail().compareTo(email) ==0)
+	    		error = "Username già esistente";
+	    }
 		
 		return error;
 	}
