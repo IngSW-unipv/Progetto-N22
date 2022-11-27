@@ -38,7 +38,7 @@ public class CercaPanel extends JPanel {
 		setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "", TitledBorder.LEFT, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		
 		
-		JLabel lblCerca = new JLabel("Cerca");
+		JLabel lblCerca = new JLabel("Cerca biglietto");
 		lblCerca.setFont(new Font("Dialog", Font.BOLD, 18));
 		lblCerca.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCerca.setBounds(10, 10, 539, 29);
@@ -48,17 +48,6 @@ public class CercaPanel extends JPanel {
 		separator_2.setBounds(90, 49, 386, 2);
 		add(separator_2);
 		
-		JToggleButton tglBiglietto = new JToggleButton("Biglietto");
-		tglBiglietto.setSelected(true);
-		tglBiglietto.setFont(new Font("Dialog", Font.PLAIN, 12));
-		tglBiglietto.setBounds(90, 71, 127, 21);
-		add(tglBiglietto);
-		
-		JToggleButton tglAbbonamento = new JToggleButton("Abbonamento");
-		tglAbbonamento.setFont(new Font("Dialog", Font.PLAIN, 12));
-		tglAbbonamento.setBounds(349, 71, 127, 21);
-		add(tglAbbonamento);
-		
 		JComboBox comboBoxPartenza = new JComboBox();
 		JComboBox comboBoxArrivo = new JComboBox();
 		try {
@@ -66,14 +55,14 @@ public class CercaPanel extends JPanel {
 			//JComboBox comboBoxPartenza = new JComboBox(leggi.elencoFermate());
 			comboBoxPartenza.setMaximumRowCount(10);
 			comboBoxPartenza.setBackground(Color.WHITE);
-			comboBoxPartenza.setBounds(311, 147, 103, 30);
+			comboBoxPartenza.setBounds(311, 116, 103, 30);
 			add(comboBoxPartenza);
 			
 			comboBoxArrivo.setModel(new DefaultComboBoxModel<String>(reader.elencoFermate()));
 			//JComboBox comboBoxArrivo = new JComboBox(leggi.elencoFermate());
 			comboBoxArrivo.setMaximumRowCount(10);
 			comboBoxArrivo.setBackground(Color.WHITE);
-			comboBoxArrivo.setBounds(311, 220, 103, 30);
+			comboBoxArrivo.setBounds(311, 189, 103, 30);
 			add(comboBoxArrivo);
 		} catch(SQLException sqlExc) {
 			JOptionPane.showMessageDialog(null, "Connessione fallita!","DB error",JOptionPane.ERROR_MESSAGE);
@@ -81,103 +70,52 @@ public class CercaPanel extends JPanel {
 			JOptionPane.showMessageDialog(null, "Qualcosa non va","Generic error",JOptionPane.ERROR_MESSAGE);
 		}
 		
-		JSeparator separator_3 = new JSeparator();
-		separator_3.setBounds(150, 112, 264, 2);
-		add(separator_3);
-		
 		JButton cercaBtnMain = new JButton("Cerca");
 		cercaBtnMain.setFont(new Font("Dialog", Font.PLAIN, 12));
 		cercaBtnMain.setBackground(SystemColor.menu);
-		cercaBtnMain.setBounds(243, 468, 85, 21);
+		cercaBtnMain.setBounds(243, 437, 85, 21);
 		add(cercaBtnMain);
 		
 		JSeparator separator_1_2 = new JSeparator();
-		separator_1_2.setBounds(150, 408, 264, 2);
+		separator_1_2.setBounds(150, 377, 264, 2);
 		add(separator_1_2);
 		
 		JSeparator separator_2_1 = new JSeparator();
-		separator_2_1.setBounds(150, 281, 264, 3);
+		separator_2_1.setBounds(150, 250, 264, 3);
 		add(separator_2_1);
 		
 		JLabel lblFermataPartenza = new JLabel("Fermata di partenza");
 		lblFermataPartenza.setFont(new Font("Dialog", Font.PLAIN, 13));
-		lblFermataPartenza.setBounds(116, 155, 148, 13);
+		lblFermataPartenza.setBounds(116, 124, 148, 13);
 		add(lblFermataPartenza);
 		
 		JLabel lblFermataArrivo = new JLabel("Fermata di arrivo");
 		lblFermataArrivo.setFont(new Font("Dialog", Font.PLAIN, 13));
-		lblFermataArrivo.setBounds(116, 228, 148, 13);
+		lblFermataArrivo.setBounds(116, 197, 148, 13);
 		add(lblFermataArrivo);
 		
 		JSlider orarioSlider = new JSlider();
 		orarioSlider.setValue(24);
 		orarioSlider.setMaximum(47);
-		orarioSlider.setBounds(185, 354, 200, 22);
+		orarioSlider.setBounds(185, 323, 200, 22);
 		add(orarioSlider);
 		
 		JLabel orarioPartenzatxt = new JLabel("12:00");
 		orarioPartenzatxt.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		orarioPartenzatxt.setBounds(141, 344, 45, 13);
+		orarioPartenzatxt.setBounds(141, 313, 45, 13);
 		add(orarioPartenzatxt);
 		
 		JLabel orarioMaxtxt = new JLabel("23:59");
 		orarioMaxtxt.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		orarioMaxtxt.setHorizontalAlignment(SwingConstants.CENTER);
-		orarioMaxtxt.setBounds(395, 344, 45, 13);
+		orarioMaxtxt.setBounds(395, 313, 45, 13);
 		add(orarioMaxtxt);
 		
 		JLabel orariotxt = new JLabel("A che ora vuoi partire?");
 		orariotxt.setHorizontalAlignment(SwingConstants.CENTER);
 		orariotxt.setFont(new Font("Dialog", Font.PLAIN, 13));
-		orariotxt.setBounds(90, 295, 386, 13);
+		orariotxt.setBounds(90, 264, 386, 13);
 		add(orariotxt);
-		
-		
-		//Azioni
-			
-				tglBiglietto.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						
-						if(tglBiglietto.isSelected() == true) {
-							tglAbbonamento.setSelected(false);
-							//separator.setVisible(true);
-							orarioMaxtxt.setVisible(true);
-							orarioPartenzatxt.setVisible(true);
-							orarioSlider.setVisible(true);
-							orariotxt.setVisible(true);
-						}
-						else {
-							tglAbbonamento.setSelected(true);
-							//separator.setVisible(false);
-							orarioMaxtxt.setVisible(false);
-							orarioPartenzatxt.setVisible(false);
-							orarioSlider.setVisible(false);
-							orariotxt.setVisible(false);
-						}
-						
-					}
-				});
-						
-				tglAbbonamento.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						if(tglAbbonamento.isSelected() == true) {
-							tglBiglietto.setSelected(false);
-							//separator.setVisible(false);
-							orarioMaxtxt.setVisible(false);
-							orarioPartenzatxt.setVisible(false);
-							orarioSlider.setVisible(false);
-							orariotxt.setVisible(false);
-						}
-						else {
-							tglBiglietto.setSelected(true);
-							//separator.setVisible(true);
-							orarioMaxtxt.setVisible(true);
-							orarioPartenzatxt.setVisible(true);
-							orarioSlider.setVisible(true);
-							orariotxt.setVisible(true);
-						}
-					}
-				});
 				
 				cercaBtnMain.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
