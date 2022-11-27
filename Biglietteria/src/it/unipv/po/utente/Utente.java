@@ -58,9 +58,12 @@ public class Utente {
 	/**
 	 * Metodo per l'aggiunta di credito
 	 * @param creditoAdd parametro per il credito da aggiungere
+	 * @throws SQLException 
 	 */
-	public void aggiungiCredito(double creditoAdd) {
+	public void aggiungiCredito(double creditoAdd) throws SQLException {
+		DBwrite writer = new DBwrite();
 		credito+=creditoAdd;
+		writer.aggiornaCredito(creditoAdd, email);
 	}
 
 	/**

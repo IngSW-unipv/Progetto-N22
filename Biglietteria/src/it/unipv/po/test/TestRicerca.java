@@ -16,8 +16,11 @@ public class TestRicerca {
         String  destinazione = "F023";     
         
         ArrayList<ArrayList<Fermata>> elenco = corsa.cerca(partenza, destinazione, LocalTime.parse("12:00:00"));
-        System.out.println(elenco.size());
-        for(int i = 0; i < elenco.size(); i++) for(Fermata n : elenco.get(i)) System.out.println(n.getCodiceFermata() +" "+n.getOrario());
+        System.out.println("percorsi trovati: " + elenco.size());
+        for(int i = 0; i < elenco.size(); i++) {
+        	System.out.println("\npercorso "+i);
+        	for(Fermata n : elenco.get(i)) System.out.println(n.getCodiceFermata() +" "+n.getOrario());
+        }
 	}
 
 }
