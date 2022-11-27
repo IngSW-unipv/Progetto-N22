@@ -10,6 +10,11 @@ import it.unipv.po.trasporto.titolo.supporto.CalcolatoreID;
 import it.unipv.po.trasporto.titolo.supporto.CalcolatorePrezzo;
 
 
+/**
+ * 
+ * @author Giava
+ *
+ */
 public class Biglietto extends Titolo{
 	private boolean disponibile;
 	private boolean attivo;
