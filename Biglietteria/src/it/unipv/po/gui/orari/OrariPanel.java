@@ -12,15 +12,12 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 import it.unipv.po.connessioneDB.DBread;
-import it.unipv.po.sessione.CredenzialiErrateException;
 import it.unipv.po.trasporto.fermata.Fermata;
-
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JTextArea;
-
 
 public class OrariPanel extends JPanel {
 	ArrayList<Fermata> fermate;
@@ -32,7 +29,6 @@ public class OrariPanel extends JPanel {
 	public OrariPanel(){
 		
 		DBread db = new DBread();
-
 		
 		setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "", TitledBorder.LEFT, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		setBounds(317, 10, 559, 543);
@@ -48,13 +44,9 @@ public class OrariPanel extends JPanel {
 		separator_2.setBounds(90, 49, 386, 2);
 		add(separator_2);
 		
-		
-
-		
 		JLabel lblNewLabel = new JLabel("Linea: ");
 		lblNewLabel.setBounds(178, 63, 58, 29);
-		add(lblNewLabel);
-		
+		add(lblNewLabel);	
 		
 		JSeparator separator_3 = new JSeparator();
 		separator_3.setBounds(90, 101, 386, 2);
@@ -105,31 +97,14 @@ public class OrariPanel extends JPanel {
 					JOptionPane.showMessageDialog(null, "Connessione fallita!","DB error",JOptionPane.ERROR_MESSAGE);
 			    } catch (Exception e1) {
 					JOptionPane.showMessageDialog(null, "Qualcosa non va","Generic error",JOptionPane.ERROR_MESSAGE);
-				}
-				
-				 
-				
-			
-		    	
+				}	    	
 		    }
 		});
-		
-		
 
 	
 		comboBox.setBounds(279, 65, 112, 24);
 		add(comboBox);
 		
-
-		
-
-		
-	
-		
-		 
-		
-		
-
 	}
-	}
+}
 

@@ -4,7 +4,6 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import it.unipv.po.connessioneDB.strategie.AccessDBwriteStrategy;
 import it.unipv.po.connessioneDB.strategie.IDBwriteStrategy;
 import it.unipv.po.trasporto.titolo.Titolo;

@@ -9,7 +9,6 @@ import it.unipv.po.trasporto.fermata.Fermata;
 import it.unipv.po.trasporto.titolo.supporto.CalcolatoreID;
 import it.unipv.po.trasporto.titolo.supporto.CalcolatorePrezzo;
 
-
 /**
  * 
  * @author Giava
@@ -35,7 +34,6 @@ public abstract class Titolo {
 		
 	}
 	
-	
 	/** trasforma l'array di fermate in una stringa di fermate con id e orario
 	 * 
 	 * @return ottengo la string di fermate
@@ -52,7 +50,6 @@ public abstract class Titolo {
 		return stringPercorso.toString();
 	}
 	
-	
 	/**ricostruisce l'array di fermate in forma non verbosa a partire dalla stringa generata dalla funzione precedente
 	 * 
 	 * @param percorso parametro
@@ -64,8 +61,7 @@ public abstract class Titolo {
 		while(scanner.hasNext()) {
 			Fermata fermata = new Fermata(scanner.next(),LocalTime.parse(scanner.next()));
 			this.percorso.add(fermata);
-		}
-			
+		}		
 	}
 	
 	public void setDataAcquisto(String dataAcquisto) {
@@ -105,19 +101,12 @@ public abstract class Titolo {
 	public void setDataAcquisto(LocalDateTime dataAcquisto) {
 		this.dataAcquisto = dataAcquisto;
 	}
-	
-	
 
-	abstract public boolean isAttivo();
-	
-	abstract public boolean isDisponibile();
-	
-	abstract public String getDataInizio();
-	
-	abstract public LocalTime getDurataViaggio(ArrayList<Fermata> percorso);
-
-	abstract public int getDurataAbbonamento();
-
+	public abstract boolean isAttivo();	
+	public abstract boolean isDisponibile();	
+	public abstract String getDataInizio();	
+	public abstract LocalTime getDurataViaggio(ArrayList<Fermata> percorso);
+	public  abstract int getDurataAbbonamento();
 	public abstract void oblitera() throws SQLException;
 	public abstract void scadi();
 	

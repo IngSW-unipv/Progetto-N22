@@ -10,7 +10,6 @@ import it.unipv.po.carrello.pagamento.supporto.PagamentiM;
 import it.unipv.po.connessioneDB.DBwrite;
 import it.unipv.po.trasporto.titolo.Titolo; 
 
-
 /**
  * 
  * @author Giava
@@ -52,6 +51,8 @@ public class Utente {
 		this.cognome = "";
 		this.email = "";
 		this.password = "";
+		titoliAcquistati = new ArrayList<Titolo>();
+		carrello = new Carrello(email);
 		
 	}
 	
@@ -84,8 +85,6 @@ public class Utente {
 	 */
 	public void aggiungiTitolo(Titolo t) throws SQLException {
 		carrello.aggiungiTitolo(t);
-		DBwrite writer = new DBwrite();
-		writer.aggiornaCredito(this.credito, this.email);
 	}
     
 
@@ -111,6 +110,7 @@ public class Utente {
 			aggiungiCredito(payment.getCreditoOttenuto());
 			addTitoliAcquistati(carrello.getTitoli());
 		}
+		
 		return payment.isAutorizzato();
 	}
 	

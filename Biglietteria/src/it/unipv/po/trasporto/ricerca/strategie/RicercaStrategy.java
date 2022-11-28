@@ -96,18 +96,4 @@ public class RicercaStrategy implements InterfaceRicercaStrategy{
 		
 		return str;
 	}
-	//Per inizializzare la comboBox
-	/*public String[] getLinee(){
-		
-		String[] str = new String[this.corseAttive+1];
-		str[0] ="";
-		int i = 1;
-		
-		for(Linea n : corsa) {
-			str[i] = n.getIDlinea();
-			i++;
-		}
-		
-		return str;
-	}*/
 }

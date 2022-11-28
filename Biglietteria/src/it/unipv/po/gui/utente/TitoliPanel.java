@@ -1,24 +1,19 @@
 package it.unipv.po.gui.utente;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.SpringLayout;
-import javax.swing.border.EmptyBorder;
 
 import it.unipv.po.connessioneDB.DBread;
 import it.unipv.po.utente.Utente;
@@ -57,30 +52,16 @@ public class TitoliPanel extends JPanel{
 		ArrayList<JTextArea> text = new ArrayList<JTextArea>();
 		ArrayList<JButton> button = new ArrayList<JButton>();
 		
-		
-		
 		int j = 40;
 	    for(int i =0;i<utente.getTitoliAcquistati().size();i++){
 	    	final int temp = i;
-	    	
-		    /*JLabel label = new JLabel("Enter Name " + i );
-		    JTextField text = new JTextField(15);
-		
-		    mainPanel.add(label);
-		    mainPanel.add(text);
-		   
-		    layout.putConstraint(SpringLayout.WEST, label, 10, SpringLayout.WEST, contentPane);
-		    layout.putConstraint(SpringLayout.NORTH, label, j, SpringLayout.NORTH, contentPane);
-		    layout.putConstraint(SpringLayout.NORTH, text, j, SpringLayout.NORTH, contentPane);
-		    layout.putConstraint(SpringLayout.WEST, text, 20, SpringLayout.EAST, label);*/
-	    	
+	    	    	
 	    	label.add(new JLabel(String.valueOf(utente.getTitoliAcquistati().get(i).getIdTitolo().substring(0, 13))));
 	    	String str = utente.getTitoliAcquistati().get(i).getStringPercorso().replace("-", " ");;
 	    	str = str.replace("T", "-");
 	    	text.add(new JTextArea(String.valueOf(str)));
 	    	text.get(i).setBackground(SystemColor.menu);
-	    	button.add(new JButton("Oblitera"));
-	    	
+	    	button.add(new JButton("Oblitera"));  	
 	    	
 	    	mainPanel.add(label.get(i));
 	    	mainPanel.add(text.get(i));
@@ -100,14 +81,14 @@ public class TitoliPanel extends JPanel{
 		    //azioni
 		    if(!(utente.getTitoliAcquistati().get(i).isDisponibile()) || utente.getTitoliAcquistati().get(i).isAttivo()) {
 		    	button.get(i).disable();
-		    	button.get(i).hide();
+		    	button.get(i).setVisible(false);
 		    }
 			button.get(i).addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						try {
 						utente.getTitoliAcquistati().get(temp).oblitera();
 						button.get(temp).disable();
-				    	button.get(temp).hide();
+				    	button.get(temp).setVisible(false);
 						} catch (SQLException sqlExc) {
 							JOptionPane.showMessageDialog(null, "Connessione fallita!","DB error",JOptionPane.ERROR_MESSAGE);
 					    } catch (Exception e1) {
@@ -120,7 +101,7 @@ public class TitoliPanel extends JPanel{
 	    
 	   
 		
-		mainPanel.setPreferredSize(new Dimension(mainPanel.getWidth(), 1500));
+		mainPanel.setPreferredSize(new Dimension(mainPanel.getWidth(), j));
 	    scroll.setPreferredSize(new Dimension(520,380));
 	    add(contentPane);
 	    scroll.setViewportView(mainPanel);

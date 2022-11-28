@@ -2,19 +2,13 @@ package it.unipv.po.gui.orari;
 
 import java.awt.EventQueue; 
 import java.awt.Image;
-
 import javax.swing.JFrame;
-import javax.swing.JComboBox;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JSeparator;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
-
 import it.unipv.po.trasporto.ricerca.Ricerca;
-
-import java.awt.event.ItemListener;
-import java.awt.event.ItemEvent;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import java.awt.Component;
@@ -36,7 +30,6 @@ public class Orari {
 			public void run() {
 				try {
 					corsa = new Ricerca();
-			 //       corsa.setPercorsi();
 					Orari window = new Orari();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
@@ -58,17 +51,12 @@ public class Orari {
 	 * Initialize the contents of the frame.
 	 * @throws Exception 
 	 */
-	@SuppressWarnings("unchecked")
+
 	private void initialize() throws Exception {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 365, 543);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-        
-		@SuppressWarnings("rawtypes")
-		//JComboBox comboBox = new JComboBox(corsa.getLinee());
-	//	comboBox.setBounds(10, 107, 123, 21);
-		//frame.getContentPane().add(comboBox);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(163, 87, 178, 329);
@@ -117,13 +105,6 @@ public class Orari {
 		
 		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Conologia Acquisti");
 		mnNewMenu_4.add(mntmNewMenuItem_1);
-		
-	//	comboBox.addItemListener(new ItemListener() {
-		//	public void itemStateChanged(ItemEvent e) {
-				
-		//		int str = Integer.parseInt(((String) comboBox.getSelectedItem()).substring(3));
-			//	textArea.setText(corsa.getPercorso(str));
-	//		}
-		//});
+
 	}
 }

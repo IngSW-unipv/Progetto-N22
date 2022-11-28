@@ -7,7 +7,6 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import it.unipv.po.sessione.Sessione;
 import it.unipv.po.trasporto.titolo.Titolo;
 
@@ -29,11 +28,11 @@ public class AccessDBwriteStrategy implements IDBwriteStrategy{
 	}
 
 	@Override
-	public void aggiungiTotaleACronologia(String username, LocalDateTime data, double prezzo, double puntiUtilizzati) throws SQLException {
+	public void aggiungiTotaleACronologia(String email, LocalDateTime data, double prezzo, double puntiUtilizzati) throws SQLException {
 		String sql="INSERT into CronologiaTotali(Utente,DataPagamento,Prezzo,PuntiUtilizzati) VALUES(?,?,?,?);";
 		Connection connessione= getDBConnection();
 		PreparedStatement statement= connessione.prepareStatement(sql);
-		statement.setString(1, username);
+		statement.setString(1, email);
 		statement.setString(2, data.toString());
 		statement.setDouble(3, prezzo);	
 		statement.setDouble(4, puntiUtilizzati);
@@ -49,12 +48,12 @@ public class AccessDBwriteStrategy implements IDBwriteStrategy{
 	}
 	
 	@Override
-	public void aggiungiTitoliACronologia(String username, LocalDateTime date, ArrayList<Titolo> lista) throws SQLException {
+	public void aggiungiTitoliACronologia(String email, LocalDateTime date, ArrayList<Titolo> lista) throws SQLException {
 		String sql="INSERT into CronologiaTitoli(Utente,DataPagamento,IDTitolo,PrezzoTitolo,Percorso,Attivo,Disponibile,DataInizio,Durata) VALUES(?,?,?,?,?,?,?,?,?);";
 		Connection connessione= getDBConnection();
 		PreparedStatement statement= connessione.prepareStatement(sql);
 		for(int i=0; i<lista.size(); i++) {
-			statement.setString(1, username);
+			statement.setString(1, email);
 			statement.setString(2, date.toString());
 			statement.setString(3, lista.get(i).getIdTitolo());
 			statement.setDouble(4, lista.get(i).getPrezzo());
@@ -115,27 +114,18 @@ public class AccessDBwriteStrategy implements IDBwriteStrategy{
 	@Override
 	public void aggiornaCredito(double credito, String Email) throws SQLException {
 		String sql="UPDATE Utente SET Punti='"+credito+"'"+"WHERE Email='"+ Email +"';";
-	Connection connessione= getDBConnection();
-	PreparedStatement statement= connessione.prepareStatement(sql);
-	statement.executeUpdate();
-	
-	// Chiudo la connessione
- 	if(statement != null) {
- 		statement.close();
- 	}
- 	if(connessione != null) {
- 		connessione.close();
- 	}
+		Connection connessione= getDBConnection();
+		PreparedStatement statement= connessione.prepareStatement(sql);
+		statement.executeUpdate();
+		
+		// Chiudo la connessione
+	 	if(statement != null) {
+	 		statement.close();
+	 	}
+	 	if(connessione != null) {
+	 		connessione.close();
+	 	}
 		
 	}
-
-
-
-    
-	
-
-	
-
-
 
 }

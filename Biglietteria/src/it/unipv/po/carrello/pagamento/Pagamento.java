@@ -1,16 +1,10 @@
 package it.unipv.po.carrello.pagamento;
-import java.time.*; 
 
-import it.unipv.po.carrello.pagamento.esterno.CreditCardPaymentStrategy;
+import java.time.*; 
 import it.unipv.po.carrello.pagamento.esterno.IPaymentStrategy;
-import it.unipv.po.carrello.pagamento.esterno.PayPalPaymentStrategy;
-import it.unipv.po.carrello.pagamento.esterno.PostePayPaymentStrategy;
-import it.unipv.po.carrello.pagamento.esterno.VisaPaymentStrategy;
 import it.unipv.po.carrello.pagamento.supporto.CalcolatoreCredito;
 import it.unipv.po.carrello.pagamento.supporto.PagamentiM;
 import it.unipv.po.carrello.pagamento.supporto.PayStrategyFactory; 
-
-
 
 public class Pagamento implements IPagamento{
 	private LocalDateTime dataEora;

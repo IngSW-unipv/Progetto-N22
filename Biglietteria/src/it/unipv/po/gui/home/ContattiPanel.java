@@ -10,7 +10,6 @@ import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
-import javax.swing.JTextArea;
 
 public class ContattiPanel extends JPanel {
 
@@ -65,8 +64,6 @@ public class ContattiPanel extends JPanel {
 		ImageIcon img4 = new ImageIcon("Image/thank.png");
 		lthank.setIcon(img4);
 		add(lthank);
-		
-		JLabel label = new JLabel("  ");
 		
 		
 	}

@@ -42,7 +42,6 @@ public class Riepilogo {
 	private JTextField cognometxt;
 	private JTextField emailtxt;
 	
-	
 	private static JTextArea dettaglitxt;
 	private static JLabel totalePrezzotxt;
 	private static JTextArea bigliettitxt;
@@ -360,7 +359,6 @@ public class Riepilogo {
 				} catch (Exception e1) {
 					JOptionPane.showMessageDialog(null, "Qualcosa non va","Generic error",JOptionPane.ERROR_MESSAGE);
 				}
-				
 			}
 		});
 		

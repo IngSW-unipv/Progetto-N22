@@ -12,7 +12,7 @@ import it.unipv.po.trasporto.titolo.Titolo;
 public class Carrello implements ICarrello {
 	private String user;
 	private ArrayList<Titolo> lista; 
-	private it.unipv.po.connessioneDB.DBwrite writer;
+	private DBwrite writer;
 	private double totale;
 	
 	//lo usiamo prima della fase supplementi quando ancora non mettiamo i titoli nel carrello

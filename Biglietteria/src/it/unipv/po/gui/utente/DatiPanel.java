@@ -1,8 +1,6 @@
 package it.unipv.po.gui.utente;
 
 import java.awt.Font;
-
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
