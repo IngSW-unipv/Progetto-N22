@@ -18,9 +18,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
-
 import it.unipv.po.carrello.pagamento.supporto.PagamentiM;
-import it.unipv.po.trasporto.titolo.Titolo;
 import it.unipv.po.utente.Utente;
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
@@ -218,7 +216,7 @@ public class Riepilogo {
 		creditoDisponibile.setText(""+utente.getCredito());
 		creditoDisponibile.setFont(new Font("Dialog", Font.PLAIN, 11));
 		creditoDisponibile.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
-		creditoDisponibile.setBackground(SystemColor.controlHighlight);
+		creditoDisponibile.setBackground(SystemColor.menu);
 		creditoDisponibile.setBounds(124, 38, 54, 25);
 		panelPunti.add(creditoDisponibile);
 		
@@ -455,10 +453,10 @@ public class Riepilogo {
 		btnAcquista.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					if(utente.acquistaCarrello(metodoPagamento, creditoUtilizzatodbl)) 
+					if(utente.acquistaCarrello(metodoPagamento, creditoUtilizzatodbl)) {
 						JOptionPane.showMessageDialog(null, "Pagamento Avvenuto con successo","Pagamento",JOptionPane.INFORMATION_MESSAGE);
-					else
-						JOptionPane.showMessageDialog(null, "Il pagamento non è stato autorizzato","Pagamento",JOptionPane.WARNING_MESSAGE);
+						frame.setVisible(false);
+					} else JOptionPane.showMessageDialog(null, "Il pagamento non è stato autorizzato","Pagamento",JOptionPane.WARNING_MESSAGE);
 				} catch (SQLException sqlExc) {
 					JOptionPane.showMessageDialog(null, "Connessione fallita!","DB error",JOptionPane.ERROR_MESSAGE);
 			    } catch (Exception e1) {

@@ -1,22 +1,14 @@
 package it.unipv.po.trasporto.ricerca;
 
 import java.time.LocalDate; 
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
-
 import it.unipv.po.trasporto.fermata.Fermata;
 import it.unipv.po.trasporto.ricerca.strategie.InterfaceRicercaStrategy;
 import it.unipv.po.trasporto.ricerca.strategie.RicercaStrategy;
 import it.unipv.po.trasporto.titolo.Abbonamento;
 import it.unipv.po.trasporto.titolo.Biglietto;
 
-
-/**
- * 
- * @author Giava
- *
- */
 public class Ricerca{
 	private InterfaceRicercaStrategy ricercaStrategy;
 	

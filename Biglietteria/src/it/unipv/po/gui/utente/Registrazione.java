@@ -185,7 +185,7 @@ public class Registrazione {
 		txtrProfilazioneDellaClientela.setBackground(SystemColor.menu);
 		txtrProfilazioneDellaClientela.setEditable(false);
 		txtrProfilazioneDellaClientela.setFont(new Font("Arial Nova", Font.PLAIN, 9));
-		txtrProfilazioneDellaClientela.setText("Profilazione della clientela, per la vendita di titoli, offerte di viaggio Trenord e servizi dedicati quali effettuazione \r\nreclami, rimborsi etc.. Si ribadisce che in assenza di tale consenso non sarà possibile dare seguito alle obbligazioni \r\ncontrattualmente assunte.");
+		txtrProfilazioneDellaClientela.setText("Profilazione della clientela, per la vendita di titoli, offerte di viaggio Giavatrip e servizi dedicati quali effettuazione \r\nreclami, rimborsi etc.. Si ribadisce che in assenza di tale consenso non sarà possibile dare seguito alle obbligazioni \r\ncontrattualmente assunte.");
 		txtrProfilazioneDellaClientela.setBounds(20, 419, 434, 38);
 		frame.getContentPane().add(txtrProfilazioneDellaClientela);
 		

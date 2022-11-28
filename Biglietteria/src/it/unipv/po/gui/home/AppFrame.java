@@ -13,16 +13,13 @@ import it.unipv.po.gui.orari.OrariPanel;
 import it.unipv.po.gui.ricerca.CercaPanel;
 import it.unipv.po.gui.utente.AreaPersonalePanel;
 import it.unipv.po.utente.Utente;
-
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 import javax.swing.JSeparator;
 import javax.swing.JButton;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.ActionEvent;
 
 public class AppFrame extends JFrame {
 
@@ -146,13 +143,13 @@ public class AppFrame extends JFrame {
 		btnCerca.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				homePanel.hide();
+				homePanel.setVisible(false);
 				contentPane.remove(homePanel);
-				areaPersonalePanel.hide();
+				areaPersonalePanel.setVisible(false);
 				contentPane.remove(areaPersonalePanel);
-				contattiPanel.hide();
+				contattiPanel.setVisible(false);
 				contentPane.remove(contattiPanel);
-				orariPanel.hide();
+				orariPanel.setVisible(false);
 				contentPane.remove(orariPanel);
 				cercaPanel.setVisible(true);
 				contentPane.add(cercaPanel);
@@ -163,13 +160,13 @@ public class AppFrame extends JFrame {
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				cercaPanel.hide();
+				cercaPanel.setVisible(false);
 				contentPane.remove(cercaPanel);
-				areaPersonalePanel.hide();
+				areaPersonalePanel.setVisible(false);
 				contentPane.remove(areaPersonalePanel);
-				contattiPanel.hide();
+				contattiPanel.setVisible(false);
 				contentPane.remove(contattiPanel);
-				orariPanel.hide();
+				orariPanel.setVisible(false);
 				contentPane.remove(orariPanel);
 				homePanel.setVisible(true);
 				contentPane.add(homePanel);
@@ -180,13 +177,13 @@ public class AppFrame extends JFrame {
 		btnCerca_1_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				cercaPanel.hide();
+				cercaPanel.setVisible(false);
 				contentPane.remove(cercaPanel);
-				homePanel.hide();
+				homePanel.setVisible(false);
 				contentPane.remove(homePanel);
-				contattiPanel.hide();
+				contattiPanel.setVisible(false);
 				contentPane.remove(contattiPanel);
-				orariPanel.hide();
+				orariPanel.setVisible(false);
 				contentPane.remove(orariPanel);
 				areaPersonalePanel.setVisible(true);
 				contentPane.add(areaPersonalePanel);
@@ -199,13 +196,13 @@ public class AppFrame extends JFrame {
 		btnCerca_1_1_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				cercaPanel.hide();
+				cercaPanel.setVisible(false);
 				contentPane.remove(cercaPanel);
-				homePanel.hide();
+				homePanel.setVisible(false);
 				contentPane.remove(homePanel);
-				areaPersonalePanel.hide();
+				areaPersonalePanel.setVisible(false);
 				contentPane.remove(areaPersonalePanel);
-				orariPanel.hide();
+				orariPanel.setVisible(false);
 				contentPane.remove(orariPanel);
 				contattiPanel.setVisible(true);
 				contentPane.add(contattiPanel);
@@ -215,13 +212,13 @@ public class AppFrame extends JFrame {
 		btnCerca_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				cercaPanel.hide();
+				cercaPanel.setVisible(false);
 				contentPane.remove(cercaPanel);
-				homePanel.hide();
+				homePanel.setVisible(false);
 				contentPane.remove(homePanel);
-				areaPersonalePanel.hide();
+				areaPersonalePanel.setVisible(false);
 				contentPane.remove(areaPersonalePanel);
-				contattiPanel.hide();
+				contattiPanel.setVisible(false);
 				contentPane.remove(contattiPanel);
 				orariPanel.setVisible(true);
 				contentPane.add(orariPanel);

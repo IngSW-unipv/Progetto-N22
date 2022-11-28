@@ -13,7 +13,6 @@ import it.unipv.po.connessioneDB.DBread;
 import it.unipv.po.trasporto.ricerca.Ricerca;
 import it.unipv.po.utente.Utente;
 import javax.swing.JSeparator;
-import javax.swing.JToggleButton;
 import javax.swing.JComboBox;
 import java.awt.Color;
 import javax.swing.DefaultComboBoxModel;
