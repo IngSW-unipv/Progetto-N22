@@ -74,10 +74,40 @@ public class HomePanel extends JPanel {
 		l5.setBackground(Color.decode("#f000ff"));
 		l5.setOpaque(true);
 		add(l5);
-
-	}
-
+		
+	
+		
+		JLabel lblLinea = new JLabel("Linea 1");
+		lblLinea.setBounds(127, 384, 70, 15);
+		add(lblLinea);
+		
+		JLabel lblLinea_3 = new JLabel("Linea 3");
+		lblLinea_3.setBounds(127, 438, 70, 15);
+		add(lblLinea_3);
+		
+		JLabel lblLinea_1 = new JLabel("Linea 6");
+		lblLinea_1.setBounds(127, 411, 70, 15);
+		add(lblLinea_1);
+		
+		JLabel lblLinea_4 = new JLabel("Linea 5");
+		lblLinea_4.setBounds(127, 465, 70, 15);
+		add(lblLinea_4);
+		
+		JLabel lblLinea_5 = new JLabel("Linea 4");
+		lblLinea_5.setBounds(127, 492, 70, 15);
+		add(lblLinea_5);
+		
+		JLabel l5_1 = new JLabel(" ");
+		l5_1.setOpaque(true);
+		l5_1.setBackground(Color.decode("#ff6600"));
+		l5_1.setBounds(100, 516, 15, 15);
+		add(l5_1);
+		
+		JLabel lblLinea_5_1 = new JLabel("Linea 2");
+		lblLinea_5_1.setBounds(127, 516, 70, 15);
+		add(lblLinea_5_1);
+		
 	
 
-
+	}
 }
