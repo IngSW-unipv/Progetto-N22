@@ -287,9 +287,11 @@ public class AccessDBreadStrategy implements IDBreadStrategy{
 	
 	}
 	
+	
 	@Override
 	public String[] elencoLinee() throws SQLException {
-		String sql = "SELECT IDlinea FROM Linea";
+		String sql = "SELECT COUNT(IDlinea) FROM Linea";
+	
 		Connection connection = null;
 		Statement statement = null;
 		
@@ -297,11 +299,13 @@ public class AccessDBreadStrategy implements IDBreadStrategy{
 		statement = connection.createStatement();
         ResultSet result = statement.executeQuery(sql);
         
+        result.next();
         
         int i = 1;
-        String[] str = new String[100];
-        str[0]="";
- 
+        String[] str = new String[result.getInt(1)+1];
+        str[0] = "";
+        sql = "SELECT IDlinea FROM Linea";
+        result = statement.executeQuery(sql);
         
         while (result.next()) {
 			
@@ -319,6 +323,45 @@ public class AccessDBreadStrategy implements IDBreadStrategy{
      	}
 		
 		return str;
+	}
+	
+	@Override
+	public ArrayList<Fermata> getFermateOrario(String IDlinea, String Orario) throws SQLException {
+		String sql = "SELECT TOP 20 * FROM Orario inner join Linea on Orario.IDlinea = Linea.IDlinea WHERE Orario.IDlinea = '"+ IDlinea +"' AND Orario > '" + Orario + "'";
+		Connection connection = null;
+		Statement statement = null;
+		
+		Fermata fermataDB;
+		ArrayList<Fermata> lineaDB = new ArrayList<Fermata>();
+		
+		connection = getDBConnection();
+		statement = connection.createStatement();
+        ResultSet result = statement.executeQuery(sql);
+		
+		while (result.next()) {
+			
+			fermataDB = new Fermata();
+
+        	//leggo la tabella
+        	fermataDB.setCodiceFermata(result.getString("IDfermata"));
+        	fermataDB.setOrario(LocalTime.parse(result.getString("Orario")));
+        	
+        	fermataDB.setMezzo(Vehicle.valueOf(result.getString("Mezzo")));
+        	fermataDB.setCodiceLinea(result.getString("IDlinea"));
+            //inserisco le fermate nell'array
+        	lineaDB.add(fermataDB);
+            
+	    }
+		
+		// Chiudo la connessione
+		if(statement != null) {
+			statement.close();
+		}
+		if(connection != null) {
+			connection.close();
+		}
+			
+		return lineaDB;	
 	}
 		
 }

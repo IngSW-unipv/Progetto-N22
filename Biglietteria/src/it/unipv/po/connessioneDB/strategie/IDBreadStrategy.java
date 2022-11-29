@@ -90,6 +90,8 @@ public interface IDBreadStrategy {
 	 * @throws SQLException dovuta alla connessione al DataBase
 	 */
 	public String[] elencoLinee() throws SQLException;
+
+	public ArrayList<Fermata> getFermateOrario(String selected, String Orario) throws SQLException;
 	
 
 	
