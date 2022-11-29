@@ -116,4 +116,9 @@ public class DBread {
 	public String[] elencoLinee() throws SQLException{
 		return strategiaDiLettura.elencoLinee();
 	}
+	
+	public static ArrayList<Fermata> getFermateOrario(String selected, String str) throws SQLException{
+		return strategiaDiLettura.getFermateOrario(selected , str);
+	}
+	
 }
